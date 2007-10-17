@@ -1,12 +1,3 @@
-/**
- * Clase que genera el c&oacutedigo a partir del grafo.
- * 
- * @author Andr&eacute Freyr&iacutea Cede�o
- * @author Rafael Ochoa Gonzalez
- * @author Ulises Figuero Ram&iacuterez
- * @author Jos&eacute Roberto Ram&iacuterez Aguilar
- * @author Juan Francisco Navarro Mariscal
- */
  
 package graph;
  
