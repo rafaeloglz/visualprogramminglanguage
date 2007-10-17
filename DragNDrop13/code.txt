@@ -1,0 +1,75 @@
+#Uso:
+#Para definir el valor de una variable por default, en la seccion de 
+#[default] se escriben con el siguiente formato:
+#$variable = valor
+#Los espacios son importantes, si no se sigue exactamente el formato no se
+#garantiza el funcionamiento.
+#
+#El codigo generado funciona de la siguiente manera:
+#
+#[funcion]
+#codigo de precondicion
+#codigo de postcondicion
+#
+#Precondicion: Lo que se generara antes de hacer el recorrido del grafo
+#en ese punto.
+#
+#Postcondicion: Lo que se generara despues de hacer el recorrido o una parte
+#del recorrido; el momento en que se ejecuta la postcondicion depende de
+#la funcion. Por ejemplo, la funcion IF contra la funcion FOR.
+#
+#La funcion IF activa la postcondicion despues de recorrer la primera parte.
+#La funcion FOR activa la postcondicion antes de pasar a la siguiente
+#funcion.
+#
+#Estas diferencias solo se pueden modificar directamente en el codigo.
+#
+#NOTAS: El config.txt y el code.txt deben coincidir en variables.
+#NOTAS: Cada funcion debe tener al menos la precondicion definida. (Minimo \n)
+
+
+[default]
+$level = public
+$return = void
+$method = genericMethod
+$condition = true
+$test = test
+
+[begin]
+$level $return $method ( $params ){
+
+[end]
+}
+
+[for]
+for ( $init ; $condition ; $increment ){
+}
+
+[function]
+$data //Function
+
+[if]
+if ( $condition ) then {
+} else {
+
+[instruction]
+$data //Instruction
+
+[lock]
+//Lock
+
+[parallel]
+//parallel
+
+[semaphore]
+//semaphore
+
+[synch]
+//synch
+
+[union]
+}
+
+[while]
+while ( $condition ){
+}
