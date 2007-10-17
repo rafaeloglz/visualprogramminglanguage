@@ -1,0 +1,1 @@
+public void main (   ){in z = 0; //Instruction}
