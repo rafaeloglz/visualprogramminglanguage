@@ -9,6 +9,9 @@ package gui;
  */
  
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Line2D;
 import java.io.Serializable;
 
 import javax.swing.JPanel;
@@ -231,7 +234,12 @@ public class Line implements Serializable{
 	 * @param g 	<code>Graphics</code>
 	 */
 	public void paintLine (Graphics g){
+		
 		connect();
-		g.drawLine (getX1 (), getY1 (), getX2 (), getY2 ());					
+		
+		Line2D.Double line = new Line2D.Double(getX1 (), getY1 (), getX2 (), getY2 ());
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g2.draw(line);		
 	}
 }

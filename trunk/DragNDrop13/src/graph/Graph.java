@@ -28,8 +28,8 @@ public class Graph<V, E> implements Serializable {
 	 */
 	public Graph() {
 		
-		vertices = new ArrayList();
-		edges = new ArrayList();
+		vertices = new ArrayList<Vertex<V>>();
+		edges = new ArrayList<Edge<V, E>>();
 		head = null;
 	}
 	

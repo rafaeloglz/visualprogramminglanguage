@@ -136,7 +136,6 @@ public class AddCode implements MouseListener, ActionListener {
 			String cancelName = "cancel"+ i;
 			
 			if(acceptName.equals(e.getActionCommand())){
-				System.out.println(e.getActionCommand());
 				
 				JFrame f = frameList.get(i);
 				Activity a = activityList.get(i);

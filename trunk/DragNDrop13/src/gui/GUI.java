@@ -8,62 +8,60 @@
 
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Cursor;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.dnd.DragSource;
-import java.awt.dnd.DropTarget;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.util.ArrayList;
-import javax.swing.Action;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JToolBar;
 import javax.swing.JScrollPane;
-import javax.swing.KeyStroke;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import graph.*;
 import sprite.*;
-import struct.StructV;
 
-public class GUI extends JComponent {
-
+public class GUI {
+	
 	private JFrame frame;
-	private JTabbedPane tabPanel;
-	private ToolBar toolbar;
 	private MenuBar menu;
+	private int tabCount;
+	private JTabbedPane tabPanel;
 	private JTextArea textArea;
+	private ToolBar toolbar;
 	private ArrayList<WorkArea> workAreas;
-	private int tabIndex;
 
 	/**
 	 * Constructor de la clase.
 	 */		
-	public GUI(){
-		frame = new JFrame ("DragNDrop v10");
-		textArea = new JTextArea ();
-		workAreas = new ArrayList();
-		tabPanel = new JTabbedPane();
-		toolbar = new ToolBar ("Herramientas", JToolBar.VERTICAL, workAreas, this);
-		menu = new MenuBar(this);			
-		init();
+	public GUI() {
+		
+		this.frame = new JFrame("Visual Programming Language");
+		this.menu = new MenuBar(this);
+		this.tabPanel = new JTabbedPane();
+		this.textArea = new JTextArea();
+		this.toolbar = new ToolBar("Herramientas", JToolBar.VERTICAL, this);	
+		this.workAreas = new ArrayList<WorkArea>();
+		
+		this.init();
+	}
+	
+	/**
+	 * M&eacutetodo para agregar nuevos tabs de trabajo.
+	 */
+	public void addTab() {
+		
+		WorkArea wa = new WorkArea("method" + tabCount, toolbar);
+		this.workAreas.add(wa);
+		this.tabPanel.addTab(wa.getName(), wa);
+		
+		/*ArrayList<Sprite> sprites = this.workAreas.get(0).getSprites();		
+		
+		for(int i=0;i<sprites.size();i++){
+			if(sprites.get(i) instanceof SpriteVar){
+				wa.addSprite(sprites.get(i));	
+			}
+		}*/
+		
+		this.tabCount++;
 	}
 	
 	/**
@@ -71,19 +69,9 @@ public class GUI extends JComponent {
 	 *
 	 * @return		<code>JFrame</code>
 	 */
-	public JFrame getFrame (){
+	public JFrame getJFrame() {
 			 	
-	 	return frame;
-	}	
-	
-	/**
-	 * M&eacutetodo para obtener el toolbar.
-	 *
-	 * @return		<code>ToolBar</code>
-	 */ 
-	public ToolBar getToolBar (){
-				
-		return toolbar;
+	 	return this.frame;
 	}	
 	
 	/**
@@ -91,9 +79,9 @@ public class GUI extends JComponent {
 	 *
 	 * @return		<code>ToolBar</code>
 	 */
-	public MenuBar getMenuBar (){
+	public MenuBar getMenuBar() {
 		
-		return menu;
+		return this.menu;
 	}
 	
 	/**
@@ -101,21 +89,98 @@ public class GUI extends JComponent {
 	 *
 	 * @return		<code>JTextArea</code>
 	 */
-	public JTextArea getTextArea (){
+	public JTextArea getTextArea() {
 		
-		return textArea;
+		return this.textArea;
 	}
-
+	
+	/**
+	 * M&eacutetodo para obtener el toolbar.
+	 *
+	 * @return		<code>ToolBar</code>
+	 */ 
+	public ToolBar getToolBar() {
+				
+		return this.toolbar;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener un <code>WorkArea</code> por &iacutendice.
+	 *
+	 * @return		<code>ToolBar</code>
+	 */
+	public WorkArea getWorkAreaAt(int index) {
+		
+		return this.workAreas.get(index);
+	}
+	
+	/**
+	 * M&eacutetodo para obtener la cantidad de <code>WorkArea</code>'s.
+	 *
+	 * @return		<code>int</code>
+	 */
+	public int getWorkAreaCount() {
+		
+		return this.workAreas.size();
+	}
+	
 	public ArrayList<Graph> getGraphs() {
 
-		ArrayList<Graph> graphs;
-
-		graphs = new ArrayList();
+		ArrayList<Graph> graphs = new ArrayList();
 
 		for(int i = 0; i < workAreas.size(); i++)
-			graphs.add(workAreas.get(i).getGraph());
+			graphs.add(this.workAreas.get(i).getGraph());
 
 		return graphs;
+	}
+	
+	/**
+	 * M&eacutetodo para inicializar a GUI.
+	 */
+	public void init(){
+		
+		GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		JScrollPane scrollPanel1 = new JScrollPane (this.toolbar.getJToolBar());
+		JScrollPane scrollPanel2 = new JScrollPane (this.textArea);
+		
+		WorkArea wa = new WorkArea("main", toolbar);
+		this.workAreas.add(wa);
+		this.tabPanel.addTab(wa.getName(), wa);
+		
+		this.frame.setLayout(gridbag);
+		
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+        this.frame.getContentPane ().add (scrollPanel1, gbc);
+		
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridx = 1;
+		gbc.gridy = 0;
+		gbc.weightx = 4.0;
+		gbc.weighty = 10.0;
+        this.frame.getContentPane().add (this.tabPanel, gbc);
+		
+		gbc.fill = GridBagConstraints.BOTH;
+		gbc.gridwidth = 2;
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		gbc.weightx = 0.0;
+		gbc.weighty = 1.0;
+		this.frame.getContentPane ().add (scrollPanel2, gbc);
+		 
+		this.frame.setJMenuBar(menu.getMenuBar());
+					
+		this.frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();     	    	       
+	   	this.frame.setSize(600, 600);
+        this.frame.setVisible(true);
+        
+        this.tabCount = 0;
 	}
 	
 	/**
@@ -124,115 +189,40 @@ public class GUI extends JComponent {
 	 */
 	public void newProyect() {
 		
-		WorkArea wa;
+		this.tabPanel.removeAll();
+		this.workAreas.clear();
 		
-		tabPanel.removeAll();
-		workAreas.clear();
-		
-		wa = new WorkArea("main", getToolbar());		
-		workAreas.add(wa);
-		tabPanel.addTab(wa.getName(), wa);		
-		tabIndex = 0;
+		WorkArea wa = new WorkArea("main", toolbar);		
+		this.workAreas.add(wa);
+		this.tabPanel.addTab(wa.getName(), wa);		
+		this.tabCount = 0;
 	}
-
+	
+	/**
+	 * M&eacutetodo para abrir un proyecto guardado previamente.
+	 * 
+	 * @param proyect		<code>Object</code>
+	 */
 	public void openProyect(Object proyect) {
 		
-		ArrayList<Graph> graphs;
+		ArrayList<Graph> graphs = (ArrayList<Graph>) proyect;
 		
-		graphs = (ArrayList<Graph>) proyect;
+		this.tabPanel.removeAll();
+		this.workAreas.clear();
+		this.tabCount = 0;
 		
-		tabPanel.removeAll();
-		workAreas.clear();
-		tabIndex = 0;
-		
-		WorkArea main;
-		
-		main = new WorkArea("main", getToolbar());
+		WorkArea main = new WorkArea("main", toolbar);
 		main.setGraph(graphs.get(0));
-		workAreas.add(main);
-		tabPanel.addTab(main.getName(), main);
+		this.workAreas.add(main);
+		this.tabPanel.addTab(main.getName(), main);
 		
 		for(int i = 1; i < graphs.size(); i++) {
 			
-			WorkArea wa;
-			
-			wa = new WorkArea("method" + tabIndex, getToolbar());
+			WorkArea wa = new WorkArea("method" + tabCount, toolbar);
 			wa.setGraph(graphs.get(i)); 
-			workAreas.add(wa);
-			tabPanel.addTab(wa.getName(), wa);
-			
-			tabIndex++;
+			this.workAreas.add(wa);
+			this.tabPanel.addTab(wa.getName(), wa);
+			this.tabCount++;
 		}			
 	}
-
-	/**
-	 * M&eacutetodo para inicializar a GUI.
-	 */
-	public void init(){
-		
-		JScrollPane scrollPanel1, scrollPanel2;
-		WorkArea wa;
-				
-		scrollPanel1 = new JScrollPane (toolbar.getToolBar ());
-		scrollPanel2 = new JScrollPane (textArea);
-		
-		wa = new WorkArea("main", getToolbar());
-		workAreas.add(wa);
-		tabPanel.addTab(wa.getName(), wa);
-        frame.getContentPane ().add (scrollPanel1, BorderLayout.WEST);
-        frame.getContentPane().add (tabPanel, BorderLayout.CENTER);
-		frame.getContentPane ().add (scrollPanel2, BorderLayout.SOUTH); 
-		frame.setJMenuBar(menu.getMenuBar());
-					
-		frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.pack();     	    	       
-	   	frame.setSize(600, 600);
-        frame.setVisible(true);    
-	}
-	 
-	/**
-	 * M&eacutetodo para agregar nuevos tabs de trabajo.
-	 */
-	public void addTab() {
-		
-		WorkArea wa;
-		
-		wa = new WorkArea("method" + tabIndex, getToolbar());
-		workAreas.add(wa);
-		tabPanel.addTab(wa.getName(), wa);
-		
-		ArrayList<Sprite> sprites = this.getWorkAreas().get(0).getSprites();		
-		
-		for(int i=0;i<sprites.size();i++){
-			if(sprites.get(i) instanceof SpriteVar){
-				wa.addSprite(sprites.get(i));	
-			}
-		}
-		
-		tabIndex++;
-	}
-
-	public ArrayList<WorkArea> getWorkAreas() {
-		return workAreas;
-	}
-
-	public void setWorkAreas(ArrayList<WorkArea> workAreas) {
-		this.workAreas = workAreas;
-	}
-
-	public int getTabIndex() {
-		return tabIndex;
-	}
-
-	public void setTabIndex(int tabIndex) {
-		this.tabIndex = tabIndex;
-	}
-
-	public ToolBar getToolbar() {
-		return toolbar;
-	}
-	
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub		
-	}	
 }
