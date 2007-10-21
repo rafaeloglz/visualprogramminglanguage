@@ -94,20 +94,18 @@ public class MenuBar {
         		
         		String msg = "";
         		
-        		
         		for(int i=0; i<gui.getGraphs().size(); i++){
         			//gui.getGraphs().get(i).print();        			
         			cm = new CodeMaker(gui.getGraphs().get(i));
         			
 	        		if(cm.make()){	        			
-	        			if(cm.writeToFile("",gui.getWorkAreas().get(i).getName()+".java"))
-	        				msg = "Codigo guardado en "+gui.getWorkAreas().get(i).getName()+".java.";
+	        			if(cm.writeToFile("",gui.getWorkAreaAt(i).getName()+".java"))
+	        				msg = "Codigo guardado en "+gui.getWorkAreaAt(i).getName()+".java.";
 	        			else msg = "Error al guardar el codigo.";
 	        		}	
 	        		else msg = "Error al guardar el codigo.";
 	        		
 	        		gui.getTextArea().setText(msg);
-	        		
         		}
         	}
         });
@@ -136,7 +134,7 @@ public class MenuBar {
 		this.menuItem1_2.setAccelerator(ctrlO);
 		this.menuItem1_2.addActionListener(new ActionListener() {
 			
-	public void actionPerformed(ActionEvent e) {
+		public void actionPerformed(ActionEvent e) {
 				
 				Object graphs;
 				String path="", filename = "vpl.txt", msg = "";
@@ -146,7 +144,6 @@ public class MenuBar {
 				if(graphs != null){
 					
 					gui.openProyect(graphs);
-					gui.repaint();
 					msg = "Archivo cargado desde " + path + filename;
 				}
 				else msg = "Error al cargar el archivo";

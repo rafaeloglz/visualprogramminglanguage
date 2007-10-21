@@ -8,54 +8,46 @@
 
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
+import javax.swing.Icon;
+import javax.swing.JLabel;
+import javax.swing.JToolBar;
+import java.awt.*;
 import java.awt.dnd.DragSource;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.ButtonGroup;
-import javax.swing.Icon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JToolBar;
-import javax.swing.border.MatteBorder;
-import java.awt.Window.*;
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import javax.swing.event.*;
-import java.awt.dnd.*;
 import java.util.ArrayList;
-import javax.swing.border.*;
+import java.util.Hashtable;
+
 import sprite.*;
 import struct.StructV;
 
 public class ToolBar{
 	
-	private GUI gui;	
-	private JToolBar toolbar;
-	private String name;
-	private int orientation;
-	public Sprite begin,end;
-	private ArrayList<WorkArea> workAreas;	
+	private boolean clicked;
+	private Cursor dragCursor = DragSource.DefaultMoveDrop;
+	private GUI gui;
 	private ArrayList<JLabel> labels;
+	private String name;
+	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
+	private int orientation;
+	private JToolBar toolbar;
+	private Sprite toolClicked;
 	private ArrayList<Sprite> tools;
-			    
+	
     /** Nombre por omisi&oacuten **/
 	public static final String DEFAULT_NAME = "Herramientas";
+	
 	/** Orientaci&oacuten por omisi&oacuten **/
 	public static final int DEFAULT_ORIENTATION = JToolBar.HORIZONTAL;
 
 	/**
 	 * Constructor por omisi&oacuten.
 	 */
-	public ToolBar (ArrayList<WorkArea> workAreas, GUI gui){
+	public ToolBar (GUI gui){
 		
-		this (DEFAULT_NAME, DEFAULT_ORIENTATION, workAreas, gui);
+		this (DEFAULT_NAME, DEFAULT_ORIENTATION, gui);
 	}	
 	
 	/**
@@ -64,21 +56,133 @@ public class ToolBar{
 	 * @param name				el nombre del ToolBar
 	 * @param orientation		la orientaci&oacuten del toolbar		
 	 */
-	public ToolBar (String name, int orientation, ArrayList<WorkArea> workAreas, GUI gui){
+	public ToolBar (String name, int orientation, GUI gui){
 		
 		this.name = name;
 		this.orientation = orientation;
-		this.workAreas = workAreas;
 		this.gui = gui;
 		this.labels = new ArrayList<JLabel>();
 		this.tools = new ArrayList<Sprite>();
 		
-		toolbar = new JToolBar (name, orientation);
-		
-		toolbar.setFloatable(false);
+		this.toolbar = new JToolBar (name, orientation);
+		this.toolbar.setFloatable(false);
 		
 		buildToolBar ();
 	}
+	
+	/**
+	 * M&eacutetodo para agregar los <code>Listeners</code> correspondientes a 
+	 * cada componente en el toolbar.
+	 * 
+	 * @param button		<code>JButton</code>
+	 * @param sprite		<code>Sprite</code>
+	 */
+	private void addListener(JLabel label, final Sprite sprite) {
+		
+		label.addMouseListener(new MouseAdapter() {        
+        	
+        	public void mousePressed(MouseEvent m){
+        		
+        		gui.getJFrame().setCursor(dragCursor);
+
+        		try {
+        			
+        			//if(sprite.getClass()==SpriteBegin.class /*&& gui.getGraph().getHead()!=null*/){
+        				//setClicked (sprite);
+        			//}
+        			//else{
+    					setClickedTool (sprite.clone());
+        			//}
+        			
+				} catch(CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
+
+          	    setClicked(true);          	  	
+        	}
+
+        	public void mouseReleased(MouseEvent m) {
+
+        		if(isToolClicked()) {
+
+        			setClicked (false);
+
+        			Sprite temp = getClickedTool();
+        			
+        			for(int i = 0; i < gui.getWorkAreaCount(); i++) {
+        				
+        				WorkArea wa = gui.getWorkAreaAt(i);
+        				
+        				if(wa.getMousePosition() != null) {
+        					
+	        				temp.setX((int) wa.getMousePosition().getX() - temp.getWidth() / 2);
+		        			temp.setY((int) wa.getMousePosition().getY() - temp.getHeight() / 2);
+	
+		        			String stringClass = temp.getClass().toString();
+							String spriteName = stringClass.substring(19).toLowerCase();
+							
+							Hashtable<String, Object> tempHashTable = new Hashtable<String, Object>();
+							tempHashTable.put("name", spriteName);
+		        			
+							StructV<Hashtable<String, Object>> st = new StructV<Hashtable<String, Object>>(temp, tempHashTable);
+		        			
+		        			if(wa.getGraph().getHead()==null || sprite.getClass()!= SpriteBegin.class) {
+		        				
+		        				wa.addSprite(temp);
+		        				wa.getGraph().addVertex(st);
+		        			}
+	
+		        			if(sprite.getClass()==SpriteBegin.class && wa.getGraph().getHead()==null)
+	                    		wa.getGraph().setHead(st);
+	        			}
+	        			
+	        			wa.repaint();
+        			}
+        		}
+        		
+        		gui.getJFrame().setCursor(normalCursor);
+    			getJToolBar().repaint();
+        	}
+        });		
+	}
+
+	
+	/**
+	 * M&eacutetodo para agregar componentes a la barra de herramientas.
+	 * 
+	 * @param sprite
+	 */
+	private void addTool(Sprite s) {
+		
+		final Sprite tool = s;
+		
+		Icon icon = new Icon() {
+			
+			public void paintIcon(Component c, Graphics g, int x, int y) {
+				
+				tool.setX(x);
+				tool.setY(y);
+				tool.paintSprite(g);
+			}
+			
+			public int getIconHeight() {
+				
+				return tool.getHeight();
+			}
+			
+			public int getIconWidth() {
+    	
+    			return tool.getWidth();
+  			}
+		};
+
+        JLabel label = new JLabel(icon);
+        labels.add(label);
+        this.addListener(label, tool);
+        tools.add(tool);
+        toolbar.add(label);     
+        toolbar.addSeparator();
+}
 	
 	/**
 	 * Crea los componentes a utilizar en el toolbar junto con sus iconos. Los agrega
@@ -126,37 +230,15 @@ public class ToolBar{
 	public void setTools(ArrayList<Sprite> tools) {
 		this.tools = tools;
 	}
-
-	private void addTool(Sprite sprite) {
-			
-			final Sprite tool = sprite;
-			
-			Icon icon = new Icon() {
+	
+	/**
+	 * M&eacutetodo para obtener el componente en el cual se hizo click.
+	 *
+	 * @return		<code>Sprite</code>
+	 */
+	public Sprite getClickedTool() {
 				
-				public void paintIcon(Component c, Graphics g, int x, int y) {
-					
-					tool.setX(x);
-					tool.setY(y);
-					tool.paintSprite(g);
-				}
-				
-				public int getIconHeight() {
-					
-					return tool.getHeight();
-				}
-				
-				public int getIconWidth() {
-	    	
-	    			return tool.getWidth();
-	  			}
-			};
-
-	        JLabel label = new JLabel(icon);
-	        labels.add(label);
-	        tools.add(tool);
-
-	        toolbar.add(label);     
-	        toolbar.addSeparator();
+		return this.toolClicked;
 	}
 		
 	/**
@@ -164,13 +246,39 @@ public class ToolBar{
 	 *
 	 * @return		el <code>JToolBar</code>
 	 */
-	public JToolBar getToolBar (){		
+	public JToolBar getJToolBar (){		
 		
 		return toolbar;
 	}
-		
-	public void reset(){
-		
-		begin = end = null;
+	
+	/**
+	 * Indica si ha hecho click sobre alg&uacuten componente del toolbar.
+	 *
+	 * @return		<code>boolean</code>
+	 */ 
+	public boolean isToolClicked() {
+				
+		return clicked;
+	}
+	
+	/**
+	 * M&eacutetodo para especificar si se hizo click sobre un componente
+	 * de <code>ToolBar</code>.
+	 * 
+	 * @param s		el <code>Sprite</code>	
+	 */
+	public void setClicked (boolean b){
+				
+		this.clicked = b;
+	}	
+	
+	/**
+	 * M&eacutetodo para especificar el componente sobre el cual se hizo click.
+	 * 
+	 * @param s		el <code>Sprite</code>	
+	 */
+	public void setClickedTool (Sprite s){
+				
+		this.toolClicked = (Sprite) s;
 	}	
 }

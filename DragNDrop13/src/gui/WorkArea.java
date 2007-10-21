@@ -34,116 +34,35 @@ import struct.*;
 
 public class WorkArea extends JComponent {
 	
-	private ArrayList<Sprite> sprites;
-	private ArrayList<Line> lines;
-	private DragNDrop dragNDrop;	
-	private Connect connect;
 	private AddCode addCode;
-	private Graph g;
+	private boolean clicked;
+	private Connect connect;
+	private Cursor dragCursor = DragSource.DefaultMoveDrop;
+	private DragNDrop dragNDrop;	
+	private Graph graph;
+	private ArrayList<Line> lines;
 	private String name;
-	private ToolBar toolbar;
-	private boolean clicked = false;
-	private Sprite buttonClicked;
-	
 	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
-    private Cursor dragCursor = DragSource.DefaultMoveDrop;
+	private ToolBar toolbar;
+	private ArrayList<Sprite> sprites;
+	private Sprite toolClicked;	
 
-	
 	/**
 	 * Constructor por omisi&oacuten.
 	 */		
 	public WorkArea(String name, ToolBar toolbar) {		
-		this.toolbar = toolbar;
-		this.sprites = new ArrayList();
-		this.lines = new ArrayList();
+		
+		this.addCode = new AddCode(sprites, this);
+		this.clicked = false;
+		this.connect = new Connect(this);
 		this.dragNDrop = new DragNDrop(this);
-		this.connect = new Connect(sprites, lines, this);
-		this.addCode = new AddCode(sprites, this);		
+		this.graph = new Graph();
+		this.lines = new ArrayList<Line>();
 		this.name = name;
-		g = new Graph();
-		addListeners();
-	}
-	
-	/**
-	 * M&eacutetodo para obtener el n&uacutemero de <code>Sprite</code>.
-	 *
-	 * @return		<code>int</code>
-	 */
-	public int getNumSprites() {
+		this.toolbar = toolbar;
+		this.sprites = new ArrayList<Sprite>();
 		
-		return this.sprites.size();
-	}
-	
-	/**
-	 * M&eacutetodo para obtener el n&uacutemero de <code>Line</code>.
-	 *
-	 * @return		<code>int</code>
-	 */
-	public int getNumLines() {
-		
-		return this.lines.size();
-	}
-	
-	/**
-	 * M&eacutetodo para obtener el grafo.
-	 *
-	 * @return		<code>Graph</code>
-	 */
-	public Graph getGraph() {
-	
-		return this.g;
-	}
-	
-	public Connect getConnect() {
-		
-		return connect;
-	}
-	
-	public DragNDrop getDragNDrop() {
-		
-		return dragNDrop;
-	}
-	
-	/**
-	 * M&eacutetodo para obtener el nombre.
-	 *
-	 * @return		<code>String</code>
-	 */
-	public String getName() {
-	
-		return this.name;
-	}
-	
-	/**
-	 * M&eacutetodo para obtener el grafo.
-	 *
-	 * @return		<code>Graph</code>
-	 */
-	public void setGraph(Graph g) {
-	
-		this.g = g;
-		
-		for(int i = 0; i < g.getNumVertices(); i++) {
-				
-			StructV stv = (StructV) g.getVertexAt(i).getValue();
-			sprites.add(stv.getSprite());
-		}
-		
-		for(int i = 0; i < g.getNumEdges(); i++) {
-				
-			StructE ste = (StructE) g.getEdgeAt(i).getWeight();
-			lines.add(ste.getLine());
-		}	
-	}
-	
-	/**
-	 * M&eacutetodo para agregar un <code>Sprite</code>.
-	 * 
-	 * @param sprite		<code>Sprite</code>
-	 */
-	public void addSprite(Sprite sprite) {
-		
-		sprites.add(sprite);
+		//this.addListeners();
 	}
 	
 	/**
@@ -153,45 +72,9 @@ public class WorkArea extends JComponent {
 	 */
 	public void addLine(Line line) {
 		
-		lines.add(line);
+		this.lines.add(line);
 	}
 	
-	/**
-	 * M&eacutetodo para para que el componente se dibuje a si mismo 
-	 * dibujando cada uno de los objetos Sprite y Line.
-	 * 
-	 * @param g		<code>Graphics</code>
-	 */
-	public void paintComponent(Graphics g) {	    
-		
-		int spriteNum = sprites.size ();
-		int lineNum = lines.size();
-	    
-		for(int i = 0; i < spriteNum; i++) {
-			
-			Sprite f = sprites.get(i);
-	      	f.paintSprite(g);
-	    }
-		
-		for(int i = 0; i < lineNum; i++) {
-			
-			Line l = lines.get(i);
-		    l.paintLine(g);
-		}
-	}
-	
-	/**
-	 * M&eacutetodo para borrar las estructuras de <code>Sprite</code>
-	 * <code>Line</code> y <code>Graph</code>.
-	 */
-	public void flush() {
-		
-		sprites.clear ();
-		lines.clear ();
-		g.clear();
-		//toolbar.reset();
-	}
-
 	/**
 	 * M&eacutetodo para agregar los <code>Listeners</code> correspondientes a cada componente
 	 * del toolbar.
@@ -199,43 +82,43 @@ public class WorkArea extends JComponent {
 	 * @param button		<code>JButton</code>
 	 * @param sprite		<code>Sprite</code>
 	 */
-	public void addListeners(){		
-		final ToolBar toolbar = getToolbar();
+	/*private void addListeners() {		
+		
+		final ToolBar toolbar = this.toolbar;
 		final WorkArea wa = this;
 		
-		for(int i=0;i<toolbar.getLabels().size();i++){
+		for(int i = 0; i < toolbar.getLabels().size(); i++) {
 					
 			final JLabel label = toolbar.getLabels().get(i);
 			final Sprite sprite = toolbar.getTools().get(i);
 
 			label.addMouseListener(new MouseAdapter() {
 
-	        	public void mousePressed(MouseEvent m){	        		
+	        	public void mousePressed(MouseEvent m) {	        		
 	        		
 	        		try {	        			
 		        		wa.setCursor(dragCursor);
-		        		toolbar.getToolBar().setCursor(dragCursor);		        				        		
+		        		toolbar.getJToolBar().setCursor(dragCursor);		        				        		
 		        		
-	        			if(sprite.getClass()==SpriteBegin.class && wa.getGraph().getHead()!=null){	        				
-	        				wa.setClicked (sprite);
-	        			}
-	        			else{
-	        				wa.setClicked (sprite.clone());
-	        			}
+	        			//if(sprite.getClass()==SpriteBegin.class && wa.getGraph().getHead()!=null)	        				
+	        				//wa.setClickedTool (sprite);
+	        			//else
+	        				wa.setClickedTool (sprite.clone());
 	        			
-					} catch (CloneNotSupportedException e) {
+					}catch(CloneNotSupportedException e) {
+						
 						e.printStackTrace();
 					}
 
-					wa.setClicked (true);          	  	
+					wa.setClicked(true);          	  	
 	        	}
 
 	        	public void mouseReleased(MouseEvent m) {
 
-	        		if(wa.isClicked ()) {
+	        		if(wa.isToolClicked()) {
 
 	        			wa.setClicked (false);
-	        			Sprite temp = wa.getClicked ();
+	        			Sprite temp = wa.getClickedTool();
 
         				if(wa.getMousePosition() != null) {
 
@@ -260,44 +143,127 @@ public class WorkArea extends JComponent {
 	        			}
 	        			
 	        			wa.repaint();
-
 	        			wa.setCursor(normalCursor);
-	        			toolbar.getToolBar().setCursor(normalCursor);	        			
-	        			//getMenuBar().getMenuBar().repaint();
+	        			toolbar.getJToolBar().setCursor(normalCursor);	        			
 	        		}
 	        	}
 	        });		
 		}
-	}
-
+	}*/
+	
 	/**
-	 * M&eacutetodo para especificar que se ha hecho click sobre un componente
+	 * M&eacutetodo para agregar un <code>Sprite</code>.
 	 * 
-	 * @param clicked		<code>true</code>
+	 * @param sprite		<code>Sprite</code>
 	 */
-	public void setClicked (boolean clicked){		
+	public void addSprite(Sprite sprite) {
 		
-		this.clicked = clicked;
+		this.sprites.add(sprite);
 	}
 	
 	/**
-	 * M&eacutetodo para especificar el componente sobre el cual se hizo click.
-	 * 
-	 * @param s		el <code>Sprite</code>	
+	 * M&eacutetodo para borrar las estructuras de <code>Sprite</code>
+	 * <code>Line</code> y <code>Graph</code>.
 	 */
-	public void setClicked (Sprite s){
-				
-		buttonClicked = (Sprite) s;
-	}	
+	public void clear() {
+		
+		this.sprites.clear ();
+		this.lines.clear ();
+		this.graph.clear();
+	}
 	
 	/**
 	 * M&eacutetodo para obtener el componente en el cual se hizo click.
 	 *
 	 * @return		<code>Sprite</code>
 	 */
-	public Sprite getClicked (){
+	public Sprite getClickedTool() {
 				
-		return buttonClicked;
+		return this.toolClicked;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el objeto encargado de realizar las
+	 * uniones entre componentes.
+	 * 
+	 * @return			<code>Connect</code>
+	 */
+	public Connect getConnect() {
+		
+		return this.connect;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el objeto encargado de realizar las
+	 * uniones entre componentes.
+	 * 
+	 * @return			<code>DragNDrop</code>
+	 */
+	public DragNDrop getDragNDrop() {
+		
+		return this.dragNDrop;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el grafo.
+	 *
+	 * @return		<code>Graph</code>
+	 */
+	public Graph getGraph() {
+	
+		return this.graph;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener un <code>Line</code> por &iacutendice.
+	 * 
+	 * @param index			<code>int</code>
+	 * @return				<code>Line</code>
+	 */
+	public Line getLineAt(int index) {
+		
+		return this.lines.get(index);
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el n&uacutemero de <code>Line</code>.
+	 *
+	 * @return		<code>int</code>
+	 */
+	public int getLineCount() {
+		
+		return this.lines.size();
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el nombre.
+	 *
+	 * @return		<code>String</code>
+	 */
+	public String getName() {
+	
+		return this.name;
+	}
+	
+	/**
+	 * M&eacutetodo para obtener un <code>Sprite</code> por &iacutendice.
+	 * 
+	 * @param index			<code>int</code>
+	 * @return				<code>Sprite</code>
+	 */
+	public Sprite getSpriteAt(int index) {
+		
+		return this.sprites.get(index);
+	}
+	
+	/**
+	 * M&eacutetodo para obtener el n&uacutemero de <code>Sprite</code>.
+	 *
+	 * @return		<code>int</code>
+	 */
+	public int getSpriteCount() {
+		
+		return this.sprites.size();
 	}
 	
 	/**
@@ -305,33 +271,82 @@ public class WorkArea extends JComponent {
 	 *
 	 * @return		<code>boolean</code>
 	 */ 
-	public boolean isClicked (){
+	public boolean isToolClicked() {
 				
 		return clicked;
 	}
-
 	
-	public ToolBar getToolbar() {
-		return toolbar;
+	/**
+	 * M&eacutetodo para para que el componente se dibuje a si mismo 
+	 * dibujando cada uno de los objetos Sprite y Line.
+	 * 
+	 * @param g		<code>Graphics</code>
+	 */
+	public void paintComponent(Graphics g) {	    
+		
+		for(int i = 0; i < this.sprites.size(); i++) {
+			
+			Sprite f = this.sprites.get(i);
+	      	f.paintSprite(g);
+	    }
+		
+		for(int i = 0; i < this.lines.size(); i++) {
+			
+			Line l = this.lines.get(i);
+		    l.paintLine(g);
+		}
 	}
-
-	public void setToolbar(ToolBar toolbar) {
-		this.toolbar = toolbar;
+	
+	public Line removeLine(int index) {
+		
+		return this.lines.remove(index);
 	}
-
-	public ArrayList<Sprite> getSprites() {
-		return sprites;
+	
+	public Sprite removeSprite(int index) {
+		
+		return this.sprites.remove(index);
 	}
-
-	public void setSprites(ArrayList<Sprite> sprites) {
-		this.sprites = sprites;
-	}
-
-	public ArrayList<Line> getLines() {
-		return lines;
-	}
-
-	public void setLines(ArrayList<Line> lines) {
-		this.lines = lines;
+	
+	/**
+	 * M&eacutetodo para especificar si se hizo click sobre un componente
+	 * de <code>ToolBar</code>.
+	 * 
+	 * @param s		el <code>Sprite</code>	
+	 */
+	private void setClicked (boolean b){
+				
+		this.clicked = b;
 	}	
+	
+	/**
+	 * M&eacutetodo para especificar el componente sobre el cual se hizo click.
+	 * 
+	 * @param s		el <code>Sprite</code>	
+	 */
+	private void setClickedTool (Sprite s){
+				
+		this.toolClicked = (Sprite) s;
+	}	
+	
+	/**
+	 * M&eacutetodo para obtener el grafo.
+	 *
+	 * @return		<code>Graph</code>
+	 */
+	public void setGraph(Graph g) {
+	
+		this.graph = g;
+		
+		for(int i = 0; i < g.getNumVertices(); i++) {
+				
+			StructV stv = (StructV) g.getVertexAt(i).getValue();
+			this.sprites.add(stv.getSprite());
+		}
+		
+		for(int i = 0; i < g.getNumEdges(); i++) {
+				
+			StructE ste = (StructE) g.getEdgeAt(i).getWeight();
+			this.lines.add(ste.getLine());
+		}	
+	}
 }
