@@ -27,8 +27,7 @@ public class Activity {
 	 * @param numContents		<code>int</code>
 	 */
 	public Activity(int numContents) {
-		
-		contents = new Hashtable(numContents);
+		this.contents = new Hashtable(numContents);
 	}
 	
 	/**
@@ -38,8 +37,7 @@ public class Activity {
 	 * @param o					<code>Object</code>
 	 */
 	public void add(String name, Object o) {
-		
-		contents.put(name, o);
+		this.contents.put(name, o);
 	} 
 	
 	/**
@@ -49,8 +47,7 @@ public class Activity {
 	 * @return 					<code>Object</code>
 	 */
 	public Object get(String name) {
-		
-		return contents.get(name);
+		return this.contents.get(name);
 	}
 	
 	/**
@@ -61,11 +58,11 @@ public class Activity {
 	 */
 	public Object getContentAt(int index) {
 		
-		ArrayList<String> order = (ArrayList<String>) contents.get("order");
+		ArrayList<String> order = (ArrayList<String>) this.contents.get("order");
 		
 		String key = order.get(index);
 		
-		Object o = contents.get(key);
+		Object o = this.contents.get(key);
 		
 		return o;
 		/*Object o;
@@ -95,7 +92,7 @@ public class Activity {
 	 */
 	public String getKeyAt(int index) {
 		
-		ArrayList<String> order = (ArrayList<String>) contents.get("order");
+		ArrayList<String> order = (ArrayList<String>) this.contents.get("order");
 		
 		String key = order.get(index);
 		
@@ -128,7 +125,6 @@ public class Activity {
 	 * @return 					<code>int</code>
 	 */
 	public int getNumContents() {
-		
 		return this.contents.size();
 	}
 	
@@ -137,14 +133,13 @@ public class Activity {
 		int count = 0;
 		Object o;
 		
-		for(Enumeration e = contents.keys(); e.hasMoreElements();) {
+		for(Enumeration e = this.contents.keys(); e.hasMoreElements();) {
 			
-			o = contents.get(e.nextElement());
+			o = this.contents.get(e.nextElement());
 			
 			if( o instanceof JTextField || o instanceof JTextArea){
 				count++;
 			}
-		
 		}
 		return count;
 	}

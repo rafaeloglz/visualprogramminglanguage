@@ -10,22 +10,20 @@
 
 package gui;
 
-import java.awt.BorderLayout;
+import graph.CodeMaker;
+import graph.LoadAndSave;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import javax.swing.Action;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
-import graph.*;
 
 public class MenuBar {
 
@@ -51,22 +49,22 @@ public class MenuBar {
 	public MenuBar(GUI gui) {
 		
 		this.gui = gui;
-		ls = new LoadAndSave();
+		this.ls = new LoadAndSave();
 		
-		menuBar = new JMenuBar();
-		menu1 = new JMenu("Archivo");
-		menu2 = new JMenu("Proyecto");
+		this.menuBar = new JMenuBar();
+		this.menu1 = new JMenu("Archivo");
+		this.menu2 = new JMenu("Proyecto");
 		
-		menuItem1_1 = new JMenuItem("Nuevo...");
-		menuItem1_2 = new JMenuItem("Abrir...");
-		menuItem1_3 = new JMenuItem("Guardar...");
-		menuItem1_4	= new JMenuItem("Salir");	
+		this.menuItem1_1 = new JMenuItem("Nuevo...");
+		this.menuItem1_2 = new JMenuItem("Abrir...");
+		this.menuItem1_3 = new JMenuItem("Guardar...");
+		this.menuItem1_4	= new JMenuItem("Salir");	
 		
-		calcIcon = new ImageIcon("calc.png");
-		menuItem2_1 = new JMenuItem("Generar codigo", calcIcon);
-		menuItem2_2 = new JMenuItem("Nuevo tab");
+		this.calcIcon = new ImageIcon("calc.png");
+		this.menuItem2_1 = new JMenuItem("Generar codigo", this.calcIcon);
+		this.menuItem2_2 = new JMenuItem("Nuevo tab");
 		
-		buildMenu();
+		this.buildMenu();
 	}
 	
 	/**
@@ -76,7 +74,7 @@ public class MenuBar {
 	 */
 	public JMenuBar getMenuBar (){		
 		
-		return menuBar;
+		return this.menuBar;
 	}
 	
 	/**
@@ -84,20 +82,20 @@ public class MenuBar {
 	 */
 	private void buildMenu(){
 			
-		menuBar.add(menu1);
-		menuBar.add(menu1);
-		menuBar.add(menu2);
+		this.menuBar.add(this.menu1);
+		this.menuBar.add(this.menu1);
+		this.menuBar.add(this.menu2);
 		 
 		KeyStroke ctrlK = KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_MASK);
-		menuItem2_1.setAccelerator(ctrlK);
-		menuItem2_1.addActionListener(new ActionListener (){
+		this.menuItem2_1.setAccelerator(ctrlK);
+		this.menuItem2_1.addActionListener(new ActionListener (){
         	
         	public void actionPerformed(ActionEvent e) {
         		
         		String msg = "";
         		
         		
-        		for(int i=0;i<gui.getGraphs().size();i++){
+        		for(int i=0; i<gui.getGraphs().size(); i++){
         			//gui.getGraphs().get(i).print();        			
         			cm = new CodeMaker(gui.getGraphs().get(i));
         			
@@ -115,18 +113,17 @@ public class MenuBar {
         });
 	
 		KeyStroke ctrlT = KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK);
-		menuItem2_2.setAccelerator(ctrlT);
-		menuItem2_2.addActionListener(new ActionListener (){
+		this.menuItem2_2.setAccelerator(ctrlT);
+		this.menuItem2_2.addActionListener(new ActionListener (){
         	
         	public void actionPerformed(ActionEvent e) {
-        		
         		gui.addTab();
         	}
         });
 		
 		KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK);
-		menuItem1_1.setAccelerator(ctrlN);
-		menuItem1_1.addActionListener(new ActionListener (){
+		this.menuItem1_1.setAccelerator(ctrlN);
+		this.menuItem1_1.addActionListener(new ActionListener (){
         	
         	public void actionPerformed(ActionEvent e) {         		
         	
@@ -136,18 +133,14 @@ public class MenuBar {
         });
 		
 		KeyStroke ctrlO = KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK);
-		menuItem1_2.setAccelerator(ctrlO);
-		menuItem1_2.addActionListener(new ActionListener() {
+		this.menuItem1_2.setAccelerator(ctrlO);
+		this.menuItem1_2.addActionListener(new ActionListener() {
 			
 	public void actionPerformed(ActionEvent e) {
 				
 				Object graphs;
-				String path, filename, msg;
-				
-				path = "";
-				filename = "vpl.txt";
-				msg = "";
-				
+				String path="", filename = "vpl.txt", msg = "";
+			
 				graphs = ls.load(path, filename);
 				
 				if(graphs != null){
@@ -162,16 +155,12 @@ public class MenuBar {
 			}		});
 		
 		KeyStroke ctrlS = KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK);
-		menuItem1_3.setAccelerator(ctrlS);
-		menuItem1_3.addActionListener(new ActionListener() {
+		this.menuItem1_3.setAccelerator(ctrlS);
+		this.menuItem1_3.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				
-				String path, filename, msg;
-				
-				path = "";
-				filename = "vpl.txt";
-				msg = "";
+				String path = "", filename = "vpl.txt", msg = "";
 				
 				if(ls.save(gui.getGraphs(), path, filename))
 					msg = "Archivo guardado en " + path + filename;
@@ -182,20 +171,19 @@ public class MenuBar {
 		});
 		
 		KeyStroke ctrlE = KeyStroke.getKeyStroke(KeyEvent.VK_E, InputEvent.CTRL_MASK);
-		menuItem1_4.setAccelerator(ctrlE);
-		menuItem1_4.addActionListener(new ActionListener() {
+		this.menuItem1_4.setAccelerator(ctrlE);
+		this.menuItem1_4.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				
 				System.exit(0);
 			}
 		});
 		
-		menu1.add(menuItem1_1);
-		menu1.add(menuItem1_2);
-		menu1.add(menuItem1_3);
-		menu1.add(menuItem1_4);
-		menu2.add(menuItem2_1);	
-		menu2.add(menuItem2_2);
+		this.menu1.add(this.menuItem1_1);
+		this.menu1.add(this.menuItem1_2);
+		this.menu1.add(this.menuItem1_3);
+		this.menu1.add(this.menuItem1_4);
+		this.menu2.add(this.menuItem2_1);	
+		this.menu2.add(this.menuItem2_2);
 	}	
 }
