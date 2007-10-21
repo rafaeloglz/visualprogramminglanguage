@@ -10,11 +10,8 @@
 package gui;
 
 import java.awt.Cursor;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DragGestureEvent;
 import java.awt.dnd.DragGestureListener;
@@ -29,23 +26,16 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import javax.swing.JComponent;
 import sprite.*;
 
 public class DragNDrop implements DragGestureListener,DragSourceListener, DropTargetListener{
 	
 	private Sprite beingDragged; 
+	private Cursor dragCursor = new Cursor(Cursor.DEFAULT_CURSOR);			
 	private DragSource dragSource;
-	static int posX;
-	static int posY;	
-	static int iconSize = 30;
-	static int spriteSize = 50;
-	static int numButtons = 3;	
 	private DropTarget dropTarget;
+	private Cursor normalCursor = DragSource.DefaultMoveDrop;
 	private WorkArea wa;
-	Cursor normalCursor = DragSource.DefaultMoveDrop;
-	Cursor dragCursor = new Cursor(Cursor.DEFAULT_CURSOR);				
 
 	/**
 	 * Constructor donde se especifican las figuras, las l&iacuteneas y el gui.
@@ -55,88 +45,112 @@ public class DragNDrop implements DragGestureListener,DragSourceListener, DropTa
 	 * @param gui				<code>GUI</code>
 	 */
 	public DragNDrop (WorkArea wa){
-		this.wa = wa;
-	    dragSource = DragSource.getDefaultDragSource ();
-	    dragSource.createDefaultDragGestureRecognizer(wa, DnDConstants.ACTION_COPY_OR_MOVE, this);
-	    dropTarget = new DropTarget (wa, this); 
-	}
-
-	/**
-	 * M&eacutetodo que obtiene el <code>DropTarget</code>.
-	 *
-	 * @return		<code>DropTarget</code>
-	 */
-	public DropTarget getDropTarget(){
 		
-		return dropTarget;		
+		this.wa = wa;
+		this.dragSource = DragSource.getDefaultDragSource ();
+	    this.dragSource.createDefaultDragGestureRecognizer(this.wa, DnDConstants.ACTION_COPY_OR_MOVE, this);
+	    this.dropTarget = new DropTarget (this.wa, this); 
 	}
-
+	
+	/**
+ 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la fuente.
+	 *
+	 * @param e		<code>DragSourceDragEvent</code>
+	 */
+	public void dragEnter(DragSourceDragEvent e) {
+	}
+	
+	/**
+ 	 * M&eacutetodo que es invocado cuando el usuario draguea algo 
+ 	 * sobre el &aacuterea de trabajo. 
+	 *
+	 * @param e		<code>DragSourceDragEvent</code>
+	 */
+	public void dragEnter(DropTargetDragEvent e) {		
+	}
+	
+	/**
+ 	 * M&eacutetodo que se dispara cuando se comienza a terminar el drag de la fuente.
+	 *
+	 * @param e		<code>DragSourceEvent</code>
+	 */
+	public void dragExit(DragSourceEvent e) {
+	}
+	
+	/**
+ 	 * M&eacutetodo que se dispara cuando se termina de realizar el drag del destino.
+	 *
+	 * @param e		<code>DragTargetEvent</code>
+	 */
+	public void dragExit(DropTargetEvent e) {				
+	}
+	
+	/**
+ 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag sobre la fuente.
+	 *
+	 * @param e		<code>DragSourceDragEvent</code>
+	 */
+	public void dragOver(DragSourceDragEvent e) {
+	}
+	
+	/**
+ 	 * M&eacutetodo que se dispara cuando se realizar el drag sobre el destino.
+	 *
+	 * @param e		<code>DragTargetDragEvent</code>
+	 */
+	public void dragOver(DropTargetDragEvent e) {
+	}
+	
 	/**
 	 * Este M&eacutetodo implementa la interfaz del <code>DragGestureListener</code>. 
 	 * Sera invocada cuando el <code>DragGestureRecognizer</code> piense 
-	 * que el usuario ha iniciado un drag. Este M&eacutetodo intenta 
-	 * reconocer que figura esta siendo tomada, e iniciara un drag sobre 
-	 * el objeto.
+	 * que el usuario ha iniciado un drag. Intenta reconocer que figura esta siendo 
+	 * tomada, e iniciara un drag sobre el objeto.
 	 *
 	 * @param e		<code>DragGestureEvent</code>
 	 */
-	
-	public void dragGestureRecognized (DragGestureEvent e){		
+	public void dragGestureRecognized(DragGestureEvent e) {		
 		
-		if(wa.getConnect().isConnectFlag()) return;
+		if(this.wa.getConnect().isConnectFlag()) 
+			return;
 		
 		MouseEvent inputEvent = (MouseEvent) e.getTriggerEvent();
 	    int x = inputEvent.getX();
-	    int y = inputEvent.getY();
-	       
-	    int spriteNum = wa.getSprites().size();	    
+	    int y = inputEvent.getY();	    
 	    
-	    for (int i = 0; i < spriteNum; i++) { 
-	        Sprite f = (Sprite) wa.getSprites().get(i);
+	    for(int i = 0; i < this.wa.getSpriteCount(); i++) { 
+	        
+	    	Sprite f = (Sprite)this.wa.getSpriteAt(i);
 
 	        Rectangle r1 = new Rectangle(x, y, f.getWidth(), f.getWidth());	        
 	        Sprite dragSprite = f;
 	        
-	        if(f.getNumSprite()==0 && f.intersects(r1)){	    
+	        if(f.getNumSprite() == 0 && f.intersects(r1)) {	    
+	        	
 	        	Cursor cursor = getDragCursor(e.getDragAction());
-	        	beingDragged = dragSprite;
+	        	this.beingDragged = dragSprite;
 	        	e.startDrag(cursor, dragSprite, this);
+	        	
 	        	return;
 	        }
-	        else{
-		        for(int j = 0; j < f.getNumSprite(); j++){
+	        else {
+		        
+	        	for(int j = 0; j < f.getNumSprite(); j++) {
 		        	
 		        	Sprite f2 = f.getSprite(j);
 		        	Rectangle r2 = new Rectangle(x, y, f2.getWidth(), f2.getWidth());	        		        
 		        	
 			        if (f.intersects(r1) && !f2.intersects(r2)) {
+			        	
 			        	Cursor cursor = getDragCursor(e.getDragAction());
-			        	beingDragged = dragSprite;
+			        	this.beingDragged = dragSprite;
 			        	e.startDrag(cursor, dragSprite, this);
+			        	
 			        	return;
 			        }
 		        }
 	        }
 		}
-	}
-
-	public Cursor getDragCursor(int action){
-    	Cursor cursor;
-    	
-    	switch (action){
-    	
-        	case DnDConstants.ACTION_COPY:
-        		cursor = DragSource.DefaultCopyDrop;
-        		break;
-        	case DnDConstants.ACTION_MOVE:
-        		cursor = DragSource.DefaultMoveDrop;
-        		break;
-        	default:
-        		cursor = DragSource.DefaultMoveDrop;
-    			break;
-  		}
- 
-    	return cursor;
 	}
 	
 	/**
@@ -147,65 +161,7 @@ public class DragNDrop implements DragGestureListener,DragSourceListener, DropTa
  	 *
  	 * @param e		<code>DragSourceDragEvent</code>
  	 */ 
-	public void dragDropEnd(DragSourceDropEvent e){
-	}
-
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la fuente.
-	 *
-	 * @param e		<code>DragSourceDragEvent</code>
-	 */
-	public void dragEnter(DragSourceDragEvent e) {
-	}
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se comienza a terminar el drag de la fuente.
-	 *
-	 * @param e		<code>DragSourceEvent</code>
-	 */
-	public void dragExit(DragSourceEvent e) {
-	}
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag sobre la fuente.
-	 *
-	 * @param e		<code>DragSourceDragEvent</code>
-	 */
-	public void dragOver(DragSourceDragEvent e) {
-	}
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la fuente.
-	 *
-	 * @param e		<code>DragSourceDragEvent</code>
-	 */
-	public void dropActionChanged(DragSourceDragEvent e) {
-	}
-
-	/**
- 	 * M&eacutetodo que es invocado cuando el usuario draguea algo 
- 	 * sobre el &aacuterea de trabajo. 
-	 *
-	 * @param e		<code>DragSourceDragEvent</code>
-	 */
-	public void dragEnter(DropTargetDragEvent e){		
-	}
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se termina de realizar el drag del destino.
-	 *
-	 * @param e		<code>DragTargetEvent</code>
-	 */
-	public void dragExit(DropTargetEvent e){				
-	}
-
-	/**
- 	 * M&eacutetodo que se dispara cuando se realizar el drag sobre el destino.
-	 *
-	 * @param e		<code>DragTargetDragEvent</code>
-	 */
-	public void dragOver(DropTargetDragEvent e) {
+	public void dragDropEnd(DragSourceDropEvent e) {
 	}
 	
 	/**
@@ -217,14 +173,22 @@ public class DragNDrop implements DragGestureListener,DragSourceListener, DropTa
 	public void drop(DropTargetDropEvent e) {
 		
 	    Point p = e.getLocation();
-	    beingDragged.setX((int)p.getX());
-	    beingDragged.setY((int)p.getY());
+	    beingDragged.setX((int)p.getX() - beingDragged.getWidth() / 2);
+	    beingDragged.setY((int)p.getY() - beingDragged.getHeight() / 2);
 	    beingDragged = null;
 	    wa.repaint(); 
 	    e.dropComplete(true); 		
 	    
 	}
 
+	/**
+ 	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la fuente.
+	 *
+	 * @param e		<code>DragSourceDragEvent</code>
+	 */
+	public void dropActionChanged(DragSourceDragEvent e) {
+	}
+	
 	/**
  	 * M&eacutetodo que se dispara cuando se realiza un cambio en 
  	 * la accion del drop
@@ -237,5 +201,39 @@ public class DragNDrop implements DragGestureListener,DragSourceListener, DropTa
 	public Sprite getBeingDragged() {
 		return beingDragged;
 	} 
+	
+	/**
+	 * M&eacutetodo para cambiar el cursor de acuerdo a la acci&oacuten
+	 * realizada.
+	 * 
+	 * @param action			<code>int</code>
+	 * @return					<code>Cursor</code>
+	 */
+	private Cursor getDragCursor(int action) {
+    	
+		Cursor cursor;
+    	
+    	switch(action) {
+    	
+        	case DnDConstants.ACTION_COPY: cursor = DragSource.DefaultCopyDrop;
+        		break;
+        	case DnDConstants.ACTION_MOVE: cursor = DragSource.DefaultMoveDrop;
+        		break;
+        	default: cursor = DragSource.DefaultMoveDrop;
+    			break;
+  		}
+ 
+    	return cursor;
+	}
+	
+	/**
+	 * M&eacutetodo que obtiene el <code>DropTarget</code>.
+	 *
+	 * @return		<code>DropTarget</code>
+	 */
+	public DropTarget getDropTarget(){
+		
+		return this.dropTarget;		
+	}
 }
 
