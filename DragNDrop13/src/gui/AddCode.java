@@ -10,42 +10,22 @@
 
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.GridLayout;
-import java.awt.Panel;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.Hashtable;
 
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import sprite.Sprite;
 import sprite.SpriteBegin;
 import sprite.SpriteEnd;
-import sprite.SpriteFor;
-import sprite.SpriteFunction;
-import sprite.SpriteIf;
-import sprite.SpriteInstruction;
-import sprite.SpriteLock;
-import sprite.SpriteParallel;
-import sprite.SpriteSemaphore;
-import sprite.SpriteSync;
-import sprite.SpriteUnion;
-import sprite.SpriteWhile;
 import struct.StructV;
-import java.util.Hashtable;
 
 public class AddCode implements MouseListener, ActionListener {
 
@@ -79,7 +59,7 @@ public class AddCode implements MouseListener, ActionListener {
 		spriteList2 = new ArrayList<Sprite>();	
 		activityBuilder = new ActivityBuilder(this);
 		activityList = new ArrayList<Activity>();
-		director = new ActivityDirector();				
+		director = ActivityDirector.getInstance();				
 	}
 
 	/**

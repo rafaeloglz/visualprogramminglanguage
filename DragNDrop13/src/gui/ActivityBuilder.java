@@ -71,10 +71,10 @@ public class ActivityBuilder {
 		this.activityFrame = new JFrame();
 		
 		accept = new JButton("Aceptar");
-		accept.addActionListener(addCode);
+		accept.addActionListener(this.addCode);
 		accept.setActionCommand("accept" + this.activityIndex);
 		cancel = new JButton("Cancelar");
-		cancel.addActionListener(addCode);
+		cancel.addActionListener(this.addCode);
 		cancel.setActionCommand("cancel" + this.activityIndex);
 		
 		panel1 = new JPanel();
@@ -85,7 +85,7 @@ public class ActivityBuilder {
 						
 		for(int i = 0; i < activityContents.size(); i++) {			
 			this.activity.add(activityContents.get(i).split(":", 2)[0], 
-			buildContent(activityContents.get(i).split(":", 2)[1]));
+			this.buildContent(activityContents.get(i).split(":", 2)[1]));
 			order.add(activityContents.get(i).split(":", 2)[0]);
 		}
 			
@@ -127,8 +127,7 @@ public class ActivityBuilder {
 		this.activityFrame.getContentPane().add(panel1, BorderLayout.SOUTH);
 		this.activityFrame.setSize(400, 200);
 		this.activityFrame.pack();
-		
-		activityIndex++;
+		this.activityIndex++;
 	}
 	
 	/**
@@ -149,7 +148,6 @@ public class ActivityBuilder {
 		try {
 			
 			in = new BufferedReader(new FileReader(new File(configFilename)));
-			
 			line = in.readLine();
 			
 			while(line != null) {
@@ -161,7 +159,6 @@ public class ActivityBuilder {
 					while(line != null && !line.equals("")) {
 						
 						contents.add(line);
-							
 						line = in.readLine();
 					}
 				}
@@ -170,7 +167,6 @@ public class ActivityBuilder {
 			}
 		}
 		catch(Exception e) {
-			
 			e.printStackTrace();
 		}
 		
@@ -211,7 +207,6 @@ public class ActivityBuilder {
 	 * @return			<code>Activity</code>
 	 */
 	public Activity getActivity() {
-		
 		return this.activity;
 	}
 	
@@ -221,7 +216,6 @@ public class ActivityBuilder {
 	 * @return			<code>Activity</code>
 	 */
 	public JFrame getActivityFrame() {
-		
 		return this.activityFrame;
 	}
 }
