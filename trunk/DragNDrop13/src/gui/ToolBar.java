@@ -86,15 +86,11 @@ public class ToolBar{
         		gui.getJFrame().setCursor(dragCursor);
 
         		try {
-        			
-        			//if(sprite.getClass()==SpriteBegin.class /*&& gui.getGraph().getHead()!=null*/){
-        				//setClicked (sprite);
-        			//}
-        			//else{
-    					setClickedTool (sprite.clone());
-        			//}
-        			
-				} catch(CloneNotSupportedException e) {
+    				
+        			setClickedTool (sprite.clone());
+				} 
+        		catch(CloneNotSupportedException e) {
+					
 					e.printStackTrace();
 				}
 
@@ -105,7 +101,7 @@ public class ToolBar{
 
         		if(isToolClicked()) {
 
-        			setClicked (false);
+        			setClicked(false);
 
         			Sprite temp = getClickedTool();
         			

@@ -35,7 +35,6 @@ import struct.*;
 public class WorkArea extends JComponent {
 	
 	private AddCode addCode;
-	private boolean clicked;
 	private Connect connect;
 	private Cursor dragCursor = DragSource.DefaultMoveDrop;
 	private DragNDrop dragNDrop;	
@@ -45,15 +44,13 @@ public class WorkArea extends JComponent {
 	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 	private ToolBar toolbar;
 	private ArrayList<Sprite> sprites;
-	private Sprite toolClicked;	
 
 	/**
 	 * Constructor por omisi&oacuten.
 	 */		
 	public WorkArea(String name, ToolBar toolbar) {		
 		
-		this.addCode = new AddCode(sprites, this);
-		this.clicked = false;
+		this.addCode = new AddCode(this);
 		this.connect = new Connect(this);
 		this.dragNDrop = new DragNDrop(this);
 		this.graph = new Graph();
@@ -61,8 +58,6 @@ public class WorkArea extends JComponent {
 		this.name = name;
 		this.toolbar = toolbar;
 		this.sprites = new ArrayList<Sprite>();
-		
-		//this.addListeners();
 	}
 	
 	/**
@@ -173,16 +168,6 @@ public class WorkArea extends JComponent {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el componente en el cual se hizo click.
-	 *
-	 * @return		<code>Sprite</code>
-	 */
-	public Sprite getClickedTool() {
-				
-		return this.toolClicked;
-	}
-	
-	/**
 	 * M&eacutetodo para obtener el objeto encargado de realizar las
 	 * uniones entre componentes.
 	 * 
@@ -267,16 +252,6 @@ public class WorkArea extends JComponent {
 	}
 	
 	/**
-	 * Indica si ha hecho click sobre alg&uacuten componente del toolbar.
-	 *
-	 * @return		<code>boolean</code>
-	 */ 
-	public boolean isToolClicked() {
-				
-		return clicked;
-	}
-	
-	/**
 	 * M&eacutetodo para para que el componente se dibuje a si mismo 
 	 * dibujando cada uno de los objetos Sprite y Line.
 	 * 
@@ -306,27 +281,6 @@ public class WorkArea extends JComponent {
 		
 		return this.sprites.remove(index);
 	}
-	
-	/**
-	 * M&eacutetodo para especificar si se hizo click sobre un componente
-	 * de <code>ToolBar</code>.
-	 * 
-	 * @param s		el <code>Sprite</code>	
-	 */
-	private void setClicked (boolean b){
-				
-		this.clicked = b;
-	}	
-	
-	/**
-	 * M&eacutetodo para especificar el componente sobre el cual se hizo click.
-	 * 
-	 * @param s		el <code>Sprite</code>	
-	 */
-	private void setClickedTool (Sprite s){
-				
-		this.toolClicked = (Sprite) s;
-	}	
 	
 	/**
 	 * M&eacutetodo para obtener el grafo.
