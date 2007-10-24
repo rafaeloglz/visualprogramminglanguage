@@ -130,7 +130,6 @@ public class Connect implements MouseListener, MouseMotionListener {
 			int y = e.getY();
 			Sprite s1;
 			Sprite s2 = null;
-			
 
 			for (int i = 0; i < this.wa.getSpriteCount(); i++) {
 
