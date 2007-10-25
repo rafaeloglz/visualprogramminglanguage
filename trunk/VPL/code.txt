@@ -39,7 +39,7 @@ $test = test
 $level $return $method ( $params ){
 
 [end]
-}
+} //end
 
 [for]
 for ( $init ; $condition ; $increment ){
@@ -49,7 +49,7 @@ for ( $init ; $condition ; $increment ){
 $data //Function
 
 [if]
-if ( $condition ) then {
+if ( $condition ) {
 } else {
 
 [instruction]
@@ -68,7 +68,7 @@ $data //Instruction
 //synch
 
 [union]
-}
+} //Union
 
 [while]
 while ( $condition ){

@@ -4,6 +4,8 @@ import dataio.CodeWriter;
 import sprite.Sprite;
 import sprite.SpriteEnd;
 import sprite.SpriteFor;
+import sprite.SpriteIf;
+import sprite.SpriteUnion;
 import sprite.SpriteWhile;
 import struct.*;
 
@@ -30,6 +32,8 @@ import javax.swing.JTextField;
 	private ArrayList<String> template;
 	private ArrayList<Sprite> whileList;
 	private ArrayList<Sprite> forList;
+	private ArrayList<Sprite> ifList;
+	private ArrayList<Sprite> unionList;
  		
 	/**
 	 * Constructor por omisi&oacuten.
@@ -58,6 +62,8 @@ import javax.swing.JTextField;
  		
  		whileList = new ArrayList<Sprite>();
  		forList = new ArrayList<Sprite>();
+ 		ifList = new ArrayList<Sprite>();
+ 		unionList = new ArrayList<Sprite>();
  	}
  	
  	/**
@@ -137,9 +143,14 @@ import javax.swing.JTextField;
 					searchGraph(i);
 	}*/
 	
+	/**
+	 * @param v
+	 * @return
+	 */
 	public boolean recurse(Vertex<StructV> v){
 
-		precondition(v);		
+		if(!(v.getValue().getSprite() instanceof SpriteUnion))
+			precondition(v);		
 
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
 		
@@ -151,12 +162,15 @@ import javax.swing.JTextField;
 			
 			if(whileCase(tmp)) continue;
 			if(forCase(tmp)) continue;
+			if(ifCase(tmp)) continue;
+			if(unionCase(tmp)) continue;
 			
 			System.out.println(tmp.getValue().getSprite().getClass());
 			recurse(tmp);
 		}
 
-		postcondition(v);
+		if(!(v.getValue().getSprite() instanceof SpriteIf))
+			postcondition(v);
 
 		return false;
 	}
@@ -207,6 +221,45 @@ import javax.swing.JTextField;
 	
 	public void precondition(Vertex<StructV> v){	 		
 		replaceVars((Hashtable)v.getValue().getValue());
+	}
+	
+	private boolean ifCase(Vertex<StructV> tmp){
+		
+		if(tmp.getValue().getSprite() instanceof SpriteIf){
+			if(ifList.size()!= 0){
+				Sprite currentIf = ifList.get(ifList.size()-1);
+				
+				if(!currentIf.equals(tmp.getValue().getSprite())){
+					ifList.add(tmp.getValue().getSprite());
+				}
+				else{
+					ifList.remove(ifList.size()-1);
+					postcondition(tmp);
+					return true;
+				}
+			}					
+			else{
+				ifList.add(tmp.getValue().getSprite());
+			}
+		}
+
+		return false;		
+	}
+	
+	private boolean unionCase(Vertex<StructV> tmp){
+		
+		if(tmp.getValue().getSprite() instanceof SpriteUnion){
+			if(unionList.size()!= 0){
+				unionList.remove(unionList.size()-1);
+				precondition(tmp);
+				return false;				
+			}					
+			else{
+				unionList.add(tmp.getValue().getSprite());
+				return true;
+			}
+		}
+		return false;		
 	}
 
 	public void postcondition(Vertex<StructV> v){
