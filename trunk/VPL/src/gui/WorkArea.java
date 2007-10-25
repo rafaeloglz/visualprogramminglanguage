@@ -1,4 +1,3 @@
-
 package gui;
 
 import java.awt.BorderLayout;
@@ -37,7 +36,7 @@ public class WorkArea extends JComponent {
 	private AddCode addCode;
 	private Connect connect;
 	private Cursor dragCursor = DragSource.DefaultMoveDrop;
-	private DragNDrop dragNDrop;	
+	private DragNDrop dragNDrop;
 	private Graph graph;
 	private ArrayList<Line> lines;
 	private String name;
@@ -77,6 +76,7 @@ public class WorkArea extends JComponent {
 	 * @param button		<code>JButton</code>
 	 * @param sprite		<code>Sprite</code>
 	 */
+
 	/*private void addListeners() {		
 		
 		final ToolBar toolbar = this.toolbar;
