@@ -116,7 +116,7 @@ public class Graph<V, E> implements Serializable {
 	 * @param dest				<code>V</code>
 	 * @param weight			<code>E</code>
 	 */
-	public boolean addEdge(V source, V dest, E weight) {
+	public boolean addEdge(V source, V dest, E weight, int index) {
 		
 		//System.out.println("addEdge");
 		
@@ -127,7 +127,7 @@ public class Graph<V, E> implements Serializable {
 			
 			Edge<V, E> e = new Edge(s, d, weight);
 			if(getEdge(source, dest, weight) == null)
-				if(edges.add(e) && s.addNeighbor(d))
+				if(edges.add(e) && s.addNeighborAt(index, d))
 					return true;
 		}
 		

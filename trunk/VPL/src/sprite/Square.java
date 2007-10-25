@@ -16,11 +16,10 @@ public class Square extends Sprite{
 	protected void paintSprite(Graphics g, int x, int y) {				
 		setX(x);
 		setY(y);
-		/*
-		g.setColor(Color.white); 
+		
+		/*g.setColor(Color.white); 
 		g.drawRect(this.x, this.y, width, height);
-		g.setColor(Color.black);
-		*/
+		g.setColor(Color.black);*/
 	}
 	
 	/**

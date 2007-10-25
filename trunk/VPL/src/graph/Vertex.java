@@ -44,6 +44,15 @@ public class Vertex<V> implements Serializable {
 		return false;
 	}
 	
+	public boolean addNeighborAt(int index, Vertex<V> neighbor){		
+		neighbors.add(null);
+		if(getNeighbor(neighbor.getValue()) == null){
+			neighbors.add(index, neighbor);
+			return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * M&eacutetodo para especificar el valor del vertice.
 	 * 
@@ -75,8 +84,9 @@ public class Vertex<V> implements Serializable {
 		Vertex<V> temp = new Vertex(value);
 		
 		for (int i =0; i < getNumNeighbors(); i++)
-			if(neighbors.get(i).equals(temp))
-				return neighbors.get(i);
+			if(neighbors.get(i) != null)
+				if(neighbors.get(i).equals(temp))
+					return neighbors.get(i);
 		
 		return null;
 	}
@@ -133,5 +143,5 @@ public class Vertex<V> implements Serializable {
 
 	public void setNeighbors(ArrayList<Vertex<V>> neighbors) {
 		this.neighbors = neighbors;
-	}
+	}	
 }
