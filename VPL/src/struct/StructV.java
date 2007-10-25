@@ -11,13 +11,15 @@
 package struct;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import sprite.*;
 
 public class StructV<V> implements Serializable {
 	
 	private Sprite sprite;
 	private V value;
-	
+		
 	/**
 	 * Constructor por omisi&oacuten.
 	 *

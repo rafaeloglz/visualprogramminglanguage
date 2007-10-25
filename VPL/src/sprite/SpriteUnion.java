@@ -18,12 +18,12 @@ public class SpriteUnion extends Sprite {
 	}
 
 	public void attachConnectors(){
-		
+				
 		Sprite s = new Square(0, 0, 9, 14);
-		attach(1, 9, s);
-
-		s = new Square(0, 0, 9, 14);
 		attach(68, 9, s);
+		
+		s = new Square(0, 0, 9, 14);
+		attach(1, 9, s);
 
 		s = new Square(0, 0, 9, 14);
 		attach(1, 29, s);

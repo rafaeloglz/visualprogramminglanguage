@@ -159,8 +159,8 @@ public class Connect implements MouseListener, MouseMotionListener {
 								StructE st = new StructE(draggedLine, 0);
 								StructV stS = new StructV(source, 0);
 								StructV stD = new StructV(dest, 0);
-								
-								this.wa.getGraph().addEdge(stS, stD, st);
+								System.out.println(sourceIndex);
+								this.wa.getGraph().addEdge(stS, stD, st, sourceIndex);
 								this.wa.repaint();
 								
 								this.connectFlag = false;
