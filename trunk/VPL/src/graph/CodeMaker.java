@@ -1,9 +1,9 @@
- 
 package graph;
  
 import dataio.CodeWriter;
 import sprite.Sprite;
 import sprite.SpriteEnd;
+import sprite.SpriteFor;
 import sprite.SpriteWhile;
 import struct.*;
 
@@ -21,14 +21,15 @@ import javax.swing.JTextField;
  	private String code;
  	private Graph g;
  	private CodeWriter cw;
- 	private String method;
+ 	private String method; 	
 	
  	private ArrayList<Vertex<StructV>> vertices;
 	private ArrayList<Edge<StructV, StructE>> edges;
 	private Vertex<StructV> head;
 	private Vertex<StructV> tail;
 	private ArrayList<String> template;
-	private ArrayList<Object> whileList;
+	private ArrayList<Sprite> whileList;
+	private ArrayList<Sprite> forList;
  		
 	/**
 	 * Constructor por omisi&oacuten.
@@ -54,6 +55,9 @@ import javax.swing.JTextField;
  		} catch (Exception e) {
 			e.printStackTrace();
 		}
+ 		
+ 		whileList = new ArrayList<Sprite>();
+ 		forList = new ArrayList<Sprite>();
  	}
  	
  	/**
@@ -134,32 +138,73 @@ import javax.swing.JTextField;
 	}*/
 	
 	public boolean recurse(Vertex<StructV> v){
-		
-		precondition(v);
-		postcondition(v);
-		
+
+		precondition(v);		
+
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
-		Iterator<Vertex<StructV>> i = neighbors.iterator();
 		
-		while (i.hasNext()){
-			Vertex<StructV> tmp = i.next();
-			
-			if(tmp.getValue().getSprite() instanceof SpriteWhile)
-				if(whileList.size() != 0)
-					whileList.remove(whileList.size() -1);
-				else
-					whileList.add(new Object());
-					
-				
+		for(int i=0;i<neighbors.size();i++){		
+			Vertex<StructV> tmp = neighbors.get(i);
+
 			if(tmp == null)
 				break;
+			
+			if(whileCase(tmp)) continue;
+			if(forCase(tmp)) continue;
+			
 			System.out.println(tmp.getValue().getSprite().getClass());
 			recurse(tmp);
+		}
+
+		postcondition(v);
+
+		return false;
+	}
+
+	private boolean whileCase(Vertex<StructV> tmp){
+
+		if(tmp.getValue().getSprite() instanceof SpriteWhile){
+			if(whileList.size()!= 0){
+				Sprite currentWhile = whileList.get(whileList.size()-1);
+				
+				if(!currentWhile.equals(tmp.getValue().getSprite())){
+					whileList.add(tmp.getValue().getSprite());
+				}
+				else{
+					whileList.remove(whileList.size()-1);
+					return true;
+				}
+			}					
+			else{
+				whileList.add(tmp.getValue().getSprite());
+			}
 		}
 		
 		return false;
 	}
 
+	private boolean forCase(Vertex<StructV> tmp){
+
+		if(tmp.getValue().getSprite() instanceof SpriteFor){
+			if(forList.size()!= 0){
+				Sprite currentFor = forList.get(forList.size()-1);
+				
+				if(!currentFor.equals(tmp.getValue().getSprite())){
+					forList.add(tmp.getValue().getSprite());
+				}
+				else{
+					forList.remove(forList.size()-1);
+					return true;
+				}
+			}					
+			else{
+				forList.add(tmp.getValue().getSprite());
+			}
+		}
+
+		return false;
+	}	
+	
 	public void precondition(Vertex<StructV> v){	 		
 		replaceVars((Hashtable)v.getValue().getValue());
 	}
