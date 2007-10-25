@@ -22,7 +22,6 @@ import javax.swing.JTextField;
  	private Graph g;
  	private CodeWriter cw;
  	private String method;
-	
  	private ArrayList<Vertex<StructV>> vertices;
 	private ArrayList<Edge<StructV, StructE>> edges;
 	private Vertex<StructV> head;
@@ -140,13 +139,12 @@ import javax.swing.JTextField;
 
 	public boolean recurse(Vertex<StructV> v){
 
-		if(isThenPath && v.getValue().getValue() instanceof SpriteUnion){
-			return true;
-		}
-
 		precondition(v);
 		postcondition(v);
 
+		if(isThenPath && v.getValue().getValue() instanceof SpriteUnion)
+			return true;
+		
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
 		Iterator<Vertex<StructV>> iterator = neighbors.iterator();
 		
@@ -154,9 +152,8 @@ import javax.swing.JTextField;
 		
 		while (iterator.hasNext()){
 
-			if(i==0 && v.getValue().getValue() instanceof SpriteIf){
-				isThenPath = true;
-			}
+			if(i==0 && v.getValue().getValue() instanceof SpriteIf)
+				isThenPath = true;			
 
 			Vertex<StructV> tmp = iterator.next();
 
