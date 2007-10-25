@@ -3,6 +3,8 @@ package graph;
 import dataio.CodeWriter;
 import sprite.Sprite;
 import sprite.SpriteEnd;
+import sprite.SpriteIf;
+import sprite.SpriteUnion;
 import struct.*;
 
 import java.io.*;
@@ -25,7 +27,8 @@ import javax.swing.JTextField;
 	private ArrayList<Edge<StructV, StructE>> edges;
 	private Vertex<StructV> head;
 	private Vertex<StructV> tail;
-	private ArrayList<String> template; 
+	private ArrayList<String> template;
+	private boolean isThenPath;
  		
 	/**
 	 * Constructor por omisi&oacuten.
@@ -51,6 +54,8 @@ import javax.swing.JTextField;
  		} catch (Exception e) {
 			e.printStackTrace();
 		}
+ 		
+ 		isThenPath = false;
  	}
  	
  	/**
@@ -109,12 +114,7 @@ import javax.swing.JTextField;
 		tail = end;
 	} 	
 	
-	/**
-	 * M&eacutetodo recursivo para hacer un recorrido del grafo para obtener el
-	 * valor de cada v&eacutertice.
-	 * 
-	 * param index			<code>int</code>
-	 *
+	/*
 	public void searchGraph() {
 		
 		StructV stv;
@@ -128,21 +128,42 @@ import javax.swing.JTextField;
 			for(int j = 0; j < num; j++)
 				if(g.getVertexAt(i).equals(g.getVertexAt(index).getNeighborAt(j)))
 					searchGraph(i);
-	}*/
+	}*/	
 	
+	/**
+	 * M&eacutetodo recursivo para hacer un recorrido del grafo para obtener el
+	 * valor de cada v&eacutertice.
+	 * 
+	 * param index			<code>int</code>
+	 *
+	*/
+
 	public boolean recurse(Vertex<StructV> v){
-		
+
+		if(isThenPath && v.getValue().getValue() instanceof SpriteUnion){
+			return true;
+		}
+
 		precondition(v);
 		postcondition(v);
-		
+
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
-		Iterator<Vertex<StructV>> i = neighbors.iterator();
+		Iterator<Vertex<StructV>> iterator = neighbors.iterator();
 		
-		while (i.hasNext()){
-			Vertex<StructV> tmp = i.next();
+		int i = 0;
+		
+		while (iterator.hasNext()){
+
+			if(i==0 && v.getValue().getValue() instanceof SpriteIf){
+				isThenPath = true;
+			}
+
+			Vertex<StructV> tmp = iterator.next();
+
 			recurse(tmp);
+			i++;
 		}
-		
+
 		return false;
 	}
 
