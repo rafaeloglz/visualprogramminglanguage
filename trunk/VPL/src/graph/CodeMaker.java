@@ -21,10 +21,9 @@ import javax.swing.JTextField;
  public class CodeMaker {
  	
  	private String code;
- 	private Graph g;
+ 	private ArrayList<Graph> graphs;
  	private CodeWriter cw;
- 	private String method; 	
-	
+ 	private String method;
  	private ArrayList<Vertex<StructV>> vertices;
 	private ArrayList<Edge<StructV, StructE>> edges;
 	private Vertex<StructV> head;
@@ -32,17 +31,19 @@ import javax.swing.JTextField;
 	private ArrayList<String> template;
 	private ArrayList<Sprite> whileList;
 	private ArrayList<Sprite> forList;
-	private ArrayList<Sprite> ifList;
+	private ArrayList<Vertex<StructV>> ifList;
 	private ArrayList<Sprite> unionList;
- 		
+	private ArrayList<String> nombresMetodos;
+
 	/**
 	 * Constructor por omisi&oacuten.
 	 * 
 	 * @param g			<code>Graph</code>
 	 */
- 	public CodeMaker(Graph g) { 		
- 		this.g = g;
- 		//this.mergeEndVertex();
+ 	public CodeMaker(ArrayList<Graph> graphs, ArrayList<String> nombresMetodos) { 		
+ 		this.graphs = graphs;
+ 		this.nombresMetodos = nombresMetodos;
+ 		
  		code = "";
  		String configFile="code.txt";
  		template = new ArrayList<String>();
@@ -62,7 +63,7 @@ import javax.swing.JTextField;
  		
  		whileList = new ArrayList<Sprite>();
  		forList = new ArrayList<Sprite>();
- 		ifList = new ArrayList<Sprite>();
+ 		ifList = new ArrayList<Vertex<StructV>>();
  		unionList = new ArrayList<Sprite>();
  	}
  	
@@ -72,20 +73,29 @@ import javax.swing.JTextField;
  	 */
  	public boolean make() {
 
- 		vertices = g.getVertices();
- 		edges = g.getEdges();
- 		head = g.getHead();
-
- 		if (head == null) return false;
+ 		boolean codeGenerated = false;
  		
- 		if(g.getNumVertices() > 0) {
+ 		for(int i=0;i<graphs.size();i++){
+ 			Graph g = graphs.get(i);
+ 			
+	 		vertices = g.getVertices();
+	 		edges = g.getEdges();
+	 		head = g.getHead();
+	
+	 		if (head == null){
+	 			continue;
+	 		}
 
- 			recurse(head);
-
- 			return true;
+	 		if(g.getNumVertices() > 0) {	
+	 			recurse(head);
+	 			codeGenerated = true;
+	 		}	 		
+	 		else{
+	 			codeGenerated = false;
+	 		}
  		}
  		
- 		else return false;
+ 		return codeGenerated;
  	}
  	
  	/**
@@ -95,32 +105,19 @@ import javax.swing.JTextField;
  	 * param filename		<code>String</code>
  	 */
  	public boolean writeToFile(String path, String filename) {
+
+ 		code = "class "+filename.replace(".java", "")+"{\n" + code;
  		
- 		code = code.replace("genericMethod",filename.replace(".java", ""));
+ 		for(int i=0;i<nombresMetodos.size();i++){	 		
+ 			code = code.replaceFirst("genericMethod", nombresMetodos.get(i));
+ 		}
+
+ 		code = code + "\n}";
+ 		
  		cw = new CodeWriter(code, path, filename);
  		return cw.write();
- 		
- 	}
 
-	/**
- 	 * M&eacutetodo que hace que todos los vertices fin del grafo sean uno solo
- 	 * 
- 	 */
-	private void mergeEndVertex(){
-		Vertex end = null;
-
-		for(int i=0;i<g.getNumEdges();i++){
-			StructV tempStruct = (StructV) g.getEdgeAt(i).getDest().getValue();
-			if(tempStruct.getSprite().getClass() == SpriteEnd.class){				
-				if(end == null){ 
-					end = g.getEdgeAt(i).getDest();
-				}
-				
-				g.getEdgeAt(i).getDest().setValue(end);
-			}
-		}
-		tail = end;
-	} 	
+ 	} 	
 	
 	/**
 	 * M&eacutetodo recursivo para hacer un recorrido del grafo para obtener el
@@ -219,27 +216,11 @@ import javax.swing.JTextField;
 		return false;
 	}	
 	
-	public void precondition(Vertex<StructV> v){	 		
-		replaceVars((Hashtable)v.getValue().getValue());
-	}
-	
 	private boolean ifCase(Vertex<StructV> tmp){
-		
+
 		if(tmp.getValue().getSprite() instanceof SpriteIf){
-			if(ifList.size()!= 0){
-				Sprite currentIf = ifList.get(ifList.size()-1);
-				
-				if(!currentIf.equals(tmp.getValue().getSprite())){
-					ifList.add(tmp.getValue().getSprite());
-				}
-				else{
-					ifList.remove(ifList.size()-1);
-					postcondition(tmp);
-					return true;
-				}
-			}					
-			else{
-				ifList.add(tmp.getValue().getSprite());
+			if(ifList.size()== 0){
+				ifList.add(tmp);
 			}
 		}
 
@@ -252,14 +233,24 @@ import javax.swing.JTextField;
 			if(unionList.size()!= 0){
 				unionList.remove(unionList.size()-1);
 				precondition(tmp);
-				return false;				
+				return false;
 			}					
 			else{
+				if(ifList.size()>0){
+					Vertex<StructV> ifTemp = ifList.get(ifList.size()-1);
+					postcondition(ifTemp);
+					ifList.remove(ifList.size()-1);
+				}
+
 				unionList.add(tmp.getValue().getSprite());
 				return true;
 			}
 		}
 		return false;		
+	}
+
+	public void precondition(Vertex<StructV> v){	 		
+		replaceVars((Hashtable)v.getValue().getValue());
 	}
 
 	public void postcondition(Vertex<StructV> v){

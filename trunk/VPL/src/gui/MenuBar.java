@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,6 +41,7 @@ public class MenuBar {
 	private JMenuItem menuItem2_1;
 	private JMenuItem menuItem2_2;
 	private Icon calcIcon;
+	private String filename;
 	
 	/**
 	 * Constructor por omisi&oacuten.
@@ -64,6 +66,8 @@ public class MenuBar {
 		this.menuItem2_1 = new JMenuItem("Generar codigo", this.calcIcon);
 		this.menuItem2_2 = new JMenuItem("Nuevo tab");
 		
+		filename = "Project.java";
+		
 		this.buildMenu();
 	}
 	
@@ -85,28 +89,31 @@ public class MenuBar {
 		this.menuBar.add(this.menu1);
 		this.menuBar.add(this.menu1);
 		this.menuBar.add(this.menu2);
-		 
+
 		KeyStroke ctrlK = KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_MASK);
 		this.menuItem2_1.setAccelerator(ctrlK);
 		this.menuItem2_1.addActionListener(new ActionListener (){
-        	
+
         	public void actionPerformed(ActionEvent e) {
-        		
+
         		String msg = "";
         		
-        		for(int i=0; i<gui.getGraphs().size(); i++){
-        			//gui.getGraphs().get(i).print();        			
-        			cm = new CodeMaker(gui.getGraphs().get(i));
-        			
-	        		if(cm.make()){	        			
-	        			if(cm.writeToFile("",gui.getWorkAreaAt(i).getName()+".java"))
-	        				msg = "Codigo guardado en "+gui.getWorkAreaAt(i).getName()+".java.";
-	        			else msg = "Error al guardar el codigo.";
-	        		}	
-	        		else msg = "Error al guardar el codigo.";
-	        		
-	        		gui.getTextArea().setText(msg);
-        		}
+    			ArrayList<String> nombresMetodos = new ArrayList<String>();
+    		
+    			for(int i=0; i<gui.getGraphs().size(); i++){
+    				nombresMetodos.add(gui.getWorkAreaAt(i).getName());        				
+    			}
+    		
+    			cm = new CodeMaker(gui.getGraphs(), nombresMetodos);
+
+        		if(cm.make()){
+        			if(cm.writeToFile("",filename))
+        				msg = "Codigo guardado en "+filename+".";
+        			else msg = "Error al guardar el codigo.";
+        		}	
+        		else msg = "Error al guardar el codigo.";
+        		
+        		gui.getTextArea().setText(msg);
         	}
         });
 	
