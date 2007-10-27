@@ -18,6 +18,7 @@ import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import sprite.Sprite;
@@ -57,7 +58,7 @@ public class AddCode implements MouseListener, ActionListener {
 	/**
 	 * Este M&eacutetodo espera por los eventos de aceptar y cancelar dentro del
 	 * area de edici&oacuten de cada uno de los Sprite. Cuando se da click a
-	 * "Aceptar", el contenido se a�ade al nodo que le corresponde dentro del
+	 * "Aceptar", el contenido se a_ade al nodo que le corresponde dentro del
 	 * grafo, en caso de dar click a cancelar, simplemente se cierra la ventana.
 	 * 
 	 * @param e
@@ -74,24 +75,39 @@ public class AddCode implements MouseListener, ActionListener {
 				
 				JFrame f = frameList.get(i);
 				Activity a = activityList.get(i);
-				JTextArea ta;
-				JTextField tf;
 				Hashtable <String, Object> contents = 
 				(Hashtable<String, Object>) this.structVList.get(this.structVList.size()-1).getValue();
 				
-				for(int j = 0; j < a.getNumText(); j++) {
+				for(int j = 0; j < a.getKeyCount(); j++) {
 					
 					if(a.getContentAt(j) instanceof JTextArea){
 						
-						ta = (JTextArea) a.getContentAt(j);
+						JTextArea ta = (JTextArea) a.getContentAt(j);
 						String code = ta.getText();
 						contents.put(a.getKeyAt(j), code);
 					}
 					else if(a.getContentAt(j) instanceof JTextField){
 						
-						tf = (JTextField) a.getContentAt(j);
+						JTextField tf = (JTextField) a.getContentAt(j);
 						String code = tf.getText();
 						contents.put(a.getKeyAt(j), code);
+					}
+					else if(a.getContentAt(j) instanceof JTable) {
+						
+						JTable table = (JTable) a.getContentAt(j);
+						
+						String[] code = new String[table.getRowCount()];
+						
+						for(int r = 0;  r < table.getRowCount(); r++) {
+							
+							code[r] = "";
+							
+							for(int c = 0; c < table.getColumnCount(); c++)
+								code[r] += (table.getValueAt(r, c) + "").trim() + " ";
+						}
+						
+						for(int k = 0; k < code.length; k++)
+							contents.put("var" + k, code[k]);
 					}
 					
 					this.structVList.get(i).setValue(contents);
@@ -165,7 +181,6 @@ public class AddCode implements MouseListener, ActionListener {
 					
 					f = this.activityBuilder.getActivityFrame();
 					a = this.activityBuilder.getActivity();
-					f.setVisible(true);
 					
 					this.activityList.add(a);
 					this.frameList.add(f);

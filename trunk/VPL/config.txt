@@ -1,25 +1,31 @@
 [begin]
-params:TextField:20
+parametros:TextField:10
 
 [if]
-condition:TextField:20
+condicion:TextField:10
 
 [instruction]
-data:TextField:20
+instruccion:TextField:10
 
 [for]
-init:TextField:20
-condition:TextField:20
-increment:TextField:20
+valor inicial:TextField:10
+condicion:TextField:10
+incremento:TextField:10
 
 [function]
-data:TextField:20
+data:TextField:10
 
 [while]
-condition:TextField:20
+condicion:TextField:10
 
 [parallel]
-data:TextField:1
+data:TextField:10
 
 [union]
-data:TextField:1
+data:TextField:10
+
+[var]
+variables:Table:5,2,tipo#nombre
+
+[globalvar]
+variables:Table:5,2,tipo#nombre

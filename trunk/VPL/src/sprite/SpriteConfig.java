@@ -14,6 +14,7 @@ public class SpriteConfig {
 	public static final String LOCK_IMAGE = "lock"+IMAGE_FORMAT;
 	public static final String FOR_IMAGE = "for"+IMAGE_FORMAT;
 	public static final String FUNCTION_IMAGE = "function"+IMAGE_FORMAT;
+	public static final String GLOBALVAR_IMAGE = "globalvar" + IMAGE_FORMAT;
 	public static final String IF_IMAGE = "if"+IMAGE_FORMAT;
 	public static final String PARALLEL_IMAGE = "parallel"+IMAGE_FORMAT;
 	public static final String SEMAPHORE_IMAGE = "semaphore"+IMAGE_FORMAT;
