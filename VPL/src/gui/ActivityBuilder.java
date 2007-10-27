@@ -11,22 +11,23 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Hashtable;
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import struct.StructV;
 
@@ -57,32 +58,26 @@ public class ActivityBuilder {
 	 * @param activity			<code>String</code>
 	 */
 	public void buildActivity(String activity, StructV stv) {
-		
-		ArrayList<String> activityContents;
-		JScrollPane scrollPanel;
-		JPanel panel1, panel2;
-		JButton accept;
-		JButton cancel;
-		JLabel[] labels;
-		ArrayList<String> order = new ArrayList<String>();
-		
-		activityContents = searchInFile(activity);
+	
+		ArrayList<String> activityContents = searchInFile(activity);
 		this.activity = new Activity (activityContents.size());
 		this.activityFrame = new JFrame();
 		
-		accept = new JButton("Aceptar");
+		JButton accept = new JButton("Aceptar");
 		accept.addActionListener(this.addCode);
 		accept.setActionCommand("accept" + this.activityIndex);
-		cancel = new JButton("Cancelar");
+		JButton cancel = new JButton("Cancelar");
 		cancel.addActionListener(this.addCode);
 		cancel.setActionCommand("cancel" + this.activityIndex);
 		
-		panel1 = new JPanel();
+		JPanel panel1 = new JPanel();
 		panel1.add(accept);
 		panel1.add(cancel);
 		
-		labels = new JLabel[activityContents.size()];
-						
+		JLabel[] labels = new JLabel[activityContents.size()];
+		
+		ArrayList<String> order = new ArrayList<String>();
+		
 		for(int i = 0; i < activityContents.size(); i++) {			
 			this.activity.add(activityContents.get(i).split(":", 2)[0], 
 			this.buildContent(activityContents.get(i).split(":", 2)[1]));
@@ -91,42 +86,101 @@ public class ActivityBuilder {
 			
 		this.activity.add("order", order);
 				
-		for(int i = 0; i < this.activity.getNumText(); i++) {
+		for(int i = 0; i < this.activity.getKeyCount(); i++)
 			labels[i] = new JLabel(this.activity.getKeyAt(i));
-		}
 		
-		for(int i = 0; i < this.activity.getNumText(); i++){
+		for(int i = 0; i < this.activity.getKeyCount(); i++) {
+			
 			if(this.activity.getContentAt(i) instanceof JTextField){
+				
 				String key = this.activity.getKeyAt(i);
 				Hashtable <String, Object> hash = (Hashtable<String, Object>) stv.getValue();
 				JTextField tf = (JTextField) this.activity.getContentAt(i);
 				tf.setText((String) hash.get(key));
 			}
-			else if(this.activity.getContentAt(i) instanceof JTextArea){
+			else if(this.activity.getContentAt(i) instanceof JTextArea) {
+				
 				String key = this.activity.getKeyAt(i);
 				Hashtable <String, Object> hash = (Hashtable<String, Object>) stv.getValue();
 				JTextArea ta = (JTextArea) this.activity.getContentAt(i);
 				ta.setText((String) hash.get(key));
 			}
+			else if(this.activity.getContentAt(i) instanceof JTable) {
+				
+				String key = this.activity.getKeyAt(i);
+				Hashtable<String, Object> hash = (Hashtable<String, Object>) stv.getValue();
+				JTable table = (JTable) this.activity.getContentAt(i);
+				
+				for(int r = 0; r < table.getRowCount(); r++)
+					for(int c = 0; c < table.getColumnCount(); c++) {
+						
+						String cell = (String) hash.get("var" + r);
+						
+						if(cell != null) {
+							
+							cell = cell.split(" ")[c];
+							
+							if(!cell.equals("null"))
+								table.setValueAt(cell, r, c);
+						}
+					}
+					
+						
+				//table.setValueAt((String) hash.get(key), row, column)
+			}
 		}
 		
-		panel2 = new JPanel();
-		panel2.setLayout(new GridLayout(0, 2));
+		GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		JPanel panel2 = new JPanel();
+		panel2.setLayout(gridbag);
 			
-		for(int i = 0; i < this.activity.getNumText(); i++) {			
-			panel2.add(labels[i]);
-			panel2.add((JComponent)this.activity.getContentAt(i));
+		for(int i = 0; i < this.activity.getKeyCount(); i++) {			
+			
+			gbc.fill = GridBagConstraints.HORIZONTAL;
+			gbc.gridheight = 1;
+			gbc.gridwidth = 1;
+			gbc.insets = new Insets(5, 5, 5, 5);
+			gbc.weightx = 0.0;
+			gbc.weighty = 0.0; 
+			
+			if(this.activity.getContentAt(i) instanceof JTable) {
+				
+				JTable table = (JTable) this.activity.getContentAt(i);
+				
+				gbc.gridx = 0;
+				gbc.gridy = i;
+				panel2.add(labels[i], gbc);
+				
+				gbc.gridx = 0;
+				gbc.gridy = i + 1;
+				panel2.add(table.getTableHeader(), gbc);
+				
+				gbc.gridx = 0;
+				gbc.gridy = i + 2;
+				panel2.add(table, gbc);
+			}
+			else {
+				
+				gbc.gridx = 0;
+				gbc.gridy = i;
+				panel2.add(labels[i], gbc);
+				
+				gbc.gridx = 1;
+				gbc.gridy = i;
+				panel2.add((JComponent)this.activity.getContentAt(i), gbc);
+			}
 		}
 		
-		
-			
-		
-		scrollPanel = new JScrollPane(panel2);
-		
-		this.activityFrame.getContentPane().add(scrollPanel, BorderLayout.CENTER);
+		this.activityFrame.getContentPane().add(panel2, BorderLayout.CENTER);
 		this.activityFrame.getContentPane().add(panel1, BorderLayout.SOUTH);
-		this.activityFrame.setSize(400, 200);
 		this.activityFrame.pack();
+		this.activityFrame.setResizable(false);
+		this.activityFrame.setLocationByPlatform(true);
+		this.activityFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		this.activityFrame.setVisible(true);
+		
 		this.activityIndex++;
 	}
 	
@@ -195,8 +249,16 @@ public class ActivityBuilder {
 		if(jcomponent.equals("TextArea"))
 			jc = new JTextArea(Integer.parseInt(param[0]), Integer.parseInt(param[1]));
 			
-		if(jcomponent.equals("Table"))
-			jc = new JTable(Integer.parseInt(param[0]), Integer.parseInt(param[1]));
+		if(jcomponent.equals("Table")) {
+			
+			String[] colsNames = param[2].split("#");
+			String[][] rowData = new String[Integer.parseInt(param[0])][Integer.parseInt(param[1])];
+			
+			JTable table = new JTable(rowData, colsNames);
+			table.add(table.getTableHeader(), 0);
+			
+			jc = table;
+		}
 		
 		return jc; 
 	}

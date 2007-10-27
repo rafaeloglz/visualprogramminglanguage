@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -65,23 +66,6 @@ public class Activity {
 		Object o = this.contents.get(key);
 		
 		return o;
-		/*Object o;
-		int i;
-
-		o = null;
-		i = 0;
-		
-		for(Enumeration e = contents.keys(); e.hasMoreElements();) {
-			
-			o = contents.get(e.nextElement());
-			
-			if(i == index)
-				break;
-			
-			i++;
-		}
-		
-		return o;*/
 	}
 	
 	/**
@@ -96,50 +80,27 @@ public class Activity {
 		
 		String key = order.get(index);
 		
-		//Object o = contents.get(key);
-		
 		return key;
-		
-		/*String key;
-		int i;
-		
-		key = "";
-		i = 0;
-		
-		for(Enumeration e = contents.keys(); e.hasMoreElements();) {
-			
-			key = (String)e.nextElement();
-			
-			if(i == index)
-				break;
-			
-			i++;
-		}
-		
-		return key;*/
 	}
 	
 	/**
-	 * M&eacutetodo para obtener la cantidad de elemento.
+	 * M&eacutetodo para obtener la cantidad de elementos.
 	 *
 	 * @return 					<code>int</code>
 	 */
-	public int getNumContents() {
+	public int getContentsCount() {
 		return this.contents.size();
 	}
 	
-	public int getNumText(){
+	public int getKeyCount(){
 		
 		int count = 0;
 		Object o;
 		
 		for(Enumeration e = this.contents.keys(); e.hasMoreElements();) {
 			
-			o = this.contents.get(e.nextElement());
-			
-			if( o instanceof JTextField || o instanceof JTextArea){
+			if(!e.nextElement().equals("order"))
 				count++;
-			}
 		}
 		return count;
 	}

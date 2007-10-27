@@ -28,13 +28,11 @@ public class ToolBar{
 	private boolean clicked;
 	private Cursor dragCursor = DragSource.DefaultMoveDrop;
 	private GUI gui;
-	private ArrayList<JLabel> labels;
 	private String name;
 	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 	private int orientation;
 	private JToolBar toolbar;
 	private Sprite toolClicked;
-	private ArrayList<Sprite> tools;
 	
     /** Nombre por omisi&oacuten **/
 	public static final String DEFAULT_NAME = "Herramientas";
@@ -61,10 +59,8 @@ public class ToolBar{
 		this.name = name;
 		this.orientation = orientation;
 		this.gui = gui;
-		this.labels = new ArrayList<JLabel>();
-		this.tools = new ArrayList<Sprite>();
 		
-		this.toolbar = new JToolBar (name, orientation);
+		this.toolbar = new JToolBar (this.name, this.orientation);
 		this.toolbar.setFloatable(false);
 		
 		buildToolBar ();
@@ -121,14 +117,25 @@ public class ToolBar{
 							tempHashTable.put("name", spriteName);
 		        			
 							StructV<Hashtable<String, Object>> st = new StructV<Hashtable<String, Object>>(temp, tempHashTable);
-		        			
-		        			if(wa.getGraph().getHead()==null || sprite.getClass()!= SpriteBegin.class) {
+							
+		        			if(wa.getGraph().getHead() == null || sprite.getClass()!= SpriteBegin.class) {
 		        				
-		        				wa.addSprite(temp);
-		        				wa.getGraph().addVertex(st);
+		        				if(sprite.getClass() == SpriteGlobalVar.class) {
+		        					
+		        					if(wa.getName().equals("main")) {
+		        						
+		        						wa.addSprite(temp);
+					        			wa.getGraph().addVertex(st);
+		        					}
+		        				}
+		        				else{
+		        					
+		        					wa.addSprite(temp);
+				        			wa.getGraph().addVertex(st);
+		        				}
 		        			}
 	
-		        			if(sprite.getClass()==SpriteBegin.class && wa.getGraph().getHead()==null)
+		        			if(sprite.getClass() == SpriteBegin.class && wa.getGraph().getHead() == null)
 	                    		wa.getGraph().setHead(st);
 	        			}
 	        			
@@ -173,9 +180,7 @@ public class ToolBar{
 		};
 
         JLabel label = new JLabel(icon);
-        labels.add(label);
         this.addListener(label, tool);
-        tools.add(tool);
         toolbar.add(label);     
         toolbar.addSeparator();
 }
@@ -191,8 +196,9 @@ public class ToolBar{
 		ArrayList<Sprite> sprites = new ArrayList<Sprite>();		
 		
 		sprites.add(new SpriteBegin());
-		sprites.add(new SpriteVar());
 		sprites.add(new SpriteEnd());
+		sprites.add(new SpriteGlobalVar());
+		sprites.add(new SpriteVar());
 		sprites.add(new SpriteInstruction());
 		sprites.add(new SpriteIf());
 		sprites.add(new SpriteFor());
@@ -209,22 +215,6 @@ public class ToolBar{
 		}	
 		
         toolbar.setSize (50, 50);        
-	}
-	
-	public ArrayList<JLabel> getLabels() {
-		return labels;
-	}
-
-	public void setLabels(ArrayList<JLabel> labels) {
-		this.labels = labels;
-	}
-
-	public ArrayList<Sprite> getTools() {
-		return tools;
-	}
-
-	public void setTools(ArrayList<Sprite> tools) {
-		this.tools = tools;
 	}
 	
 	/**

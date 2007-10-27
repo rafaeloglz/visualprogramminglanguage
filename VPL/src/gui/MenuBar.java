@@ -92,7 +92,7 @@ public class MenuBar {
 
 		KeyStroke ctrlK = KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_MASK);
 		this.menuItem2_1.setAccelerator(ctrlK);
-		this.menuItem2_1.addActionListener(new ActionListener (){
+		this.menuItem2_1.addActionListener(new ActionListener() {
 
         	public void actionPerformed(ActionEvent e) {
 
@@ -119,7 +119,7 @@ public class MenuBar {
 	
 		KeyStroke ctrlT = KeyStroke.getKeyStroke(KeyEvent.VK_T, InputEvent.CTRL_MASK);
 		this.menuItem2_2.setAccelerator(ctrlT);
-		this.menuItem2_2.addActionListener(new ActionListener (){
+		this.menuItem2_2.addActionListener(new ActionListener() {
         	
         	public void actionPerformed(ActionEvent e) {
         		gui.addTab();
@@ -128,7 +128,7 @@ public class MenuBar {
 		
 		KeyStroke ctrlN = KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK);
 		this.menuItem1_1.setAccelerator(ctrlN);
-		this.menuItem1_1.addActionListener(new ActionListener (){
+		this.menuItem1_1.addActionListener(new ActionListener() {
         	
         	public void actionPerformed(ActionEvent e) {         		
         	
