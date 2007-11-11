@@ -5,8 +5,11 @@ import java.awt.Graphics;
 
 public class Square extends Sprite{
 	
-	public Square(int x, int y, int height, int width){		
-		super(x, y, width, height);		
+	private Color color;
+	
+	public Square(int x, int y, int height, int width, Color color){		
+		super(x, y, width, height);
+		this.color = color;
 	}
 	
 	public void paintSprite(Graphics g){
@@ -17,9 +20,9 @@ public class Square extends Sprite{
 		setX(x);
 		setY(y);
 		
-		/*g.setColor(Color.white); 
-		g.drawRect(this.x, this.y, width, height);
-		g.setColor(Color.black);*/
+		g.setColor(color); 
+		g.fillRect(this.x, this.y, width, height);
+		g.setColor(Color.black);
 	}
 	
 	/**
@@ -31,6 +34,6 @@ public class Square extends Sprite{
 
 	@Override
 	public Sprite clone() {
-		return new Square(this.x, this.y, this.height, this.width);
+		return new Square(this.x, this.y, this.height, this.width, this.color);
 	}	
 }

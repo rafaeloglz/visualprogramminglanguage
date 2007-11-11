@@ -26,6 +26,8 @@ public class Line implements Serializable{
 	private int y2;
 	private Sprite source;
 	private Sprite dest;
+	private Sprite sourceCon;
+	private Sprite destCon;
 	private int sourceIndex;
 	private int destIndex;
 	
@@ -216,12 +218,12 @@ public class Line implements Serializable{
 	 * x, y con base a las coordenadas de los conectores.
 	 */
 	public void connect (){		
-		Sprite sourceCon = source.getSprite(getSourceIndex());
+		sourceCon = source.getSprite(getSourceIndex());
 		setX1 (sourceCon.getX () + sourceCon.getWidth () / 2);
 		setY1 (sourceCon.getY () + sourceCon.getHeight () / 2);
 		
 		if(dest!=null){	
-			Sprite destCon = dest.getSprite(getDestIndex());
+			destCon = dest.getSprite(getDestIndex());
 			setX2 (destCon.getX () + destCon.getWidth () / 2);
 			setY2 (destCon.getY () + destCon.getHeight () / 2);
 		}
@@ -241,5 +243,13 @@ public class Line implements Serializable{
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2.draw(line);		
+	}
+
+	public Sprite getSourceCon() {
+		return sourceCon;
+	}
+
+	public Sprite getDestCon() {
+		return destCon;
 	}
 }

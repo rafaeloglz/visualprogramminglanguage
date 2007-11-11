@@ -1,6 +1,7 @@
 
 package sprite;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -19,10 +20,10 @@ public class SpriteSync extends Sprite {
 
 	public void attachConnectors(){
 		
-		Sprite s = new Square(0, 0, 7, 40);
+		Sprite s = new Square(0, 0, 7, 40, Color.cyan);
 		attach(2, 2, s);
 
-		s = new Square(0, 0, 9, 14);
+		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(66, 2, s);
 
 		s = new Circle(0, 0, 10, 10);

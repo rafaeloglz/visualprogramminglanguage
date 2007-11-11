@@ -14,6 +14,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import sprite.Sprite;
+import sprite.SpriteEnd;
+import sprite.SpriteFor;
+import sprite.SpriteWhile;
+import sprite.Square;
 import struct.StructE;
 import struct.StructV;
 
@@ -109,9 +113,11 @@ public class Connect implements MouseListener, MouseMotionListener {
 						
 						this.sourceIndex = j;
 						this.source = s1;
-						this.sourceConnector = s2;
-						this.connectFlag = true;
+						this.sourceConnector = s2;					
 						
+						if(sourceIndex > 1 && sourceConnector instanceof Square || hasBeenConnected(sourceConnector)) return;
+						
+						this.connectFlag = true;						
 						this.draggedLine = new Line(source, sourceIndex);
 						this.wa.addLine(this.draggedLine);
 						
@@ -150,16 +156,16 @@ public class Connect implements MouseListener, MouseMotionListener {
 							this.destIndex = j;
 							this.dest = s1;							
 																											
-							if(this.sourceConnector.getClass() == s2.getClass() && 
-							!source.equals(dest)) {
+							if(this.sourceConnector.getClass() == s2.getClass() && !source.equals(dest)){
+								if(destIndex <= 1 && s2 instanceof Square || hasBeenConnected(s2) || generatesLoop(source, dest))
+									break;
 																	
 								this.draggedLine.setDest(dest);
 								this.draggedLine.setDestIndex(destIndex);
 								
 								StructE st = new StructE(draggedLine, 0);
 								StructV stS = new StructV(source, 0);
-								StructV stD = new StructV(dest, 0);
-								System.out.println(sourceIndex);
+								StructV stD = new StructV(dest, 0);								
 								this.wa.getGraph().addEdge(stS, stD, st, sourceIndex);
 								this.wa.repaint();
 								
@@ -185,4 +191,39 @@ public class Connect implements MouseListener, MouseMotionListener {
 	public void mouseMoved(MouseEvent arg0) {
 				
 	}
+	
+	public boolean hasBeenConnected(Sprite sprite){		
+		for(int i = 0; i < wa.getLineCount(); i++){
+			Sprite tempSource = wa.getLineAt(i).getSourceCon();
+			Sprite tempDest = wa.getLineAt(i).getDestCon();
+			
+			if(tempDest == null)
+				return false;
+			
+			if(tempSource.equals(sprite) || tempDest.equals(sprite))
+				return true;
+		}
+		
+		return false;	
+	}
+	
+	public boolean generatesLoop(Sprite source, Sprite dest){
+		
+		if((source instanceof SpriteWhile || source instanceof SpriteFor) 
+				|| (dest instanceof SpriteWhile || dest instanceof SpriteFor))
+			return false;
+		
+		for(int i = 0; i < wa.getLineCount(); i++){
+			Sprite tempSource = wa.getLineAt(i).getSource();
+			Sprite tempDest = wa.getLineAt(i).getDest();
+			if(tempSource.equals(dest) && tempDest.equals(source))
+				return true;
+		}
+		
+		return false;
+	}
+	
+	/*public boolean illegalJoin(Sprite source, Sprite dest){
+		
+	}*/
 }

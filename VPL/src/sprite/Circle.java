@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 public class Circle extends Sprite{
 	
+	//private Color color;
+	
 	public Circle(int x, int y, int height, int width){
 		super(x, y, width, height);
 	}
@@ -16,12 +18,10 @@ public class Circle extends Sprite{
 	protected void paintSprite(Graphics g, int x, int y) {
 		setX(x);
 		setY(y);
-		
-		/*
-		g.setColor(Color.white); 
+				
+		/*g.setColor(Color.white); 
 		g.drawOval(this.x, this.y, width, height);
-		g.setColor(Color.black);
-		*/
+		g.setColor(Color.black);*/
 	}
 	
 	/**

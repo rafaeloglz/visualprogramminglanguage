@@ -1,6 +1,7 @@
 
 package sprite;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class SpriteBegin extends Sprite {
 	}
 
 	public void attachConnectors(){
-		Sprite s = new Square(0, 0, 11, 11);
+		Sprite s = new Square(0, 0, 11, 11, Color.magenta);
 		attach(59, 9, s);		
 	}
 }

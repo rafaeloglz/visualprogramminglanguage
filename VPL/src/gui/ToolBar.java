@@ -114,7 +114,7 @@ public class ToolBar{
 							String spriteName = stringClass.substring(19).toLowerCase();
 							
 							Hashtable<String, Object> tempHashTable = new Hashtable<String, Object>();
-							tempHashTable.put("name", spriteName);
+							tempHashTable.put("name", spriteName);						
 		        			
 							StructV<Hashtable<String, Object>> st = new StructV<Hashtable<String, Object>>(temp, tempHashTable);
 							
