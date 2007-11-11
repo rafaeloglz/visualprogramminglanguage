@@ -22,7 +22,7 @@ public class SpriteSemaphore extends Sprite {
 		Sprite s = new Circle(0, 0, 8, 44);
 		attach(2, 6, s);
 
-		//s = new Circle(0, 0, 8, 44);
-		//attach(60, 6, s);
+		s = new Circle(0, 0, 8, 44);
+		attach(60, 6, s);
 	}
 }

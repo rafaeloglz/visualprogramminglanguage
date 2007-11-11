@@ -4,8 +4,10 @@ import dataio.CodeWriter;
 import sprite.Sprite;
 import sprite.SpriteEnd;
 import sprite.SpriteFor;
+import sprite.SpriteGlobalVar;
 import sprite.SpriteIf;
 import sprite.SpriteUnion;
+import sprite.SpriteVar;
 import sprite.SpriteWhile;
 import struct.*;
 
@@ -34,6 +36,7 @@ import javax.swing.JTextField;
 	private ArrayList<Vertex<StructV>> ifList;
 	private ArrayList<Sprite> unionList;
 	private ArrayList<String> nombresMetodos;
+	private Graph g;
 
 	/**
 	 * Constructor por omisi&oacuten.
@@ -64,7 +67,7 @@ import javax.swing.JTextField;
  		whileList = new ArrayList<Sprite>();
  		forList = new ArrayList<Sprite>();
  		ifList = new ArrayList<Vertex<StructV>>();
- 		unionList = new ArrayList<Sprite>();
+ 		unionList = new ArrayList<Sprite>(); 		
  	}
  	
  	/**
@@ -76,7 +79,11 @@ import javax.swing.JTextField;
  		boolean codeGenerated = false;
  		
  		for(int i=0;i<graphs.size();i++){
- 			Graph g = graphs.get(i);
+ 			g = graphs.get(i);
+ 			
+ 			if (i == 0){
+ 				addGlobalVariables(g);
+ 			}
  			
 	 		vertices = g.getVertices();
 	 		edges = g.getEdges();
@@ -162,7 +169,7 @@ import javax.swing.JTextField;
 			if(ifCase(tmp)) continue;
 			if(unionCase(tmp)) continue;
 			
-			System.out.println(tmp.getValue().getSprite().getClass());
+			//System.out.println(tmp.getValue().getSprite().getClass());
 			recurse(tmp);
 		}
 
@@ -219,12 +226,19 @@ import javax.swing.JTextField;
 	private boolean ifCase(Vertex<StructV> tmp){
 
 		if(tmp.getValue().getSprite() instanceof SpriteIf){
-			if(ifList.size()== 0){
+			if(ifList.size()!= 0){
+				Sprite currentIf = ifList.get(ifList.size()-1).getValue().getSprite();
+				
+				if(!currentIf.equals(tmp.getValue().getSprite())){
+					ifList.add(tmp);
+				}				
+			}					
+			else{
 				ifList.add(tmp);
 			}
 		}
 
-		return false;		
+		return false;
 	}
 	
 	private boolean unionCase(Vertex<StructV> tmp){
@@ -271,10 +285,10 @@ import javax.swing.JTextField;
 
 	private void replaceVars(Hashtable h){
 		
-		String name = (String) h.get("name");
+		String name = (String) h.get("name");		
 		
 		int line = search(name);
-		
+			
 		if (line == -1) {
 			code+="\r";
 			//System.out.println("Adding Newline");
@@ -286,14 +300,17 @@ import javax.swing.JTextField;
 		String regex = "\\$\\w*";
 		String vars[] = template.get(line+1).split(" ");
 		String result = template.get(line+1);
-		
+				
 		int i = 0;
 		while (i < vars.length){
 			if (vars[i].matches(regex))//If the String equals $.*
-				result = replaceVar(result,vars[i],h);
+				result = replaceVar(result,vars[i],h);				
 			i++;
 		}		
 		code+=result+"\r";
+		
+		if(name.equals("begin"))
+			addLocalVariables(g);		
 	}
 	
 	private String replaceVar(String result, String var, Hashtable h) {
@@ -331,5 +348,63 @@ import javax.swing.JTextField;
 		}
 		
 		return -1;
-	}	
+	}
+	
+	private ArrayList<Hashtable> getGlobalVariables(Graph g){	
+		
+		ArrayList<Hashtable> globalVariables = new ArrayList<Hashtable>();
+		
+		for(int i = 0; i < g.getNumVertices(); i++){			
+			Sprite  tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
+			Hashtable tempTable = (Hashtable)((StructV)g.getVertexAt(i).getValue()).getValue();
+			if (tempSprite instanceof SpriteGlobalVar){
+				globalVariables.add(tempTable);				
+			}
+		}
+		
+		return globalVariables;
+	}
+	
+	private ArrayList<Hashtable> getLocalVariables(Graph g){
+
+		ArrayList<Hashtable> localVariables = new ArrayList<Hashtable>();
+
+		for(int i = 0; i < g.getNumVertices(); i++){			
+			Sprite  tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
+			Hashtable tempTable = (Hashtable)((StructV)g.getVertexAt(i).getValue()).getValue();
+			if (tempSprite instanceof SpriteVar)
+				localVariables.add(tempTable);
+		}		
+		return localVariables;		
+	}
+	
+	private void addGlobalVariables(Graph g){
+		ArrayList<Hashtable> globalVariables = getGlobalVariables(g);
+		for(int j = 0; j < globalVariables.size(); j++){
+			Hashtable tempTable = globalVariables.get(j);
+			for(int k = 0; k < tempTable.size(); k++){ 						
+				String var = (String)tempTable.get("var"+k);
+				if (var != null){
+					if(!var.contains("null")) {
+						code += var + ";" + "\r";
+					}							
+				}
+			}
+		}
+	}
+	
+	private void addLocalVariables(Graph g){
+		ArrayList<Hashtable> localVariables = getLocalVariables(g);
+		for(int j = 0; j < localVariables.size(); j++){
+			Hashtable tempTable = localVariables.get(j);
+			for(int k = 0; k < tempTable.size(); k++){ 						
+				String var = (String)tempTable.get("var"+k);
+				if (var != null){
+					if(!var.contains("null")) {
+						code += var + ";" + "\r";
+					}							
+				}
+			}
+		}
+	}
  }

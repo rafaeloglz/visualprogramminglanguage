@@ -1,6 +1,7 @@
 
 package sprite;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -19,16 +20,16 @@ public class SpriteWhile extends Sprite {
 
 	public void attachConnectors(){
 				
-		Sprite s = new Square(0, 0, 9, 14);
+		Sprite s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(29, 2, s);
 		
-		s = new Square(0, 0, 9, 14);
+		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(69, 2, s);
 
-		s = new Square(0, 0, 9, 14);
+		s = new Square(0, 0, 9, 14, Color.cyan);
 		attach(1, 2, s);
 		
-		s = new Square(0, 0, 9, 14);
+		s = new Square(0, 0, 9, 14, Color.cyan);
 		attach(41, 2, s);
 		
 		s = new Circle(0, 0, 9, 9);

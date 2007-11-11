@@ -1,6 +1,7 @@
 
 package sprite;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -17,7 +18,14 @@ public class SpriteEnd extends Sprite {
 	}
 
 	public void attachConnectors(){
-		Sprite s = new Square(0, 0, 11, 11);
+		
+		Sprite s = new Square(0, 0, 0, 0, Color.black);
+		attach(0, 0, s);
+		
+		s = new Square(0, 0, 0, 0, Color.black);
+		attach(0, 0, s);
+		
+		s = new Square(0, 0, 11, 11, Color.cyan);
 		attach(1, 34, s);		
 	}
 }

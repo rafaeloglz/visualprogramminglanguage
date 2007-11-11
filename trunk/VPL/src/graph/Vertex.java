@@ -24,8 +24,7 @@ public class Vertex<V> implements Serializable {
 	 *
 	 * @param value			<code>V</code>
 	 */
-	public Vertex(V value) {
-		
+	public Vertex(V value) {		
 		this.value = value;
 		neighbors = new ArrayList();
 	}
@@ -45,12 +44,12 @@ public class Vertex<V> implements Serializable {
 	}
 	
 	public boolean addNeighborAt(int index, Vertex<V> neighbor){		
-		neighbors.add(null);
-		if(getNeighbor(neighbor.getValue()) == null){
-			neighbors.add(index, neighbor);
-			return true;
-		}
-		return false;
+		
+		for(int i = 0; i < index; i++)
+			neighbors.add(null);
+		
+		neighbors.add(index, neighbor);
+		return true;		
 	}
 	
 	/**
