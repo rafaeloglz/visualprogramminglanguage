@@ -21,7 +21,7 @@ public class Graph<V, E> implements Serializable {
 	private ArrayList<Vertex<V>> tail;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 */
 	public Graph() {
 
@@ -31,7 +31,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el inicio del grafo.
+	 * M&eacute;todo para obtener el inicio del grafo.
 	 * 
 	 * @return <code>Vertex<V></code>
 	 */
@@ -41,7 +41,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el n&uacutemero de aristas.
+	 * M&eacute;todo para obtener el n&uacute;mero de aristas.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -51,7 +51,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el n&uacutemero de v&eacutertices.
+	 * M&eacute;todo para obtener el n&uacute;mero de v&eacute;rtices.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -61,7 +61,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la lista de v&eacutertices.
+	 * M&eacute;todo para obtener la lista de v&eacute;rtices.
 	 * 
 	 * @return <code>ArrayList<Node></code>
 	 */
@@ -71,7 +71,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la lista de aristas.
+	 * M&eacute;todo para obtener la lista de aristas.
 	 * 
 	 * @return <code>ArrayList<Edge></code>
 	 */
@@ -81,7 +81,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el inicio del grafo.
+	 * M&eacute;todo para especificar el inicio del grafo.
 	 * 
 	 * @param head
 	 *            <code>Vertex<V></code>
@@ -92,7 +92,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un v&eacutertice.
+	 * M&eacute;todo para agregar un v&eacute;rtice.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -109,7 +109,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para agregar una arista.
+	 * M&eacute;todo para agregar una arista.
 	 * 
 	 * @param source
 	 *            <code>V</code>
@@ -135,7 +135,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un v&eacutertice por valor.
+	 * M&eacute;todo para obtener un v&eacute;rtice por valor.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -153,7 +153,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un v&eacutertice por &iacutendice.
+	 * M&eacute;todo para obtener un v&eacute;rtice por &iacute;ndice.
 	 * 
 	 * @param index
 	 *            <code>int</code>
@@ -165,7 +165,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener una arista por valor.
+	 * M&eacute;todo para obtener una arista por valor.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -185,7 +185,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener una arista por &iacutendice.
+	 * M&eacute;todo para obtener una arista por &iacute;ndice.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -197,7 +197,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para elimiar un vertice.
+	 * M&eacute;todo para elimiar un vertice.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -209,7 +209,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para elimiar un arista.
+	 * M&eacute;todo para elimiar un arista.
 	 * 
 	 * @param source
 	 *            <code>V</code>
@@ -225,7 +225,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para limpiar al grafo.
+	 * M&eacute;todo para limpiar al grafo.
 	 */
 	public void clear() {
 
@@ -234,7 +234,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo que indica si el grafo est&aacute vac&iacuteo.
+	 * M&eacute;todo que indica si el grafo est&aacute; vac&iacute;o.
 	 * 
 	 * @return <code>boolean</code>
 	 */
@@ -244,7 +244,7 @@ public class Graph<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para imprimir el grafo en consola.
+	 * M&eacute;todo para imprimir el grafo en consola.
 	 */
 	public void print() {
 

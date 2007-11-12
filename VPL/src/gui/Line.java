@@ -227,7 +227,7 @@ public class Line implements Serializable {
 	}
 
 	/**
-	 * Realiza la conexi&oacuten entre dos conectores. Guarda las coordenadas
+	 * Realiza la conexi&oacute;n entre dos conectores. Guarda las coordenadas
 	 * iniciales y finales x, y con base a las coordenadas de los conectores.
 	 */
 	public void connect() {
@@ -243,7 +243,7 @@ public class Line implements Serializable {
 	}
 
 	/**
-	 * Dibuja una l&iacutenea con las coordenadas [(x1,y1), (x2,y2)] que
+	 * Dibuja una l&iacute;nea con las coordenadas [(x1,y1), (x2,y2)] que
 	 * representa la liga entre componentes.
 	 * 
 	 * @param g

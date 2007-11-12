@@ -18,7 +18,7 @@ public class LoadAndSave<O> {
 	private Save<O> out;
 
 	/**
-	 * M&eacutetodo para guardar al grafo.
+	 * M&eacute;todo para guardar al grafo.
 	 * 
 	 * @return <code>boolean</code>
 	 */
@@ -29,7 +29,7 @@ public class LoadAndSave<O> {
 	}
 
 	/**
-	 * M&eacutetodo para cargar al grafo.
+	 * M&eacute;todo para cargar al grafo.
 	 * 
 	 * @return <code>boolean</code>
 	 */

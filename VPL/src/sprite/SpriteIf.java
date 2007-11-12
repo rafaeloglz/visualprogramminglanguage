@@ -1,5 +1,5 @@
 /**
- * Representaci&oacuten gr&aacutefica de la Figura If
+ * Representaci&oacute;n gr&aacute;fica de la Figura If
  *  
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez

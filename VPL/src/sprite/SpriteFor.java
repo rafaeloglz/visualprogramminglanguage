@@ -1,5 +1,5 @@
 /**
- * Representaci&oacuten gr&aacutefica de la Figura For
+ * Representaci&oacute;n gr&aacute;fica de la Figura For
  *  
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez

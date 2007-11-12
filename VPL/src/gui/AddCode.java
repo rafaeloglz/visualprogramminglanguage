@@ -1,5 +1,5 @@
 /**
- * Clase que genera el c&oacutedigo a partir del grafo.
+ * Clase que genera el c&oacute;digo a partir del grafo.
  * 
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -39,7 +39,7 @@ public class AddCode implements MouseListener, ActionListener {
 
 	/**
 	 * Constructor. Se especifican el arreglo de figuras y la interfaz
-	 * gr&aacutefica donde dibujar.
+	 * gr&aacute;fica donde dibujar.
 	 * 
 	 * @param wa
 	 *            <code>WorkArea</code>
@@ -57,8 +57,8 @@ public class AddCode implements MouseListener, ActionListener {
 	}
 
 	/**
-	 * Este M&eacutetodo espera por los eventos de aceptar y cancelar dentro del
-	 * area de edici&oacuten de cada uno de los Sprite. Cuando se da click a
+	 * Este M&eacute;todo espera por los eventos de aceptar y cancelar dentro del
+	 * area de edici&oacute;n de cada uno de los Sprite. Cuando se da click a
 	 * "Aceptar", el contenido se a_ade al nodo que le corresponde dentro del
 	 * grafo, en caso de dar click a cancelar, simplemente se cierra la ventana.
 	 * 
@@ -126,9 +126,9 @@ public class AddCode implements MouseListener, ActionListener {
 	}
 
 	/**
-	 * Este M&eacutetodo escucha eventos del tipo mouseClicked. Cuando detecta
+	 * Este M&eacute;todo escucha eventos del tipo mouseClicked. Cuando detecta
 	 * un doble click, genera la interfaz necesaria para que el usuario edite el
-	 * contenido del Sprite. Asimismo, se limita el n&uacutemero de instancias
+	 * contenido del Sprite. Asimismo, se limita el n&uacute;mero de instancias
 	 * de interfaz que pueden estar abiertas a la vez.
 	 * 
 	 * @param e

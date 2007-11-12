@@ -17,7 +17,7 @@ public class ActivityDirector {
 	private static ActivityDirector instance;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 */
 	private ActivityDirector() {
@@ -36,7 +36,7 @@ public class ActivityDirector {
 	}
 
 	/**
-	 * M&eacute;todo que construye un Activity
+	 * M&eacute;;todo que construye un Activity
 	 * 
 	 * @param activityBuilder
 	 *            <code>ActivityBuilder</code>

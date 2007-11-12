@@ -33,7 +33,7 @@ public class WorkArea extends JComponent {
 	private ArrayList<Sprite> sprites;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 */
 	public WorkArea(String name, ToolBar toolbar) {
 
@@ -48,7 +48,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un <code>Line</code>.
+	 * M&eacute;todo para agregar un <code>Line</code>.
 	 * 
 	 * @param line
 	 *            <code>Line</code>
@@ -59,7 +59,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un <code>Sprite</code>.
+	 * M&eacute;todo para agregar un <code>Sprite</code>.
 	 * 
 	 * @param sprite
 	 *            <code>Sprite</code>
@@ -70,7 +70,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para borrar las estructuras de <code>Sprite</code>
+	 * M&eacute;todo para borrar las estructuras de <code>Sprite</code>
 	 * <code>Line</code>
 	 * y <code>Graph</code>.
 	 */
@@ -82,7 +82,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el objeto encargado de realizar las uniones
+	 * M&eacute;todo para obtener el objeto encargado de realizar las uniones
 	 * entre componentes.
 	 * 
 	 * @return <code>Connect</code>
@@ -93,7 +93,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el objeto encargado de realizar las uniones
+	 * M&eacute;todo para obtener el objeto encargado de realizar las uniones
 	 * entre componentes.
 	 * 
 	 * @return <code>DragNDrop</code>
@@ -104,7 +104,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el grafo.
+	 * M&eacute;todo para obtener el grafo.
 	 * 
 	 * @return <code>Graph</code>
 	 */
@@ -114,7 +114,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un <code>Line</code> por &iacutendice.
+	 * M&eacute;todo para obtener un <code>Line</code> por &iacute;ndice.
 	 * 
 	 * @param index
 	 *            <code>int</code>
@@ -126,7 +126,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el n&uacutemero de <code>Line</code>.
+	 * M&eacute;todo para obtener el n&uacute;mero de <code>Line</code>.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -136,7 +136,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el nombre.
+	 * M&eacute;todo para obtener el nombre.
 	 * 
 	 * @return <code>String</code>
 	 */
@@ -147,7 +147,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un <code>Sprite</code> por &iacutendice.
+	 * M&eacute;todo para obtener un <code>Sprite</code> por &iacute;ndice.
 	 * 
 	 * @param index
 	 *            <code>int</code>
@@ -159,7 +159,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el n&uacutemero de <code>Sprite</code>.
+	 * M&eacute;todo para obtener el n&uacute;mero de <code>Sprite</code>.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -169,7 +169,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para para que el componente se dibuje a si mismo dibujando
+	 * M&eacute;todo para para que el componente se dibuje a si mismo dibujando
 	 * cada uno de los objetos Sprite y Line.
 	 * 
 	 * @param g
@@ -192,7 +192,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo que remueve una Linea del area de Trabajo
+	 * M&eacute;todo que remueve una Linea del area de Trabajo
 	 * 
 	 * @return <code>Line</code>
 	 */
@@ -203,7 +203,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo que remueve una Figura del area de Trabajo
+	 * M&eacute;todo que remueve una Figura del area de Trabajo
 	 * 
 	 * @return <code>Sprite</code>
 	 */
@@ -214,7 +214,7 @@ public class WorkArea extends JComponent {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el grafo.
+	 * M&eacute;todo para obtener el grafo.
 	 * 
 	 * @return <code>Graph</code>
 	 */

@@ -33,7 +33,7 @@ public class Circle extends Sprite {
 	}
 
 	/**
-	 * M&eacutetodo para pintar el Sprite actual
+	 * M&eacute;todo para pintar el Sprite actual
 	 * 
 	 * @param g
 	 *            Objeto Grafico <code>Graphics</code>
@@ -43,7 +43,7 @@ public class Circle extends Sprite {
 	}
 
 	/**
-	 * M&eacutetodo para pintar el Sprite actual
+	 * M&eacute;todo para pintar el Sprite actual
 	 * 
 	 * @param g
 	 *            Objeto Grafico <code>Graphics</code>
@@ -59,7 +59,7 @@ public class Circle extends Sprite {
 	}
 
 	/**
-	 * M&eacutetodo para crear un clon del objeto y sus atributos.
+	 * M&eacute;todo para crear un clon del objeto y sus atributos.
 	 * 
 	 * @return <code>Circle</code>
 	 * @throws CloneNotSupportedException
