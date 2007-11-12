@@ -1,37 +1,63 @@
+/**
+ * Representaci&oacuten gr&aacutefica de la Figura While
+ *  
+ * @author Andr&eacute;s Freyr&iacute;a Cedeno
+ * @author Rafael Ochoa Gonz&aacute;lez
+ * @author Ulises Figueroa Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
+ * @author Juan Francisco Navarro Mariscal
+ */
 
 package sprite;
 
 import java.awt.Color;
-import java.awt.Graphics;
-import java.util.ArrayList;
 
 public class SpriteWhile extends Sprite {
 
-	public SpriteWhile(int x, int y, int height, int width){
-		
+	/**
+	 * Constructor donde se especifican coordenadas y dimensiones.
+	 * 
+	 * @param x
+	 *            <code>int</code>
+	 * @param y
+	 *            <code>int</code>
+	 * @param height
+	 *            <code>int</code>
+	 * @param width
+	 *            <code>int</code>
+	 */
+	public SpriteWhile(int x, int y, int height, int width) {
 		super(x, y, height, width);
 		this.loadImageFile(SpriteConfig.WHILE_IMAGE);
 	}
-	
+
+	/**
+	 * Constructor por omisi&oacute;n
+	 * 
+	 */
 	public SpriteWhile() {
 		this.loadImageFile(SpriteConfig.WHILE_IMAGE);
 		calcValues();
 	}
 
-	public void attachConnectors(){
-				
+	/**
+	 * M&eacute;todo que agrega los conectores a la figura
+	 * 
+	 */
+	@Override
+	public void attachConnectors() {
 		Sprite s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(29, 2, s);
-		
+
 		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(69, 2, s);
 
 		s = new Square(0, 0, 9, 14, Color.cyan);
 		attach(1, 2, s);
-		
+
 		s = new Square(0, 0, 9, 14, Color.cyan);
 		attach(41, 2, s);
-		
+
 		s = new Circle(0, 0, 9, 9);
 		attach(1, 44, s);
 

@@ -1,15 +1,14 @@
 /**
  * Representaci&oacuten gr&aacutefica de los componentes de la aplicacion.
- * 
- * @author Andr&eacute Freyr&iacutea Cedeï¿½o
- * @author Rafael Ochoa Gonzalez
- * @author Ulises Figuero Ram&iacuterez
- * @author Jos&eacute Roberto Ram&iacuterez Aguilar
+ *  
+ * @author Andr&eacute;s Freyr&iacute;a Cedeno
+ * @author Rafael Ochoa Gonz&aacute;lez
+ * @author Ulises Figueroa Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
  * @author Juan Francisco Navarro Mariscal
  */
 
 package sprite;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -17,7 +16,6 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -83,23 +81,13 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 			maxY=background.getIconHeight();
 		}
 		
-		/*TODO: Modificar el codigo para que funcione en base a las nuevas
-		/*especificaciones de Sprite.
-		while (i.hasNext()){
-			Sprite s = i.next();
-			if ( (s.getX() + s.getWidth()) > maxX) 
-				maxX = s.getX() + s.getWidth();
-			if ( (s.getY() + s.getHeight()) > maxY) 
-				maxY = s.getX() + s.getWidth();	
-		}*/
-		
 		this.setHeight(maxY);
 		this.setWidth(maxX);
 	}
 	
 	/**
 	 * Metodo que especifica los conectores del Sprite.
-	 * Se añaden a spriteList en posicion relativa al Sprite.
+	 * Se aï¿½aden a spriteList en posicion relativa al Sprite.
 	 */
 	protected void attachConnectors(){}
 	
@@ -314,17 +302,30 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 		
 		return borderColor;
 	}
-	
+
+	/**
+	 * M&eacutetodo para saber si el Sprite actual es conectable 
+	 *
+	 * @return			<code>boolean</code>
+	 */	
 	public boolean getConnectable(){
 		return connectable;
 	}
 	
-	
-	public boolean isUsed() {
-		
+	/**
+	 * M&eacutetodo para obtener si el Sprite actual esta siendo utilizado 
+	 *
+	 * @return			<code>boolean</code>
+	 */	
+	public boolean isUsed() {		
 		return used;
 	}
 	
+	/**
+	 * M&eacutetodo para obtener el numero el Sprites que contiene el Sprite Actual 
+	 *
+	 * @return			<code>int</code>
+	 */	
 	public int getNumSprite(){
 		return spriteList.size();
 	}
@@ -343,14 +344,32 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 		}
 	}
 	
+	/**
+	 * M&eacutetodo para asignar el valor Real de la coordenada en X del Sprite 
+	 *
+	 * @param	x	<code>int</code>
+	 */
 	protected void setRelX(int x){
 		this.relX = x;
 	}
-	
+
+	/**
+	 * M&eacutetodo para asignar el valor Real de la coordenada en Y del Sprite 
+	 *
+	 * @param	y	<code>int</code>
+	 */
 	protected void setRelY(int y){
 		this.relY = y;
 	}
 	
+	
+	/**
+	 * M&eacutetodo para agregar un Sprite al Sprite actual 
+	 *
+	 * @param	relX	<code>int</code>
+	 * @param	relY	<code>int</code>
+	 * @param	s		<code>Sprite</code>
+	 */
 	protected void attach(int relX, int relY, Sprite s){
 		s.setRelX(relX);
 		s.setRelY(relY);
@@ -358,7 +377,14 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 		s.setY(y);
 		spriteList.add(s);
 	}
-	
+
+	/**
+	 * M&eacutetodo para pintar el Sprite actual 
+	 *
+	 * @param	relX	<code>int</code>
+	 * @param	relY	<code>int</code>
+	 * @param	s		<code>Sprite</code>
+	 */
 	protected void paintSprite(Graphics g, int x, int y){
 	}
 	
@@ -374,10 +400,8 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 			if(r.getY() > getY() && r.getY() < getY() + getHeight()){
 				return true;
 			}
-			return false;
-		/*if (r.intersectsLine (getX (), getY (), getX () + getWidth (), getY () + getWidth ())) 
-	  		return true;
-		else return false;*/
+		
+		return false;
 	}
 	
 	/**
@@ -400,7 +424,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
   	 */
 	public DataFlavor [] getTransferDataFlavors() {
   
-  		return(DataFlavor []) supportedFlavors.clone ();
+  		return supportedFlavors.clone ();
   	}
 	
 	/** 
@@ -419,6 +443,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
   	 * 
   	 * @return		<code>Sprite</code>
   	 */
+	@Override
 	public Sprite clone() throws CloneNotSupportedException{
 		
 		try{
@@ -431,5 +456,4 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 			return this;
 		}
 	}
-
 }
