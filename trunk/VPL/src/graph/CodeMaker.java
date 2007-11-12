@@ -43,7 +43,7 @@ public class CodeMaker {
 	private Graph g;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param g
 	 *            <code>Graph</code>
@@ -76,8 +76,8 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo para hacer el c&oacutedigo a partir del contenido de los
-	 * v&eacutertices en el grafo.
+	 * M&eacute;todo para hacer el c&oacute;digo a partir del contenido de los
+	 * v&eacute;rtices en el grafo.
 	 */
 	public boolean make() {
 
@@ -110,7 +110,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo recursivo para escribir el c&oacutedigo en un archivo.
+	 * M&eacute;todo recursivo para escribir el c&oacute;digo en un archivo.
 	 * 
 	 * param path <code>String</code> param filename <code>String</code>
 	 */
@@ -130,8 +130,8 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo recursivo para hacer un recorrido del grafo para obtener el
-	 * valor de cada v&eacutertice.
+	 * M&eacute;todo recursivo para hacer un recorrido del grafo para obtener el
+	 * valor de cada v&eacute;rtice.
 	 * 
 	 * @param vertice_raiz
 	 *            <code>Vertex<StructV></code>
@@ -169,7 +169,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * M&eacute;todo que lleva el control sobre el recorrido para el caso
 	 * especial del While
 	 * 
 	 * @param tmp
@@ -198,7 +198,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * M&eacute;todo que lleva el control sobre el recorrido para el caso
 	 * especial del For
 	 * 
 	 * @param tmp
@@ -227,7 +227,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * M&eacute;todo que lleva el control sobre el recorrido para el caso
 	 * especial del If
 	 * 
 	 * @param tmp
@@ -254,7 +254,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * M&eacute;todo que lleva el control sobre el recorrido para el caso
 	 * especial de la Union
 	 * 
 	 * @param tmp
@@ -284,7 +284,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que genera las precondiciones para el vertice actual
+	 * M&eacute;todo que genera las precondiciones para el vertice actual
 	 * 
 	 * @param v
 	 *            Vertice Acual <code>Vertex<StructV></code>
@@ -296,7 +296,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que genera las postcondiciones para el vertice actual
+	 * M&eacute;todo que genera las postcondiciones para el vertice actual
 	 * 
 	 * @param v
 	 *            Vertice Acual <code>Vertex<StructV></code>
@@ -320,7 +320,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que remplaza las variables del template tomando los valores
+	 * M&eacute;todo que remplaza las variables del template tomando los valores
 	 * de la tabla hash
 	 * 
 	 * @param h
@@ -357,7 +357,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que remplaza las variables del template
+	 * M&eacute;todo que remplaza las variables del template
 	 * 
 	 * @param h
 	 *            HasTable <code>Vertex<StructV></code>
@@ -385,7 +385,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que busca una palabra dentro del template de c&oacute;digo
+	 * M&eacute;todo que busca una palabra dentro del template de c&oacute;;digo
 	 * 
 	 * @param word
 	 *            Palabra a buscar <code>Vertex<StructV></code>
@@ -403,7 +403,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que obtiene un arreglo de las tablas Hash de las variables
+	 * M&eacute;todo que obtiene un arreglo de las tablas Hash de las variables
 	 * Globales
 	 * 
 	 * @param g
@@ -429,7 +429,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que obtiene un arreglo de las tablas Hash de las variables
+	 * M&eacute;todo que obtiene un arreglo de las tablas Hash de las variables
 	 * Locales
 	 * 
 	 * @param g
@@ -453,7 +453,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que agrega las variables globales definidas al Grafo
+	 * M&eacute;todo que agrega las variables globales definidas al Grafo
 	 * indicado
 	 * 
 	 * @param g
@@ -477,7 +477,7 @@ public class CodeMaker {
 	}
 
 	/**
-	 * M&eacutetodo que agrega las variables locales definidas al Grafo indicado
+	 * M&eacute;todo que agrega las variables locales definidas al Grafo indicado
 	 * 
 	 * @param g
 	 *            Grafo <code>Vertex<StructV></code>

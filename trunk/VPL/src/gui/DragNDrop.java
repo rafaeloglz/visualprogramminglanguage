@@ -40,7 +40,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	private WorkArea wa;
 
 	/**
-	 * Constructor donde se especifican las figuras, las l&iacuteneas y el gui.
+	 * Constructor donde se especifican las figuras, las l&iacute;neas y el gui.
 	 * 
 	 * @param sprites
 	 *            <code>ArrayList<Sprite></code>
@@ -59,7 +59,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la
+	 * M&eacute;todo que se dispara cuando se comienza a realizar el drag de la
 	 * fuente.
 	 * 
 	 * @param e
@@ -69,8 +69,8 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que es invocado cuando el usuario draguea algo sobre el
-	 * &aacuterea de trabajo.
+	 * M&eacute;todo que es invocado cuando el usuario draguea algo sobre el
+	 * &aacute;rea de trabajo.
 	 * 
 	 * @param e
 	 *            <code>DragSourceDragEvent</code>
@@ -79,7 +79,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se comienza a terminar el drag de la
+	 * M&eacute;todo que se dispara cuando se comienza a terminar el drag de la
 	 * fuente.
 	 * 
 	 * @param e
@@ -89,7 +89,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se termina de realizar el drag del
+	 * M&eacute;todo que se dispara cuando se termina de realizar el drag del
 	 * destino.
 	 * 
 	 * @param e
@@ -99,7 +99,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag sobre
+	 * M&eacute;todo que se dispara cuando se comienza a realizar el drag sobre
 	 * la fuente.
 	 * 
 	 * @param e
@@ -109,7 +109,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se realizar el drag sobre el destino.
+	 * M&eacute;todo que se dispara cuando se realizar el drag sobre el destino.
 	 * 
 	 * @param e
 	 *            <code>DragTargetDragEvent</code>
@@ -118,7 +118,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * Este M&eacutetodo implementa la interfaz del
+	 * Este M&eacute;todo implementa la interfaz del
 	 * <code>DragGestureListener</code>. Sera invocada cuando el
 	 * <code>DragGestureRecognizer</code> piense que el usuario ha iniciado un
 	 * drag. Intenta reconocer que figura esta siendo tomada, e iniciara un drag
@@ -172,7 +172,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * Este M&eacutetodo, y los cuatro que le siguen, implementan la interfaz
+	 * Este M&eacute;todo, y los cuatro que le siguen, implementan la interfaz
 	 * del <code>DragSourceListener</code>. <code>dragDropEnd()</code> es
 	 * invocado cuando el usuario suelta la figura que estaba tomando.
 	 * 
@@ -183,8 +183,8 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo clave del <code>DropTargetListener</code>. Se invoca
-	 * cuando el usuario suelta algo sobre el &aacuterea de trabajo.
+	 * M&eacute;todo clave del <code>DropTargetListener</code>. Se invoca
+	 * cuando el usuario suelta algo sobre el &aacute;rea de trabajo.
 	 * 
 	 * @param e
 	 *            <code>DragTargetDropEvent</code>
@@ -201,7 +201,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se comienza a realizar el drag de la
+	 * M&eacute;todo que se dispara cuando se comienza a realizar el drag de la
 	 * fuente.
 	 * 
 	 * @param e
@@ -211,7 +211,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que se dispara cuando se realiza un cambio en la accion del
+	 * M&eacute;todo que se dispara cuando se realiza un cambio en la accion del
 	 * drop
 	 * 
 	 * @param e
@@ -225,7 +225,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo para cambiar el cursor de acuerdo a la acci&oacuten
+	 * M&eacute;todo para cambiar el cursor de acuerdo a la acci&oacute;n
 	 * realizada.
 	 * 
 	 * @param action
@@ -253,7 +253,7 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	}
 
 	/**
-	 * M&eacutetodo que obtiene el <code>DropTarget</code>.
+	 * M&eacute;todo que obtiene el <code>DropTarget</code>.
 	 * 
 	 * @return <code>DropTarget</code>
 	 */

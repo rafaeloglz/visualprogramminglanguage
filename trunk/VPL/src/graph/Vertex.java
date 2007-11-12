@@ -20,7 +20,7 @@ public class Vertex<V> implements Serializable {
 	private ArrayList<Vertex<V>> neighbors;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -31,7 +31,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un vecino.
+	 * M&eacute;todo para agregar un vecino.
 	 * 
 	 * @param neighbor
 	 *            <code>Vertex<V></code>
@@ -46,7 +46,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un vecino en el indice indicado
+	 * M&eacute;todo para agregar un vecino en el indice indicado
 	 * 
 	 * @param neighbor
 	 *            <code>Vertex<V></code>
@@ -64,7 +64,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el valor del vertice.
+	 * M&eacute;todo para especificar el valor del vertice.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -75,7 +75,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el valor del vertice.
+	 * M&eacute;todo para obtener el valor del vertice.
 	 * 
 	 * @return <code>V</code>
 	 */
@@ -85,7 +85,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la lista de vecinos.
+	 * M&eacute;todo para obtener la lista de vecinos.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -104,7 +104,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la lista de vecinos.
+	 * M&eacute;todo para obtener la lista de vecinos.
 	 * 
 	 * @param index
 	 *            <code>int</code>
@@ -128,7 +128,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el n&uacutemero de vecinos.
+	 * M&eacute;todo para obtener el n&uacute;mero de vecinos.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -138,7 +138,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para realizar comparaciones entre vertices.
+	 * M&eacute;todo para realizar comparaciones entre vertices.
 	 * 
 	 * @param v
 	 *            <code>Vertex<V></code>
@@ -152,7 +152,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener a los vecinos del vertice.
+	 * M&eacute;todo para obtener a los vecinos del vertice.
 	 * 
 	 */
 
@@ -161,7 +161,7 @@ public class Vertex<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para asignar a los vecinos del vertice.
+	 * M&eacute;todo para asignar a los vecinos del vertice.
 	 * 
 	 * @param neighbors
 	 *            Vecinos <code>ArrayLis<Vertex<V>></code>

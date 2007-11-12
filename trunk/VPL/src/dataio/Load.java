@@ -22,7 +22,7 @@ public class Load<L> {
 	private ObjectInputStream in;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param path
 	 *            <code>String</code>
@@ -37,7 +37,7 @@ public class Load<L> {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el path del archivo.
+	 * M&eacute;todo para especificar el path del archivo.
 	 * 
 	 * @param path
 	 *            <code>String</code>
@@ -48,7 +48,7 @@ public class Load<L> {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el nombre del archivo.
+	 * M&eacute;todo para especificar el nombre del archivo.
 	 * 
 	 * @param filename
 	 *            <code>String</code>
@@ -59,7 +59,7 @@ public class Load<L> {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la ruta del archivo.
+	 * M&eacute;todo para obtener la ruta del archivo.
 	 * 
 	 * @return <code>String</code>
 	 */
@@ -69,7 +69,7 @@ public class Load<L> {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el nombre del archivo.
+	 * M&eacute;todo para obtener el nombre del archivo.
 	 * 
 	 * @return <code>String</code>
 	 */
@@ -79,7 +79,7 @@ public class Load<L> {
 	}
 
 	/**
-	 * M&eacutetodo para crear el objeto a parti del archivo con el nombre y
+	 * M&eacute;todo para crear el objeto a parti del archivo con el nombre y
 	 * ruta especificados.
 	 * 
 	 * @return <code>L</code>

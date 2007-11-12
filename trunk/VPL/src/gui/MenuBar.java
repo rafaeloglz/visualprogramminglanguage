@@ -1,5 +1,5 @@
 /**
- * Clase que implementa el men&uacute de la aplicaci&oacuten.
+ * Clase que implementa el men&uacute; de la aplicaci&oacute;n.
  * 
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -44,7 +44,7 @@ public class MenuBar {
 	private String filename;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param gui
 	 *            <code>GUI</code>
@@ -73,7 +73,7 @@ public class MenuBar {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el <code>JMenuBar</code>.
+	 * M&eacute;todo para obtener el <code>JMenuBar</code>.
 	 * 
 	 * @return <code>JMenuBar</code>
 	 */
@@ -83,7 +83,7 @@ public class MenuBar {
 	}
 
 	/**
-	 * M&eacutetodo para construir el men&uacute.
+	 * M&eacute;todo para construir el men&uacute;.
 	 */
 	private void buildMenu() {
 

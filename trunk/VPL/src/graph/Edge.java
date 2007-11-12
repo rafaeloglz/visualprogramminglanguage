@@ -20,7 +20,7 @@ public class Edge<V, E> implements Serializable {
 	private E weight;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param source
 	 *            <code>Vertex<V></code>
@@ -37,7 +37,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el vertice origen.
+	 * M&eacute;todo para especificar el vertice origen.
 	 * 
 	 * @param source
 	 *            <code>Vertex<V></code>
@@ -48,7 +48,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el vertice final.
+	 * M&eacute;todo para especificar el vertice final.
 	 * 
 	 * @param dest
 	 *            <code>Vertex<V></code>
@@ -59,7 +59,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el peso.
+	 * M&eacute;todo para especificar el peso.
 	 * 
 	 * @param weight
 	 *            <code>E</code>
@@ -70,7 +70,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el vertice origen.
+	 * M&eacute;todo para obtener el vertice origen.
 	 * 
 	 * @return <code>Vertex<V></code>
 	 */
@@ -80,7 +80,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el vertice final.
+	 * M&eacute;todo para obtener el vertice final.
 	 * 
 	 * @return <code>Vertex<V></code>
 	 */
@@ -90,7 +90,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el peso.
+	 * M&eacute;todo para obtener el peso.
 	 * 
 	 * @return <code>E</code>
 	 */
@@ -100,7 +100,7 @@ public class Edge<V, E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para realizar comparaciones entre aristas.
+	 * M&eacute;todo para realizar comparaciones entre aristas.
 	 * 
 	 * @param v
 	 *            <code>Edge<V, E></code>

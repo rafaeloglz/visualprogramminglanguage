@@ -1,5 +1,5 @@
 /**
- * Representaci&oacuten gr&aacutefica de la Figura Sync
+ * Representaci&oacute;n gr&aacute;fica de la Figura Sync
  *  
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -41,7 +41,7 @@ public class SpriteSync extends Sprite {
 	}
 
 	/**
-	 * M&eacute;todo que agrega los conectores a la figura
+	 * M&eacute;;todo que agrega los conectores a la figura
 	 * 
 	 */
 	@Override

@@ -19,7 +19,7 @@ public class Activity {
 	private Hashtable<String, Object> contents;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param numContents
 	 *            <code>int</code>
@@ -29,7 +29,7 @@ public class Activity {
 	}
 
 	/**
-	 * M&eacutetodo para agregar un elemento junto con su nombre/llave.
+	 * M&eacute;todo para agregar un elemento junto con su nombre/llave.
 	 * 
 	 * @param name
 	 *            <code>String</code>
@@ -41,7 +41,7 @@ public class Activity {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un elemento por su nombre/llave.
+	 * M&eacute;todo para obtener un elemento por su nombre/llave.
 	 * 
 	 * @param name
 	 *            <code>String</code>
@@ -52,7 +52,7 @@ public class Activity {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un elemento por &iacutendice.
+	 * M&eacute;todo para obtener un elemento por &iacute;ndice.
 	 * 
 	 * @param name
 	 *            <code>int</code>
@@ -71,7 +71,7 @@ public class Activity {
 	}
 
 	/**
-	 * M&eacutetodo para obtener una llave por &iacutendice.
+	 * M&eacute;todo para obtener una llave por &iacute;ndice.
 	 * 
 	 * @param name
 	 *            <code>int</code>
@@ -88,7 +88,7 @@ public class Activity {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la cantidad de elementos.
+	 * M&eacute;todo para obtener la cantidad de elementos.
 	 * 
 	 * @return <code>int</code>
 	 */

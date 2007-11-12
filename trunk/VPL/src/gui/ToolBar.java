@@ -1,5 +1,5 @@
 /**
- * Clase que contiene los componentes a utilizar en el &aacuterea de trabajo.
+ * Clase que contiene los componentes a utilizar en el &aacute;rea de trabajo.
  * 
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -38,14 +38,14 @@ public class ToolBar {
 	private JToolBar toolbar;
 	private Sprite toolClicked;
 
-	/** Nombre por omisi&oacuten * */
+	/** Nombre por omisi&oacute;n * */
 	public static final String DEFAULT_NAME = "Herramientas";
 
-	/** Orientaci&oacuten por omisi&oacuten * */
+	/** Orientaci&oacute;n por omisi&oacute;n * */
 	public static final int DEFAULT_ORIENTATION = SwingConstants.HORIZONTAL;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 */
 	public ToolBar(GUI gui) {
 
@@ -53,12 +53,12 @@ public class ToolBar {
 	}
 
 	/**
-	 * Constructor donde se especifica el nombre y el orientaci&oacuten.
+	 * Constructor donde se especifica el nombre y el orientaci&oacute;n.
 	 * 
 	 * @param name
 	 *            el nombre del ToolBar
 	 * @param orientation
-	 *            la orientaci&oacuten del toolbar
+	 *            la orientaci&oacute;n del toolbar
 	 */
 	public ToolBar(String name, int orientation, GUI gui) {
 
@@ -73,7 +73,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para agregar los <code>Listeners</code> correspondientes a
+	 * M&eacute;todo para agregar los <code>Listeners</code> correspondientes a
 	 * cada componente en el toolbar.
 	 * 
 	 * @param button
@@ -164,7 +164,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para agregar componentes a la barra de herramientas.
+	 * M&eacute;todo para agregar componentes a la barra de herramientas.
 	 * 
 	 * @param sprite
 	 */
@@ -231,7 +231,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el componente en el cual se hizo click.
+	 * M&eacute;todo para obtener el componente en el cual se hizo click.
 	 * 
 	 * @return <code>Sprite</code>
 	 */
@@ -241,7 +241,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el <code>JToolBar</code>.
+	 * M&eacute;todo para obtener el <code>JToolBar</code>.
 	 * 
 	 * @return el <code>JToolBar</code>
 	 */
@@ -251,7 +251,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * Indica si ha hecho click sobre alg&uacuten componente del toolbar.
+	 * Indica si ha hecho click sobre alg&uacute;n componente del toolbar.
 	 * 
 	 * @return <code>boolean</code>
 	 */
@@ -261,7 +261,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para especificar si se hizo click sobre un componente de
+	 * M&eacute;todo para especificar si se hizo click sobre un componente de
 	 * <code>ToolBar</code>.
 	 * 
 	 * @param s
@@ -273,7 +273,7 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el componente sobre el cual se hizo click.
+	 * M&eacute;todo para especificar el componente sobre el cual se hizo click.
 	 * 
 	 * @param s
 	 *            el <code>Sprite</code>

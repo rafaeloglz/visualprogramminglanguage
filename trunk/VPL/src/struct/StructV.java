@@ -1,10 +1,10 @@
 /**
  * Clase que contiene los datos del valor de los vertices.
  * 
- * @author Andr&eacute Freyr&iacutea Cede�o
+ * @author Andr&eacute; Freyr&iacute;a Cede�o
  * @author Rafael Ochoa Gonzalez
- * @author Ulises Figuero Ram&iacuterez
- * @author Jos&eacute Roberto Ram&iacuterez Aguilar
+ * @author Ulises Figuero Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
  * @author Juan Francisco Navarro Mariscal
  */
 
@@ -19,7 +19,7 @@ public class StructV<V> implements Serializable {
 	private V value;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param sprite
 	 *            <code>Sprite</code>
@@ -33,7 +33,7 @@ public class StructV<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el <code>Sprite</code>.
+	 * M&eacute;todo para especificar el <code>Sprite</code>.
 	 * 
 	 * @param sprite
 	 *            <code>Sprite</code>
@@ -44,7 +44,7 @@ public class StructV<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el segundo par&aacutemetro.
+	 * M&eacute;todo para especificar el segundo par&aacute;metro.
 	 * 
 	 * @param value
 	 *            <code>V</code>
@@ -55,7 +55,7 @@ public class StructV<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el <code>Sprite</code>.
+	 * M&eacute;todo para obtener el <code>Sprite</code>.
 	 * 
 	 * @return <code>Sprite</code>
 	 */
@@ -65,7 +65,7 @@ public class StructV<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el segundo par&aacutemetro.
+	 * M&eacute;todo para obtener el segundo par&aacute;metro.
 	 * 
 	 * @return
 	 * @return
@@ -77,7 +77,7 @@ public class StructV<V> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para realizar comparaciones entre structs.
+	 * M&eacute;todo para realizar comparaciones entre structs.
 	 * 
 	 * @param s
 	 *            <code>StructV<V></code>

@@ -37,7 +37,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 
 	/**
 	 * Constructor. Se especifican el arreglo de figuras y el de conectores a
-	 * dibujar y la interfaz gr&aacutefica donde dibujar.
+	 * dibujar y la interfaz gr&aacute;fica donde dibujar.
 	 * 
 	 * @param gui
 	 *            <code>GUI</code>
@@ -53,7 +53,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	}
 
 	/**
-	 * M&eacutetodo para determinar si actualmente se esta en el proceso de
+	 * M&eacute;todo para determinar si actualmente se esta en el proceso de
 	 * conectar dos elementos.
 	 * 
 	 * @return <code>boolean</code>
@@ -66,7 +66,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	/**
 	 * M&eacute;todo que identifica el conector sobre el que se hace click para
 	 * guardar la referencia y crear la liga con el conector donde se suelte el
-	 * bot&oacute del mouse.
+	 * bot&oacute; del mouse.
 	 * 
 	 * @param e
 	 *            <code>MouseEvent</code>

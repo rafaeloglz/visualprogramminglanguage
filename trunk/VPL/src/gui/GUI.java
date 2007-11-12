@@ -1,5 +1,5 @@
 /**
- * GUI es el &aacuterea donde se dibujan los componentes, y se mueven utilizando DnD.
+ * GUI es el &aacute;rea donde se dibujan los componentes, y se mueven utilizando DnD.
  * 
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -47,7 +47,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para agregar nuevos tabs de trabajo.
+	 * M&eacute;todo para agregar nuevos tabs de trabajo.
 	 */
 	public void addTab() {
 
@@ -58,7 +58,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el frame.
+	 * M&eacute;todo para obtener el frame.
 	 * 
 	 * @return <code>JFrame</code>
 	 */
@@ -68,7 +68,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el toolbar.
+	 * M&eacute;todo para obtener el toolbar.
 	 * 
 	 * @return <code>ToolBar</code>
 	 */
@@ -78,7 +78,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el &aacuterea de texto.
+	 * M&eacute;todo para obtener el &aacute;rea de texto.
 	 * 
 	 * @return <code>JTextArea</code>
 	 */
@@ -88,7 +88,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el toolbar.
+	 * M&eacute;todo para obtener el toolbar.
 	 * 
 	 * @return <code>ToolBar</code>
 	 */
@@ -98,7 +98,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener un <code>WorkArea</code> por &iacutendice.
+	 * M&eacute;todo para obtener un <code>WorkArea</code> por &iacute;ndice.
 	 * 
 	 * @return <code>ToolBar</code>
 	 */
@@ -108,7 +108,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la cantidad de <code>WorkArea</code>'s.
+	 * M&eacute;todo para obtener la cantidad de <code>WorkArea</code>'s.
 	 * 
 	 * @return <code>int</code>
 	 */
@@ -128,7 +128,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para inicializar a GUI.
+	 * M&eacute;todo para inicializar a GUI.
 	 */
 	public void init() {
 
@@ -179,7 +179,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para borrar las estructuras de <code>Sprite</code>
+	 * M&eacute;todo para borrar las estructuras de <code>Sprite</code>
 	 * <code>Line</code>
 	 * y <code>Graph</code>.
 	 */
@@ -195,7 +195,7 @@ public class GUI {
 	}
 
 	/**
-	 * M&eacutetodo para abrir un proyecto guardado previamente.
+	 * M&eacute;todo para abrir un proyecto guardado previamente.
 	 * 
 	 * @param proyect
 	 *            <code>Object</code>

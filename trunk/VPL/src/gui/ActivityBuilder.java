@@ -1,5 +1,5 @@
 /**
- * Clase que contiene los elementos para agregar informaci&oacute a los componentes.
+ * Clase que contiene los elementos para agregar informaci&oacute; a los componentes.
  * 
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -41,7 +41,7 @@ public class ActivityBuilder {
 	private int activityIndex;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param addCode
 	 *            <code>AddCode</code>
@@ -54,7 +54,7 @@ public class ActivityBuilder {
 	}
 
 	/**
-	 * M&eacutetodo para construir una ventana a partir de una actividad.
+	 * M&eacute;todo para construir una ventana a partir de una actividad.
 	 * 
 	 * @param activity
 	 *            <code>String</code>
@@ -186,8 +186,8 @@ public class ActivityBuilder {
 	}
 
 	/**
-	 * M&eacutetodo para buscar en el archivo de configuraci&oacuten la
-	 * informaci&oacuten necesaria para construir la actividad junto con sus
+	 * M&eacute;todo para buscar en el archivo de configuraci&oacute;n la
+	 * informaci&oacute;n necesaria para construir la actividad junto con sus
 	 * elementos.
 	 * 
 	 * @param activity
@@ -230,7 +230,7 @@ public class ActivityBuilder {
 	}
 
 	/**
-	 * M&eacutetodo para construir el JComponent indicado en content.
+	 * M&eacute;todo para construir el JComponent indicado en content.
 	 * 
 	 * @param content
 	 *            <code>String</code>
@@ -269,7 +269,7 @@ public class ActivityBuilder {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la actividad.
+	 * M&eacute;todo para obtener la actividad.
 	 * 
 	 * @return <code>Activity</code>
 	 */
@@ -278,7 +278,7 @@ public class ActivityBuilder {
 	}
 
 	/**
-	 * M&eacutetodo para obtener la ventana de la actividad
+	 * M&eacute;todo para obtener la ventana de la actividad
 	 * 
 	 * @return <code>Activity</code>
 	 */

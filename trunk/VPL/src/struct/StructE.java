@@ -1,10 +1,10 @@
 /**
  * Clase que contiene los datos del valor de los vertices.
  * 
- * @author Andr&eacute Freyr&iacutea Cede�o
+ * @author Andr&eacute; Freyr&iacute;a Cede�o
  * @author Rafael Ochoa Gonzalez
- * @author Ulises Figuero Ram&iacuterez
- * @author Jos&eacute Roberto Ram&iacuterez Aguilar
+ * @author Ulises Figuero Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
  * @author Juan Francisco Navarro Mariscal
  */
 
@@ -19,7 +19,7 @@ public class StructE<E> implements Serializable {
 	private E value;
 
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 * 
 	 * @param line
 	 *            <code>Line</code>
@@ -33,7 +33,7 @@ public class StructE<E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el <code>Line</code>.
+	 * M&eacute;todo para especificar el <code>Line</code>.
 	 * 
 	 * @param line
 	 *            <code>Line</code>
@@ -44,7 +44,7 @@ public class StructE<E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para especificar el segundo par&aacutemetro.
+	 * M&eacute;todo para especificar el segundo par&aacute;metro.
 	 * 
 	 * @param value
 	 *            <code>E</code>
@@ -55,7 +55,7 @@ public class StructE<E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el <code>Line</code>.
+	 * M&eacute;todo para obtener el <code>Line</code>.
 	 * 
 	 * @return <code>Line</code>
 	 */
@@ -65,7 +65,7 @@ public class StructE<E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para obtener el segundo par&aacutemetro.
+	 * M&eacute;todo para obtener el segundo par&aacute;metro.
 	 * 
 	 * @return <code>E</code>
 	 */
@@ -75,7 +75,7 @@ public class StructE<E> implements Serializable {
 	}
 
 	/**
-	 * M&eacutetodo para realizar comparaciones entre structs.
+	 * M&eacute;todo para realizar comparaciones entre structs.
 	 * 
 	 * @param s
 	 *            <code>StructE<E></code>

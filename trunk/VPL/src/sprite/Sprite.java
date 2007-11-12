@@ -1,5 +1,5 @@
 /**
- * Representaci&oacuten gr&aacutefica de los componentes de la aplicacion.
+ * Representaci&oacute;n gr&aacute;fica de los componentes de la aplicacion.
  *  
  * @author Andr&eacute;s Freyr&iacute;a Cedeno
  * @author Rafael Ochoa Gonz&aacute;lez
@@ -42,7 +42,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	public DataFlavor [] supportedFlavors = {spriteDataFlavor, DataFlavor.stringFlavor};
 	
 	/**
-	 * Constructor por omisi&oacuten.
+	 * Constructor por omisi&oacute;n.
 	 */
 	public Sprite () {		
 		spriteDataFlavor = new DataFlavor (Sprite.class, "Sprite");		
@@ -92,7 +92,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	protected void attachConnectors(){}
 	
 	/**
-	 * M&eacutetodo para especificar el valor relativo de la coordenada x.
+	 * M&eacute;todo para especificar el valor relativo de la coordenada x.
 	 *
 	 * @param x		<code>int</code>
 	 */
@@ -102,7 +102,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar el valor relativo de la coordenada y.
+	 * M&eacute;todo para especificar el valor relativo de la coordenada y.
 	 *
 	 * @param y		<code>int</code>
 	 */
@@ -112,7 +112,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}	
 	
 	/**
-	 * M&eacutetodo para especificar la altura.
+	 * M&eacute;todo para especificar la altura.
 	 *
 	 * @param height 	<code>int</code>
 	 */
@@ -122,7 +122,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar el ancho.
+	 * M&eacute;todo para especificar el ancho.
 	 *
 	 * @param width 	<code>int</code>
 	 */
@@ -132,7 +132,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar la lista de <code>Sprite</code> que contiene.
+	 * M&eacute;todo para especificar la lista de <code>Sprite</code> que contiene.
 	 *
 	 * @param list 		<code>ArrayList<Sprite></code>
 	 */
@@ -142,7 +142,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar si se puede conectar.
+	 * M&eacute;todo para especificar si se puede conectar.
 	 *
 	 * @param c 		<code>boolean</code>
 	 */
@@ -152,7 +152,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar si ya est&aacute conectado.
+	 * M&eacute;todo para especificar si ya est&aacute; conectado.
 	 *
 	 * @param u 		<code>boolean</code>
 	 */
@@ -162,7 +162,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 
 	/**
-	 * M&eacutetodo para carga una imagen como background desde un archivo externo
+	 * M&eacute;todo para carga una imagen como background desde un archivo externo
 	 *
 	 * @param filename 		<code>String</code>
 	 */
@@ -184,7 +184,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 		
 	/**
-	 * M&eacutetodo para especificar el fondo.
+	 * M&eacute;todo para especificar el fondo.
 	 *
 	 * @param img 		<code>Image</code>
 	 */
@@ -194,7 +194,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar el color de relleno.
+	 * M&eacute;todo para especificar el color de relleno.
 	 *
 	 * @param c			<code>Color</code>
 	 */
@@ -204,7 +204,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para especificar el color del borde.
+	 * M&eacute;todo para especificar el color del borde.
 	 *
 	 * @param c			<code>Color</code>
 	 */
@@ -214,7 +214,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el valor relativo de la coordenada x. 
+	 * M&eacute;todo para obtener el valor relativo de la coordenada x. 
 	 *
 	 * @return			<code>int</code>
 	 */
@@ -224,7 +224,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el valor relativo de la coordenada y. 
+	 * M&eacute;todo para obtener el valor relativo de la coordenada y. 
 	 *
 	 * @return			<code>int</code>
 	 */
@@ -234,7 +234,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}	
 		
 	/**
-	 * M&eacutetodo para obtener la altura. 
+	 * M&eacute;todo para obtener la altura. 
 	 *
 	 * @return			<code>int</code>
 	 */
@@ -244,7 +244,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el ancho. 
+	 * M&eacute;todo para obtener el ancho. 
 	 *
 	 * @return			<code>int</code>
 	 */
@@ -254,7 +254,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener la lista de <code>Sprite</code> que contiene. 
+	 * M&eacute;todo para obtener la lista de <code>Sprite</code> que contiene. 
 	 *
 	 * @return			<code>ArrayList<Sprite></code>
 	 */
@@ -264,7 +264,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener un elemento de la lista de <code>Sprite</code> que contiene. 
+	 * M&eacute;todo para obtener un elemento de la lista de <code>Sprite</code> que contiene. 
 	 *
 	 * @return			<code>ArrayList<Sprite></code>
 	 */
@@ -274,7 +274,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el fondo. 
+	 * M&eacute;todo para obtener el fondo. 
 	 *
 	 * @return			<code>Image</code>
 	 */
@@ -284,7 +284,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el color de relleno. 
+	 * M&eacute;todo para obtener el color de relleno. 
 	 *
 	 * @return			<code>Color</code>
 	 */
@@ -294,7 +294,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el color de borde. 
+	 * M&eacute;todo para obtener el color de borde. 
 	 *
 	 * @return			<code>Color</code>
 	 */
@@ -304,7 +304,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 
 	/**
-	 * M&eacutetodo para saber si el Sprite actual es conectable 
+	 * M&eacute;todo para saber si el Sprite actual es conectable 
 	 *
 	 * @return			<code>boolean</code>
 	 */	
@@ -313,7 +313,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener si el Sprite actual esta siendo utilizado 
+	 * M&eacute;todo para obtener si el Sprite actual esta siendo utilizado 
 	 *
 	 * @return			<code>boolean</code>
 	 */	
@@ -322,7 +322,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para obtener el numero el Sprites que contiene el Sprite Actual 
+	 * M&eacute;todo para obtener el numero el Sprites que contiene el Sprite Actual 
 	 *
 	 * @return			<code>int</code>
 	 */	
@@ -331,7 +331,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para dibujar al <code>Sprite</code>.
+	 * M&eacute;todo para dibujar al <code>Sprite</code>.
 	 *
 	 * @param g 		<code>Graphics</code>
 	 */
@@ -345,7 +345,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para asignar el valor Real de la coordenada en X del Sprite 
+	 * M&eacute;todo para asignar el valor Real de la coordenada en X del Sprite 
 	 *
 	 * @param	x	<code>int</code>
 	 */
@@ -354,7 +354,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 
 	/**
-	 * M&eacutetodo para asignar el valor Real de la coordenada en Y del Sprite 
+	 * M&eacute;todo para asignar el valor Real de la coordenada en Y del Sprite 
 	 *
 	 * @param	y	<code>int</code>
 	 */
@@ -364,7 +364,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	
 	
 	/**
-	 * M&eacutetodo para agregar un Sprite al Sprite actual 
+	 * M&eacute;todo para agregar un Sprite al Sprite actual 
 	 *
 	 * @param	relX	<code>int</code>
 	 * @param	relY	<code>int</code>
@@ -379,7 +379,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 
 	/**
-	 * M&eacutetodo para pintar el Sprite actual 
+	 * M&eacute;todo para pintar el Sprite actual 
 	 *
 	 * @param	relX	<code>int</code>
 	 * @param	relY	<code>int</code>
@@ -389,8 +389,8 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-	 * M&eacutetodo para  determinar si el <code>Sprite</code> intersecta con el rect&aacutengulo enviado 
-	 * como para&aacuteetro.
+	 * M&eacute;todo para  determinar si el <code>Sprite</code> intersecta con el rect&aacute;ngulo enviado 
+	 * como para&aacute;etro.
 	 *
 	 * @param r		<code>Rectangle2D</code>	
 	 * @return		<code>boolean</code>
@@ -405,7 +405,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-  	 * M&eacutetodo para obtener al objeto en el formato solicitado o una excepci&oacuten.
+  	 * M&eacute;todo para obtener al objeto en el formato solicitado o una excepci&oacute;n.
   	 *
   	 * @param flavor	<code>DataFlavor</code>
   	 * @return			<code>boolean</code>
@@ -418,7 +418,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-  	 * M&eacutetodo para obtener los DataFlavor soportados.
+  	 * M&eacute;todo para obtener los DataFlavor soportados.
   	 *
   	 * @return 		<code>DataFlavor[]</code>
   	 */
@@ -428,7 +428,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
   	}
 	
 	/** 
-  	 * M&eacutetodo para revisar si se soporta el DataFlavor.
+  	 * M&eacute;todo para revisar si se soporta el DataFlavor.
   	 * 
   	 * @param flavor	<code>DataFlavor</code>
   	 * @return			<code>boolean</code>
@@ -439,7 +439,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	}
 	
 	/**
-  	 * M&eacutetodo para crear un clon del objeto y sus atributos.
+  	 * M&eacute;todo para crear un clon del objeto y sus atributos.
   	 * 
   	 * @return		<code>Sprite</code>
   	 */
