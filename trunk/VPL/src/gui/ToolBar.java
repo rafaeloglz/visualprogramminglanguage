@@ -73,8 +73,8 @@ public class ToolBar {
 	}
 
 	/**
-	 * M&eacute;todo para agregar los <code>Listeners</code> correspondientes a
-	 * cada componente en el toolbar.
+	 * M&eacute;todo para agregar los <code>Listeners</code> correspondientes
+	 * a cada componente en el toolbar.
 	 * 
 	 * @param button
 	 *            <code>JButton</code>
@@ -264,8 +264,8 @@ public class ToolBar {
 	 * M&eacute;todo para especificar si se hizo click sobre un componente de
 	 * <code>ToolBar</code>.
 	 * 
-	 * @param s
-	 *            el <code>Sprite</code>
+	 * @param b
+	 *            <code>boleean</code>
 	 */
 	public void setClicked(boolean b) {
 

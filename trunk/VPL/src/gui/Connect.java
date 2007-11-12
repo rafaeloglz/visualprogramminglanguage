@@ -39,8 +39,8 @@ public class Connect implements MouseListener, MouseMotionListener {
 	 * Constructor. Se especifican el arreglo de figuras y el de conectores a
 	 * dibujar y la interfaz gr&aacute;fica donde dibujar.
 	 * 
-	 * @param gui
-	 *            <code>GUI</code>
+	 * @param wa
+	 *            <code>WorkArea</code>
 	 */
 	public Connect(WorkArea wa) {
 

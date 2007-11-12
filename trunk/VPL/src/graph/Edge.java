@@ -102,8 +102,9 @@ public class Edge<V, E> implements Serializable {
 	/**
 	 * M&eacute;todo para realizar comparaciones entre aristas.
 	 * 
-	 * @param v
+	 * @param e
 	 *            <code>Edge<V, E></code>
+	 * 
 	 * @return <code>boolean</code>
 	 */
 	public boolean equals(Edge<V, E> e) {

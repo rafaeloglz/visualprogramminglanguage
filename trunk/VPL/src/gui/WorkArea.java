@@ -216,7 +216,7 @@ public class WorkArea extends JComponent {
 	/**
 	 * M&eacute;todo para obtener el grafo.
 	 * 
-	 * @return <code>Graph</code>
+	 * @param g <code>Graph</code>
 	 */
 	public void setGraph(Graph g) {
 

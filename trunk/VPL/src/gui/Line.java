@@ -138,8 +138,8 @@ public class Line implements Serializable {
 	/**
 	 * Metodo para especificar index2.
 	 * 
-	 * @param dest
-	 *            <code>Sprite</code>
+	 * @param destIndex
+	 *            <code>int</code>
 	 */
 	public void setDestIndex(int destIndex) {
 

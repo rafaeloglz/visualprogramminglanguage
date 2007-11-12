@@ -67,9 +67,6 @@ public class StructV<V> implements Serializable {
 	/**
 	 * M&eacute;todo para obtener el segundo par&aacute;metro.
 	 * 
-	 * @return
-	 * @return
-	 * 
 	 * @return <code>V</code>
 	 */
 	public V getValue() {
