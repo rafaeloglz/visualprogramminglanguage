@@ -1,13 +1,20 @@
+/**
+ * Clase que define la configuraci&oacute;n de las figuras
+ *  
+ * @author Andr&eacute;s Freyr&iacute;a Cedeno
+ * @author Rafael Ochoa Gonz&aacute;lez
+ * @author Ulises Figueroa Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
+ * @author Juan Francisco Navarro Mariscal
+ */
 
 package sprite;
 
 public class SpriteConfig {
 	//Directorio en donde se encuentran las imagenes
-	public static final String IMAGE_PATH = "images/";
-	
+	public static final String IMAGE_PATH = "images/";	
 	//Tipo de Imagen
-	public static final String IMAGE_FORMAT = ".jpg";
-	
+	public static final String IMAGE_FORMAT = ".jpg";	
 	//Imagenes a cargar en Sprites
 	public static final String END_IMAGE = "end"+IMAGE_FORMAT;
 	public static final String INSTRUCTION_IMAGE = "instruction"+IMAGE_FORMAT;

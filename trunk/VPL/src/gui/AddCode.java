@@ -1,10 +1,10 @@
 /**
  * Clase que genera el c&oacutedigo a partir del grafo.
  * 
- * @author Andr&eacute Freyr&iacutea Cede�o
- * @author Rafael Ochoa Gonzalez
- * @author Ulises Figuero Ram&iacuterez
- * @author Jos&eacute Roberto Ram&iacuterez Aguilar
+ * @author Andr&eacute;s Freyr&iacute;a Cedeno
+ * @author Rafael Ochoa Gonz&aacute;lez
+ * @author Ulises Figueroa Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
  * @author Juan Francisco Navarro Mariscal
  */
 
@@ -36,23 +36,24 @@ public class AddCode implements MouseListener, ActionListener {
 	private ArrayList<StructV> structVList;
 	private StructV stv;
 	private WorkArea wa;
-	
+
 	/**
 	 * Constructor. Se especifican el arreglo de figuras y la interfaz
 	 * gr&aacutefica donde dibujar.
 	 * 
-	 * @param wa		<code>WorkArea</code>
+	 * @param wa
+	 *            <code>WorkArea</code>
 	 */
 	public AddCode(WorkArea wa) {
-		
+
 		this.activityBuilder = new ActivityBuilder(this);
 		this.activityList = new ArrayList<Activity>();
 		this.director = ActivityDirector.getInstance();
 		this.frameList = new ArrayList<JFrame>();
 		this.structVList = new ArrayList<StructV>();
-		this.spriteList = new ArrayList<Sprite>();	
+		this.spriteList = new ArrayList<Sprite>();
 		this.wa = wa;
-		this.wa.addMouseListener(this);		
+		this.wa.addMouseListener(this);
 	}
 
 	/**
@@ -65,66 +66,65 @@ public class AddCode implements MouseListener, ActionListener {
 	 *            <code>DragGestureEvent</code>
 	 */
 	public void actionPerformed(ActionEvent e) {
-		
-		for(int i = 0; i < frameList.size(); i++) {
-			
+
+		for (int i = 0; i < frameList.size(); i++) {
+
 			String acceptName = "accept" + i;
-			String cancelName = "cancel"+ i;
-			
-			if(acceptName.equals(e.getActionCommand())){
-				
+			String cancelName = "cancel" + i;
+
+			if (acceptName.equals(e.getActionCommand())) {
+
 				JFrame f = frameList.get(i);
 				Activity a = activityList.get(i);
-				Hashtable <String, Object> contents = 
-				(Hashtable<String, Object>) this.structVList.get(this.structVList.size()-1).getValue();
-				
-				for(int j = 0; j < a.getKeyCount(); j++) {
-					
-					if(a.getContentAt(j) instanceof JTextArea){
-						
+				Hashtable<String, Object> contents = (Hashtable<String, Object>) this.structVList
+						.get(this.structVList.size() - 1).getValue();
+
+				for (int j = 0; j < a.getKeyCount(); j++) {
+
+					if (a.getContentAt(j) instanceof JTextArea) {
+
 						JTextArea ta = (JTextArea) a.getContentAt(j);
 						String code = ta.getText();
 						contents.put(a.getKeyAt(j), code);
-					}
-					else if(a.getContentAt(j) instanceof JTextField){
-						
+					} else if (a.getContentAt(j) instanceof JTextField) {
+
 						JTextField tf = (JTextField) a.getContentAt(j);
 						String code = tf.getText();
 						contents.put(a.getKeyAt(j), code);
-					}
-					else if(a.getContentAt(j) instanceof JTable) {
-						
+					} else if (a.getContentAt(j) instanceof JTable) {
+
 						JTable table = (JTable) a.getContentAt(j);
-						
+
 						String[] code = new String[table.getRowCount()];
-						
-						for(int r = 0;  r < table.getRowCount(); r++) {
-							
+
+						for (int r = 0; r < table.getRowCount(); r++) {
+
 							code[r] = "";
-							
-							for(int c = 0; c < table.getColumnCount(); c++)
-								code[r] += (table.getValueAt(r, c) + "").trim() + " ";
+
+							for (int c = 0; c < table.getColumnCount(); c++)
+								code[r] += (table.getValueAt(r, c) + "").trim()
+										+ " ";
 						}
-						
-						for(int k = 0; k < code.length; k++)
+
+						for (int k = 0; k < code.length; k++)
 							contents.put("var" + k, code[k]);
 					}
-					
+
 					this.structVList.get(i).setValue(contents);
-				}		
-				
+				}
+
 				this.spriteList.set(i, null);
-				this.frameList.get(i).setVisible(false);		
+				this.frameList.get(i).setVisible(false);
 			}
-		
-			if(cancelName.equals(e.getActionCommand())){
-				
+
+			if (cancelName.equals(e.getActionCommand())) {
+
 				this.spriteList.set(i, null);
-				this.frameList.get(i).setVisible(false);			
+				this.frameList.get(i).setVisible(false);
 			}
 		}
 	}
-	
+
 	/**
 	 * Este M&eacutetodo escucha eventos del tipo mouseClicked. Cuando detecta
 	 * un doble click, genera la interfaz necesaria para que el usuario edite el
@@ -135,53 +135,56 @@ public class AddCode implements MouseListener, ActionListener {
 	 *            <code>MouseEvent</code>
 	 */
 	public void mouseClicked(MouseEvent e) {
-		
+
 		JFrame f;
 		Sprite s;
 		Activity a;
 		int x = e.getX();
 		int y = e.getY();
 
-		if(e.getClickCount() == 2) {
+		if (e.getClickCount() == 2) {
 
-			for(int i = 0; i < this.wa.getSpriteCount(); i++) {
-				
+			for (int i = 0; i < this.wa.getSpriteCount(); i++) {
+
 				s = this.wa.getSpriteAt(i);
 
 				Rectangle r = new Rectangle(x, y, s.getHeight(), s.getWidth());
 
-				if(s.intersects(r)) {
-					
-					if(s.getClass()==SpriteBegin.class || s.getClass()==SpriteEnd.class) 
+				if (s.intersects(r)) {
+
+					if (s.getClass() == SpriteBegin.class
+							|| s.getClass() == SpriteEnd.class)
 						return;
-					
-					for(int k = 0; k < spriteList.size(); k++) {
-						
+
+					for (int k = 0; k < spriteList.size(); k++) {
+
 						Sprite tempSprite = spriteList.get(k);
-						
-						if(tempSprite != null)
+
+						if (tempSprite != null)
 							if (tempSprite.equals(s))
 								return;
 					}
 
 					this.spriteList.add(s);
 
-					for(int z = 0; z < this.wa.getGraph().getNumVertices(); z++) {
-						
-						stv = (StructV)this.wa.getGraph().getVertexAt(z).getValue();
-						
+					for (int z = 0; z < this.wa.getGraph().getNumVertices(); z++) {
+
+						stv = (StructV) this.wa.getGraph().getVertexAt(z)
+								.getValue();
+
 						if (this.stv.getSprite().equals(s))
 							structVList.add(stv);
 					}
-					
+
 					String stringClass = s.getClass().toString();
 					String spriteName = stringClass.substring(19).toLowerCase();
-					
-					this.director.construct(this.activityBuilder, spriteName, this.structVList.get(structVList.size()-1));
-					
+
+					this.director.construct(this.activityBuilder, spriteName,
+							this.structVList.get(structVList.size() - 1));
+
 					f = this.activityBuilder.getActivityFrame();
 					a = this.activityBuilder.getActivity();
-					
+
 					this.activityList.add(a);
 					this.frameList.add(f);
 				}

@@ -1,8 +1,17 @@
+/**
+ * Clase que recorre el grafo para generar el c&oacute;digo del programa.
+ * 
+ * @author Andr&eacute;s Freyr&iacute;a Cedeno
+ * @author Rafael Ochoa Gonz&aacute;lez
+ * @author Ulises Figueroa Ram&iacute;rez
+ * @author Jos&eacute; Roberto Ram&iacute;rez Aguilar
+ * @author Juan Francisco Navarro Mariscal
+ */
+
 package graph;
- 
+
 import dataio.CodeWriter;
 import sprite.Sprite;
-import sprite.SpriteEnd;
 import sprite.SpriteFor;
 import sprite.SpriteGlobalVar;
 import sprite.SpriteIf;
@@ -14,19 +23,14 @@ import struct.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Vector;
-import java.util.regex.Pattern;
 
-import javax.swing.JTextField;
- 
- public class CodeMaker {
- 	
- 	private String code;
- 	private ArrayList<Graph> graphs;
- 	private CodeWriter cw;
- 	private String method;
- 	private ArrayList<Vertex<StructV>> vertices;
+public class CodeMaker {
+
+	private String code;
+	private ArrayList<Graph> graphs;
+	private CodeWriter cw;
+	private String method;
+	private ArrayList<Vertex<StructV>> vertices;
 	private ArrayList<Edge<StructV, StructE>> edges;
 	private Vertex<StructV> head;
 	private Vertex<StructV> tail;
@@ -41,370 +45,457 @@ import javax.swing.JTextField;
 	/**
 	 * Constructor por omisi&oacuten.
 	 * 
-	 * @param g			<code>Graph</code>
+	 * @param g
+	 *            <code>Graph</code>
 	 */
- 	public CodeMaker(ArrayList<Graph> graphs, ArrayList<String> nombresMetodos) { 		
- 		this.graphs = graphs;
- 		this.nombresMetodos = nombresMetodos;
- 		
- 		code = "";
- 		String configFile="code.txt";
- 		template = new ArrayList<String>();
- 		
- 		try {
+	public CodeMaker(ArrayList<Graph> graphs, ArrayList<String> nombresMetodos) {
+		this.graphs = graphs;
+		this.nombresMetodos = nombresMetodos;
+
+		code = "";
+		String configFile = "code.txt";
+		template = new ArrayList<String>();
+
+		try {
 			BufferedReader temp = new BufferedReader(new FileReader(configFile));
-						
-			while (temp.ready()){
+
+			while (temp.ready()) {
 				template.add(temp.readLine().replaceFirst("^#.*", ""));
 			}
-			
+
 			temp.close();
-			
- 		} catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
- 		
- 		whileList = new ArrayList<Sprite>();
- 		forList = new ArrayList<Sprite>();
- 		ifList = new ArrayList<Vertex<StructV>>();
- 		unionList = new ArrayList<Sprite>(); 		
- 	}
- 	
- 	/**
- 	 * M&eacutetodo para hacer el c&oacutedigo a partir del contenido de
- 	 * los v&eacutertices en el grafo.
- 	 */
- 	public boolean make() {
 
- 		boolean codeGenerated = false;
- 		
- 		for(int i=0;i<graphs.size();i++){
- 			g = graphs.get(i);
- 			
- 			if (i == 0){
- 				addGlobalVariables(g);
- 			}
- 			
-	 		vertices = g.getVertices();
-	 		edges = g.getEdges();
-	 		head = g.getHead();
-	
-	 		if (head == null){
-	 			continue;
-	 		}
+		whileList = new ArrayList<Sprite>();
+		forList = new ArrayList<Sprite>();
+		ifList = new ArrayList<Vertex<StructV>>();
+		unionList = new ArrayList<Sprite>();
+	}
 
-	 		if(g.getNumVertices() > 0) {	
-	 			recurse(head);
-	 			codeGenerated = true;
-	 		}	 		
-	 		else{
-	 			codeGenerated = false;
-	 		}
- 		}
- 		
- 		return codeGenerated;
- 	}
- 	
- 	/**
- 	 * M&eacutetodo recursivo para escribir el c&oacutedigo en un archivo.
- 	 * 
- 	 * param path			<code>String</code>
- 	 * param filename		<code>String</code>
- 	 */
- 	public boolean writeToFile(String path, String filename) {
+	/**
+	 * M&eacutetodo para hacer el c&oacutedigo a partir del contenido de los
+	 * v&eacutertices en el grafo.
+	 */
+	public boolean make() {
 
- 		code = "class "+filename.replace(".java", "")+"{\n" + code;
- 		
- 		for(int i=0;i<nombresMetodos.size();i++){	 		
- 			code = code.replaceFirst("genericMethod", nombresMetodos.get(i));
- 		}
+		boolean codeGenerated = false;
 
- 		code = code + "\n}";
- 		
- 		cw = new CodeWriter(code, path, filename);
- 		return cw.write();
+		for (int i = 0; i < graphs.size(); i++) {
+			g = graphs.get(i);
 
- 	} 	
-	
+			if (i == 0) {
+				addGlobalVariables(g);
+			}
+
+			vertices = g.getVertices();
+			edges = g.getEdges();
+			head = g.getHead();
+
+			if (head == null) {
+				continue;
+			}
+
+			if (g.getNumVertices() > 0) {
+				recurse(head);
+				codeGenerated = true;
+			} else {
+				codeGenerated = false;
+			}
+		}
+
+		return codeGenerated;
+	}
+
+	/**
+	 * M&eacutetodo recursivo para escribir el c&oacutedigo en un archivo.
+	 * 
+	 * param path <code>String</code> param filename <code>String</code>
+	 */
+	public boolean writeToFile(String path, String filename) {
+
+		code = "class " + filename.replace(".java", "") + "{\n" + code;
+
+		for (int i = 0; i < nombresMetodos.size(); i++) {
+			code = code.replaceFirst("genericMethod", nombresMetodos.get(i));
+		}
+
+		code = code + "\n}";
+
+		cw = new CodeWriter(code, path, filename);
+		return cw.write();
+
+	}
+
 	/**
 	 * M&eacutetodo recursivo para hacer un recorrido del grafo para obtener el
 	 * valor de cada v&eacutertice.
 	 * 
-	 * param index			<code>int</code>
-	 *
-	public void searchGraph() {
-		
-		StructV stv;
-		int num;
-		
-		stv = (StructV)g.getVertexAt(index).getValue();
-		code += (String)stv.toString() + "\n";
-		num = g.getVertexAt(index).getNumNeighbors();	
-		
-		for(int i = 0; i < g.getNumVertices(); i++)
-			for(int j = 0; j < num; j++)
-				if(g.getVertexAt(i).equals(g.getVertexAt(index).getNeighborAt(j)))
-					searchGraph(i);
-	}*/
-	
-	/**
-	 * @param v
-	 * @return
+	 * @param vertice_raiz
+	 *            <code>Vertex<StructV></code>
+	 * 
 	 */
-	public boolean recurse(Vertex<StructV> v){
+	public boolean recurse(Vertex<StructV> v) {
 
-		if(!(v.getValue().getSprite() instanceof SpriteUnion))
-			precondition(v);		
+		if (!(v.getValue().getSprite() instanceof SpriteUnion))
+			precondition(v);
 
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
-		
-		for(int i=0;i<neighbors.size();i++){		
+
+		for (int i = 0; i < neighbors.size(); i++) {
 			Vertex<StructV> tmp = neighbors.get(i);
 
-			if(tmp == null)
+			if (tmp == null)
 				break;
-			
-			if(whileCase(tmp)) continue;
-			if(forCase(tmp)) continue;
-			if(ifCase(tmp)) continue;
-			if(unionCase(tmp)) continue;
-			
-			//System.out.println(tmp.getValue().getSprite().getClass());
+
+			if (whileCase(tmp))
+				continue;
+			if (forCase(tmp))
+				continue;
+			if (ifCase(tmp))
+				continue;
+			if (unionCase(tmp))
+				continue;
+
 			recurse(tmp);
 		}
 
-		if(!(v.getValue().getSprite() instanceof SpriteIf))
+		if (!(v.getValue().getSprite() instanceof SpriteIf))
 			postcondition(v);
 
 		return false;
 	}
 
-	private boolean whileCase(Vertex<StructV> tmp){
+	/**
+	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * especial del While
+	 * 
+	 * @param tmp
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
 
-		if(tmp.getValue().getSprite() instanceof SpriteWhile){
-			if(whileList.size()!= 0){
-				Sprite currentWhile = whileList.get(whileList.size()-1);
-				
-				if(!currentWhile.equals(tmp.getValue().getSprite())){
+	private boolean whileCase(Vertex<StructV> tmp) {
+
+		if (tmp.getValue().getSprite() instanceof SpriteWhile) {
+			if (whileList.size() != 0) {
+				Sprite currentWhile = whileList.get(whileList.size() - 1);
+
+				if (!currentWhile.equals(tmp.getValue().getSprite())) {
 					whileList.add(tmp.getValue().getSprite());
-				}
-				else{
-					whileList.remove(whileList.size()-1);
+				} else {
+					whileList.remove(whileList.size() - 1);
 					return true;
 				}
-			}					
-			else{
+			} else {
 				whileList.add(tmp.getValue().getSprite());
 			}
 		}
-		
+
 		return false;
 	}
 
-	private boolean forCase(Vertex<StructV> tmp){
+	/**
+	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * especial del For
+	 * 
+	 * @param tmp
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
 
-		if(tmp.getValue().getSprite() instanceof SpriteFor){
-			if(forList.size()!= 0){
-				Sprite currentFor = forList.get(forList.size()-1);
-				
-				if(!currentFor.equals(tmp.getValue().getSprite())){
+	private boolean forCase(Vertex<StructV> tmp) {
+
+		if (tmp.getValue().getSprite() instanceof SpriteFor) {
+			if (forList.size() != 0) {
+				Sprite currentFor = forList.get(forList.size() - 1);
+
+				if (!currentFor.equals(tmp.getValue().getSprite())) {
 					forList.add(tmp.getValue().getSprite());
-				}
-				else{
-					forList.remove(forList.size()-1);
+				} else {
+					forList.remove(forList.size() - 1);
 					return true;
 				}
-			}					
-			else{
+			} else {
 				forList.add(tmp.getValue().getSprite());
 			}
 		}
 
 		return false;
-	}	
-	
-	private boolean ifCase(Vertex<StructV> tmp){
+	}
 
-		if(tmp.getValue().getSprite() instanceof SpriteIf){
-			if(ifList.size()!= 0){
-				Sprite currentIf = ifList.get(ifList.size()-1).getValue().getSprite();
-				
-				if(!currentIf.equals(tmp.getValue().getSprite())){
+	/**
+	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * especial del If
+	 * 
+	 * @param tmp
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private boolean ifCase(Vertex<StructV> tmp) {
+
+		if (tmp.getValue().getSprite() instanceof SpriteIf) {
+			if (ifList.size() != 0) {
+				Sprite currentIf = ifList.get(ifList.size() - 1).getValue()
+						.getSprite();
+
+				if (!currentIf.equals(tmp.getValue().getSprite())) {
 					ifList.add(tmp);
-				}				
-			}					
-			else{
+				}
+			} else {
 				ifList.add(tmp);
 			}
 		}
 
 		return false;
 	}
-	
-	private boolean unionCase(Vertex<StructV> tmp){
-		
-		if(tmp.getValue().getSprite() instanceof SpriteUnion){
-			if(unionList.size()!= 0){
-				unionList.remove(unionList.size()-1);
+
+	/**
+	 * M&eacutetodo que lleva el control sobre el recorrido para el caso
+	 * especial de la Union
+	 * 
+	 * @param tmp
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private boolean unionCase(Vertex<StructV> tmp) {
+
+		if (tmp.getValue().getSprite() instanceof SpriteUnion) {
+			if (unionList.size() != 0) {
+				unionList.remove(unionList.size() - 1);
 				precondition(tmp);
 				return false;
-			}					
-			else{
-				if(ifList.size()>0){
-					Vertex<StructV> ifTemp = ifList.get(ifList.size()-1);
+			} else {
+				if (ifList.size() > 0) {
+					Vertex<StructV> ifTemp = ifList.get(ifList.size() - 1);
 					postcondition(ifTemp);
-					ifList.remove(ifList.size()-1);
+					ifList.remove(ifList.size() - 1);
 				}
 
 				unionList.add(tmp.getValue().getSprite());
 				return true;
 			}
 		}
-		return false;		
+		return false;
 	}
 
-	public void precondition(Vertex<StructV> v){	 		
-		replaceVars((Hashtable)v.getValue().getValue());
+	/**
+	 * M&eacutetodo que genera las precondiciones para el vertice actual
+	 * 
+	 * @param v
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	public void precondition(Vertex<StructV> v) {
+		replaceVars((Hashtable) v.getValue().getValue());
 	}
 
-	public void postcondition(Vertex<StructV> v){
+	/**
+	 * M&eacutetodo que genera las postcondiciones para el vertice actual
+	 * 
+	 * @param v
+	 *            Vertice Acual <code>Vertex<StructV></code>
+	 * 
+	 */
 
-		String name = (String) ((Hashtable)v.getValue().getValue()).get("name");
+	public void postcondition(Vertex<StructV> v) {
+
+		String name = (String) ((Hashtable) v.getValue().getValue())
+				.get("name");
 
 		int line = search(name);
 
 		if (line == -1) {
-			code+="\r";
-			//System.out.println("Adding Newline");
+			code += "\r";
 			return;
 		}
 
-		if (!(template.get(line+2).matches("[\\s]*")))//If the line isn't empty:
-			code += template.get(line+2)+"\r";
+		if (!(template.get(line + 2).matches("[\\s]*")))
+			code += template.get(line + 2) + "\r";
 	}
 
-	private void replaceVars(Hashtable h){
-		
-		String name = (String) h.get("name");		
-		
+	/**
+	 * M&eacutetodo que remplaza las variables del template tomando los valores
+	 * de la tabla hash
+	 * 
+	 * @param h
+	 *            HasTable <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private void replaceVars(Hashtable h) {
+
+		String name = (String) h.get("name");
+
 		int line = search(name);
-			
+
 		if (line == -1) {
-			code+="\r";
-			//System.out.println("Adding Newline");
+			code += "\r";
 			return;
 		}
-		
-		//System.out.println("Line found: "+template[line]);
-		
+
 		String regex = "\\$\\w*";
-		String vars[] = template.get(line+1).split(" ");
-		String result = template.get(line+1);
-				
+		String vars[] = template.get(line + 1).split(" ");
+		String result = template.get(line + 1);
+
 		int i = 0;
-		while (i < vars.length){
-			if (vars[i].matches(regex))//If the String equals $.*
-				result = replaceVar(result,vars[i],h);				
+
+		while (i < vars.length) {
+			if (vars[i].matches(regex))
+				result = replaceVar(result, vars[i], h);
 			i++;
-		}		
-		code+=result+"\r";
-		
-		if(name.equals("begin"))
-			addLocalVariables(g);		
+		}
+		code += result + "\r";
+
+		if (name.equals("begin"))
+			addLocalVariables(g);
 	}
-	
+
+	/**
+	 * M&eacutetodo que remplaza las variables del template
+	 * 
+	 * @param h
+	 *            HasTable <code>Vertex<StructV></code>
+	 * 
+	 */
+
 	private String replaceVar(String result, String var, Hashtable h) {
 
 		String data = (String) h.get(var.substring(1));
-		
-		//System.out.println("Inside ReplaceVar :\n"+
-				//"Line: "+result+"\nVar: "+var);
-		
+
 		if (data != null)
-			result = result.replace(var,data);
+			result = result.replace(var, data);
 		else {
-			//System.out.println("Couldn't find Var in Hashtable.");
+
 			int line = search(var);
-			//System.out.println(template[line]);
-			if (line == -1 || !(template.get(line).startsWith(var))){
-				//System.out.println("Couldn't find Var in code.txt, adding space.");
+			if (line == -1 || !(template.get(line).startsWith(var))) {
 				result = result.replace(var, " ");
 				return result;
 			} else {
-			//System.out.println("Replacing from code.txt");
-			//System.out.println("Value: "+template[line].replace(var+" = ", ""));
-			result = result.replace(var, template.get(line).replace(var+" = ", ""));
-			//System.out.println("Result: "+result);
+				result = result.replace(var, template.get(line).replace(
+						var + " = ", ""));
 			}
 		}
 		return result.trim();
 	}
 
-	private int search(String word){
-					
-		for(int i = 0; i < template.size(); i++){
-			if(template.get(i).contains(word))
+	/**
+	 * M&eacutetodo que busca una palabra dentro del template de c&oacute;digo
+	 * 
+	 * @param word
+	 *            Palabra a buscar <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private int search(String word) {
+
+		for (int i = 0; i < template.size(); i++) {
+			if (template.get(i).contains(word))
 				return i;
 		}
-		
+
 		return -1;
 	}
-	
-	private ArrayList<Hashtable> getGlobalVariables(Graph g){	
-		
+
+	/**
+	 * M&eacutetodo que obtiene un arreglo de las tablas Hash de las variables
+	 * Globales
+	 * 
+	 * @param g
+	 *            Grafo <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private ArrayList<Hashtable> getGlobalVariables(Graph g) {
+
 		ArrayList<Hashtable> globalVariables = new ArrayList<Hashtable>();
-		
-		for(int i = 0; i < g.getNumVertices(); i++){			
-			Sprite  tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
-			Hashtable tempTable = (Hashtable)((StructV)g.getVertexAt(i).getValue()).getValue();
-			if (tempSprite instanceof SpriteGlobalVar){
-				globalVariables.add(tempTable);				
+
+		for (int i = 0; i < g.getNumVertices(); i++) {
+			Sprite tempSprite = ((StructV) g.getVertexAt(i).getValue())
+					.getSprite();
+			Hashtable tempTable = (Hashtable) ((StructV) g.getVertexAt(i)
+					.getValue()).getValue();
+			if (tempSprite instanceof SpriteGlobalVar) {
+				globalVariables.add(tempTable);
 			}
 		}
-		
+
 		return globalVariables;
 	}
-	
-	private ArrayList<Hashtable> getLocalVariables(Graph g){
+
+	/**
+	 * M&eacutetodo que obtiene un arreglo de las tablas Hash de las variables
+	 * Locales
+	 * 
+	 * @param g
+	 *            Grafo <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private ArrayList<Hashtable> getLocalVariables(Graph g) {
 
 		ArrayList<Hashtable> localVariables = new ArrayList<Hashtable>();
 
-		for(int i = 0; i < g.getNumVertices(); i++){			
-			Sprite  tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
-			Hashtable tempTable = (Hashtable)((StructV)g.getVertexAt(i).getValue()).getValue();
+		for (int i = 0; i < g.getNumVertices(); i++) {
+			Sprite tempSprite = ((StructV) g.getVertexAt(i).getValue())
+					.getSprite();
+			Hashtable tempTable = (Hashtable) ((StructV) g.getVertexAt(i)
+					.getValue()).getValue();
 			if (tempSprite instanceof SpriteVar)
 				localVariables.add(tempTable);
-		}		
-		return localVariables;		
+		}
+		return localVariables;
 	}
-	
-	private void addGlobalVariables(Graph g){
+
+	/**
+	 * M&eacutetodo que agrega las variables globales definidas al Grafo
+	 * indicado
+	 * 
+	 * @param g
+	 *            Grafo <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private void addGlobalVariables(Graph g) {
 		ArrayList<Hashtable> globalVariables = getGlobalVariables(g);
-		for(int j = 0; j < globalVariables.size(); j++){
+		for (int j = 0; j < globalVariables.size(); j++) {
 			Hashtable tempTable = globalVariables.get(j);
-			for(int k = 0; k < tempTable.size(); k++){ 						
-				String var = (String)tempTable.get("var"+k);
-				if (var != null){
-					if(!var.contains("null")) {
+			for (int k = 0; k < tempTable.size(); k++) {
+				String var = (String) tempTable.get("var" + k);
+				if (var != null) {
+					if (!var.contains("null")) {
 						code += var + ";" + "\r";
-					}							
+					}
 				}
 			}
 		}
 	}
-	
-	private void addLocalVariables(Graph g){
+
+	/**
+	 * M&eacutetodo que agrega las variables locales definidas al Grafo indicado
+	 * 
+	 * @param g
+	 *            Grafo <code>Vertex<StructV></code>
+	 * 
+	 */
+
+	private void addLocalVariables(Graph g) {
 		ArrayList<Hashtable> localVariables = getLocalVariables(g);
-		for(int j = 0; j < localVariables.size(); j++){
+		for (int j = 0; j < localVariables.size(); j++) {
 			Hashtable tempTable = localVariables.get(j);
-			for(int k = 0; k < tempTable.size(); k++){ 						
-				String var = (String)tempTable.get("var"+k);
-				if (var != null){
-					if(!var.contains("null")) {
+			for (int k = 0; k < tempTable.size(); k++) {
+				String var = (String) tempTable.get("var" + k);
+				if (var != null) {
+					if (!var.contains("null")) {
 						code += var + ";" + "\r";
-					}							
+					}
 				}
 			}
 		}
 	}
- }
+}
