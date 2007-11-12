@@ -25,8 +25,6 @@ public class Circle extends Sprite {
 	 *            <code>int</code>
 	 * @param width
 	 *            <code>int</code>
-	 * @param color
-	 *            <code>Color</code>
 	 */
 	public Circle(int x, int y, int height, int width) {
 		super(x, y, width, height);

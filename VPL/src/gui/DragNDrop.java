@@ -42,12 +42,8 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	/**
 	 * Constructor donde se especifican las figuras, las l&iacute;neas y el gui.
 	 * 
-	 * @param sprites
-	 *            <code>ArrayList<Sprite></code>
-	 * @param lines
-	 *            <code>ArrayList<Sprite></code>
-	 * @param gui
-	 *            <code>GUI</code>
+	 * @param wa
+	 *            <code>WorkArea</code>
 	 */
 	public DragNDrop(WorkArea wa) {
 

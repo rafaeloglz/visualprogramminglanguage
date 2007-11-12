@@ -54,8 +54,9 @@ public class Activity {
 	/**
 	 * M&eacute;todo para obtener un elemento por &iacute;ndice.
 	 * 
-	 * @param name
+	 * @param index
 	 *            <code>int</code>
+	 *            
 	 * @return <code>Object</code>
 	 */
 	public Object getContentAt(int index) {
@@ -73,8 +74,9 @@ public class Activity {
 	/**
 	 * M&eacute;todo para obtener una llave por &iacute;ndice.
 	 * 
-	 * @param name
+	 * @param index
 	 *            <code>int</code>
+	 *            
 	 * @return <code>Object</code>
 	 */
 	public String getKeyAt(int index) {

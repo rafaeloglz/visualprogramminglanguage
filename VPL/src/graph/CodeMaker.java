@@ -45,8 +45,10 @@ public class CodeMaker {
 	/**
 	 * Constructor por omisi&oacute;n.
 	 * 
-	 * @param g
-	 *            <code>Graph</code>
+	 * @param graphs 
+	 *            <code>ArrayList<Graph></code>
+	 * @param nombresMetodos 
+	 *            <code>ArrayList<String></code>            
 	 */
 	public CodeMaker(ArrayList<Graph> graphs, ArrayList<String> nombresMetodos) {
 		this.graphs = graphs;
@@ -133,7 +135,7 @@ public class CodeMaker {
 	 * M&eacute;todo recursivo para hacer un recorrido del grafo para obtener el
 	 * valor de cada v&eacute;rtice.
 	 * 
-	 * @param vertice_raiz
+	 * @param v
 	 *            <code>Vertex<StructV></code>
 	 * 
 	 */

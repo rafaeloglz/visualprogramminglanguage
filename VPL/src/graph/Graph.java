@@ -83,8 +83,8 @@ public class Graph<V, E> implements Serializable {
 	/**
 	 * M&eacute;todo para especificar el inicio del grafo.
 	 * 
-	 * @param head
-	 *            <code>Vertex<V></code>
+	 * @param value
+	 *            <code>V</code>
 	 */
 	public void setHead(V value) {
 
@@ -167,8 +167,13 @@ public class Graph<V, E> implements Serializable {
 	/**
 	 * M&eacute;todo para obtener una arista por valor.
 	 * 
-	 * @param value
+	 * @param source
 	 *            <code>V</code>
+	 * @param dest
+	 *            <code>V</code>
+	 * @param weight
+	 *            <code>E</code>
+	 *            
 	 * @return <code>Vertex<V></code>
 	 */
 	public Edge<V, E> getEdge(V source, V dest, E weight) {
@@ -187,9 +192,10 @@ public class Graph<V, E> implements Serializable {
 	/**
 	 * M&eacute;todo para obtener una arista por &iacute;ndice.
 	 * 
-	 * @param value
-	 *            <code>V</code>
-	 * @return <code>Vertex<V></code>
+	 * @param index
+	 *            <code>int</code>
+	 *            
+	 * @return <code>Edge<V, E></code>
 	 */
 	public Edge<V, E> getEdgeAt(int index) {
 
