@@ -234,4 +234,9 @@ public class WorkArea extends JComponent {
 			this.lines.add(ste.getLine());
 		}
 	}
+	
+	public void setName(String name) {
+		
+		this.name = name;
+	}
 }
