@@ -24,7 +24,6 @@ public class GUI {
 
 	private JFrame frame;
 	private MenuBar menu;
-	private int tabCount;
 	private JTabbedPane tabPanel;
 	private JTextArea textArea;
 	private ToolBar toolbar;
@@ -51,10 +50,21 @@ public class GUI {
 	 */
 	public void addTab() {
 
-		WorkArea wa = new WorkArea("method" + tabCount, toolbar);
+		WorkArea wa = new WorkArea("method" + tabPanel.getTabCount(), toolbar);
 		this.workAreas.add(wa);
-		this.tabPanel.addTab(wa.getName(), wa);
-		this.tabCount++;
+		
+		Tab tab = new Tab(wa);
+		
+		this.tabPanel.add(wa);
+		this.tabPanel.setTabComponentAt(tabPanel.getTabCount() - 1, tab.getTab());
+		
+		/*ArrayList<Sprite> sprites = this.workAreas.get(0).getSprites();		
+		
+		for(int i=0;i<sprites.size();i++){
+			if(sprites.get(i) instanceof SpriteVar){
+				wa.addSprite(sprites.get(i));	
+			}
+		}*/
 	}
 
 	/**
@@ -167,15 +177,13 @@ public class GUI {
 		this.frame.getContentPane().add(scrollPanel2, gbc);
 
 		this.frame.setJMenuBar(menu.getMenuBar());
-
-		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frame.pack();
-		this.frame.setSize(600, 600);
-		this.frame.setLocationByPlatform(true);
-		this.frame.setResizable(false);
-		this.frame.setVisible(true);
-
-		this.tabCount = 0;
+					
+		this.frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();     	    	       
+	   	this.frame.setSize(600, 600);
+	   	this.frame.setLocationByPlatform(true);
+	   	this.frame.setResizable(false);
+        this.frame.setVisible(true);
 	}
 
 	/**
@@ -191,7 +199,6 @@ public class GUI {
 		WorkArea wa = new WorkArea("main", toolbar);
 		this.workAreas.add(wa);
 		this.tabPanel.addTab(wa.getName(), wa);
-		this.tabCount = 0;
 	}
 
 	/**
@@ -206,7 +213,6 @@ public class GUI {
 
 		this.tabPanel.removeAll();
 		this.workAreas.clear();
-		this.tabCount = 0;
 
 		WorkArea main = new WorkArea("main", toolbar);
 		main.setGraph(graphs.get(0));
@@ -215,11 +221,10 @@ public class GUI {
 
 		for (int i = 1; i < graphs.size(); i++) {
 
-			WorkArea wa = new WorkArea("method" + tabCount, toolbar);
+			WorkArea wa = new WorkArea("method" + tabPanel.getTabCount(), toolbar);
 			wa.setGraph(graphs.get(i));
 			this.workAreas.add(wa);
 			this.tabPanel.addTab(wa.getName(), wa);
-			this.tabCount++;
 		}
 	}
 }

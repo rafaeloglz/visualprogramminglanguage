@@ -210,7 +210,7 @@ public class ToolBar {
 
 		sprites.add(new SpriteBegin());
 		sprites.add(new SpriteEnd());
-		sprites.add(new SpriteGlobalVar());
+		//sprites.add(new SpriteGlobalVar());
 		sprites.add(new SpriteVar());
 		sprites.add(new SpriteInstruction());
 		sprites.add(new SpriteIf());
