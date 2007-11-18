@@ -277,14 +277,14 @@ public class Graph<V, E> implements Serializable {
 
 			Vertex<V> temp = vertices.get(v);
 
-			System.out.print("nodo#" + v + ".valor(" + temp.getValue() + ")"
+			System.out.print("nodo#" + v + ".valor(" + temp + ")"
 					+ ": ");
 
 			for (int e = 0; e < temp.getNumNeighbors(); e++) {
 
 				Vertex<V> temp2 = temp.getNeighborAt(e);
 
-				System.out.print("nodo" + ".valor(" + temp2.getValue() + ")"
+				System.out.print("nodo" + ".valor(" + temp2 + ")"
 						+ " ");
 			}
 
