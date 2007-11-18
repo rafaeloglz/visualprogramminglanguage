@@ -112,19 +112,24 @@ public class Vertex<V> implements Serializable {
 	 */
 	public Vertex<V> getNeighborAt(int index) {
 
-		return neighbors.get(index);
+		return this.neighbors.get(index);
 	}
 
 	public boolean removeNeighbor(V value) {
 
 		for (int i = 0; i < getNumNeighbors(); i++)
-			if (neighbors.get(i).getValue().equals(value)) {
+			if (this.neighbors.get(i).getValue().equals(value)) {
 
-				neighbors.remove(i);
+				this.neighbors.remove(i);
 				return true;
 			}
 
 		return false;
+	}
+	
+	public Vertex removeNeighbor(int index) {
+		
+		return this.neighbors.remove(index);
 	}
 
 	/**

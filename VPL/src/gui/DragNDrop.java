@@ -27,10 +27,12 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.awt.dnd.DropTargetEvent;
 import java.awt.dnd.DropTargetListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import sprite.*;
 
 public class DragNDrop implements DragGestureListener, DragSourceListener,
-		DropTargetListener {
+		DropTargetListener, MouseMotionListener {
 
 	private Sprite beingDragged;
 	private Cursor dragCursor = new Cursor(Cursor.DEFAULT_CURSOR);
@@ -256,5 +258,19 @@ public class DragNDrop implements DragGestureListener, DragSourceListener,
 	public DropTarget getDropTarget() {
 
 		return this.dropTarget;
+	}
+	
+	public void mouseDragged(MouseEvent e) {
+
+		if (this.beingDragged != null) {
+
+			this.beingDragged.setX(e.getX());
+			this.beingDragged.setY(e.getY());
+			this.wa.repaint();
+		}
+	}
+	
+	public void mouseMoved(MouseEvent e) {
+		
 	}
 }

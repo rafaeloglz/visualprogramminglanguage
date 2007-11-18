@@ -126,7 +126,7 @@ public class MenuBar {
 		this.menuItem2_2.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				gui.addTab();
+				gui.addNewTab();
 			}
 		});
 

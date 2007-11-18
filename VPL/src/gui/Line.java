@@ -62,11 +62,8 @@ public class Line implements Serializable {
 	 *            <code>int</code>
 	 */
 	public Line(Sprite source, int sourceIndex) {
-
-		this.source = source;
-		this.dest = null;
-		this.sourceIndex = sourceIndex;
-		this.destIndex = -1;
+		
+		this(source, null, sourceIndex, -1);
 	}
 
 	/**

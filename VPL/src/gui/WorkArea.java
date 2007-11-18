@@ -31,6 +31,9 @@ public class WorkArea extends JComponent {
 	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 	private ToolBar toolbar;
 	private ArrayList<Sprite> sprites;
+	private boolean localVar;
+	private Sprite globalVar;
+	private StructV structGVar;
 
 	/**
 	 * Constructor por omisi&oacute;n.
@@ -41,12 +44,20 @@ public class WorkArea extends JComponent {
 		this.connect = new Connect(this);
 		this.dragNDrop = new DragNDrop(this);
 		this.graph = new Graph();
+		this.graph.setName(name);
 		this.lines = new ArrayList<Line>();
 		this.name = name;
 		this.toolbar = toolbar;
 		this.sprites = new ArrayList<Sprite>();
+		this.localVar = false;
 	}
 
+	public void addGlobalVar(Sprite globalVar, StructV stv) {
+		
+		this.globalVar = globalVar;
+		this.structGVar = stv;
+	}
+	
 	/**
 	 * M&eacute;todo para agregar un <code>Line</code>.
 	 * 
@@ -57,7 +68,7 @@ public class WorkArea extends JComponent {
 
 		this.lines.add(line);
 	}
-
+	
 	/**
 	 * M&eacute;todo para agregar un <code>Sprite</code>.
 	 * 
@@ -65,8 +76,11 @@ public class WorkArea extends JComponent {
 	 *            <code>Sprite</code>
 	 */
 	public void addSprite(Sprite sprite) {
-
+		
 		this.sprites.add(sprite);
+		
+		if(sprite instanceof SpriteVar)
+			this.localVar = true;
 	}
 
 	/**
@@ -102,7 +116,14 @@ public class WorkArea extends JComponent {
 
 		return this.dragNDrop;
 	}
-
+	
+	public Object[] getGlobalVar() {
+		
+		Object[] o = {this.globalVar, this.structGVar};
+		
+		return o;
+	}
+	
 	/**
 	 * M&eacute;todo para obtener el grafo.
 	 * 
@@ -167,7 +188,12 @@ public class WorkArea extends JComponent {
 
 		return this.sprites.size();
 	}
-
+	
+	public boolean isLocalVarSet() {
+		
+		return this.localVar;
+	}
+	
 	/**
 	 * M&eacute;todo para para que el componente se dibuje a si mismo dibujando
 	 * cada uno de los objetos Sprite y Line.
@@ -225,7 +251,13 @@ public class WorkArea extends JComponent {
 		for (int i = 0; i < g.getNumVertices(); i++) {
 
 			StructV stv = (StructV) g.getVertexAt(i).getValue();
-			this.sprites.add(stv.getSprite());
+			this.addSprite(stv.getSprite());
+			
+			if(stv.getSprite() instanceof SpriteGlobalVar) {
+				
+				this.globalVar = stv.getSprite();
+				this.structGVar = stv;
+			}
 		}
 
 		for (int i = 0; i < g.getNumEdges(); i++) {
@@ -238,5 +270,6 @@ public class WorkArea extends JComponent {
 	public void setName(String name) {
 		
 		this.name = name;
+		this.graph.setName(name);
 	}
 }

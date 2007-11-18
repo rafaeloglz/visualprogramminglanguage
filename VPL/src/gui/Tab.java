@@ -1,19 +1,15 @@
 package gui;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 
 public class Tab {
 	
 	private String title;
 	private WorkArea wa;
-	private JPanel tab;
-	private JButton changeTitle;
 	private JTextField tabLabel;
 	
 	public Tab(WorkArea wa) {
@@ -26,36 +22,35 @@ public class Tab {
 	
 	private void init() {
 		
-		tab = new JPanel();
-		changeTitle = new JButton();
-		
 		tabLabel = new JTextField(title);
+		tabLabel.setOpaque(false);
 		tabLabel.setEditable(false);
 		
-		changeTitle.setPreferredSize(new Dimension (10, 10));
-		changeTitle.addActionListener(new ActionListener() {
+		tabLabel.addMouseListener(new MouseAdapter() {
 			
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				
-				if(!tabLabel.isEditable()) {
+				if(e.getClickCount() == 2) {
 					
 					tabLabel.setEditable(true);
-				}
-				else{
-					
-					wa.setName(tabLabel.getText());
-					tabLabel.setEditable(false);
-				}
+					tabLabel.setFocusable(true);
+				}		
 			}
 		});
 		
-		tab.add(tabLabel);
-		tab.add(changeTitle);
+		tabLabel.addFocusListener(new FocusAdapter() {
+			
+			public void focusLost(FocusEvent e) {
+				
+				wa.setName(tabLabel.getText());
+				tabLabel.setEditable(false);
+			}
+		});
 	}
 	
-	public JPanel getTab() {
+	public JTextField getTab() {
 		
-		return this.tab;
+		return this.tabLabel;
 	}
 	
 }
