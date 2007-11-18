@@ -144,7 +144,6 @@ public class Connect implements MouseListener, MouseMotionListener {
 							System.out.println(draggedLine);
 							this.wa.addLine(this.draggedLine);
 							this.wa.setCursor(dragCursor);
-							this.wa.repaint();
 							
 							return;
 						}
@@ -208,20 +207,22 @@ public class Connect implements MouseListener, MouseMotionListener {
 										|| generatesLoop(source, dest))
 									break;
 
-								this.draggedLine.setDest(dest);
-								this.draggedLine.setDestIndex(destIndex);
+								this.draggedLine.setDest(this.dest);
+								this.draggedLine.setDestIndex(this.destIndex);
 
-								StructE st = new StructE(draggedLine, 0);
-								StructV stS = new StructV(source, 0);
-								StructV stD = new StructV(dest, 0);
+								StructE st = new StructE(this.draggedLine, 0);
+								StructV stS = new StructV(this.source, 0);
+								StructV stD = new StructV(this.dest, 0);
 								System.out.println(this.wa.getGraph().addEdge(stS, stD, st,
-										sourceIndex));
+										this.sourceIndex));
 								this.wa.repaint();
 
 								this.connectFlag = false;
 								this.wa.setCursor(normalCursor);
 								
 								System.out.println("conecto");
+								
+								this.wa.getGraph().print();
 								
 								return;
 							}
@@ -292,31 +293,33 @@ public class Connect implements MouseListener, MouseMotionListener {
 		
 		System.out.println("disconnect");
 		
-		for(int i = 0; i < wa.getLineCount(); i++) {
+		for(int i = 0; i < this.wa.getLineCount(); i++) {
 			
-			Line l = wa.getLineAt(i);
+			Line l = this.wa.getLineAt(i);
 			
-			if(l.getDest() == source && l.getDestIndex() == sourceIndex) {
+			if(l.getDest() == dest && l.getDestIndex() == destIndex) {
 				
 				System.out.print(l.getSourceIndex() + ",");
 				System.out.println(l.getSource());
 				
 				System.out.println(l);
 				
-				for(int j = 0; j < wa.getSpriteCount(); j++)
-					if(wa.getSpriteAt(j) == l.getSource()) {
+				for(int j = 0; j < this.wa.getSpriteCount(); j++)
+					if(this.wa.getSpriteAt(j) == l.getSource()) {
 						
-						if(wa.removeLine(i) != null 
-							&& wa.getGraph().removeEdge(i, j, l.getSourceIndex()))
+						if(this.wa.removeLine(i) != null 
+							&& this.wa.getGraph().removeEdge(i, j, l.getSourceIndex()))
+								
+								this.source = l.getSource();
+								this.sourceIndex = l.getSourceIndex();
+							
+								l.setDest(null);
+								l.setDestIndex(-1);
+								
+								this.wa.getGraph().print();
+								
 								return l;
 					}
-				
-				
-					
-				//l.setDest(null);
-				//l.setDestIndex(-1);
-				
-				//wa.getGraph().getEdgeAt(i).setDest(null);
 			}
 		}
 		
