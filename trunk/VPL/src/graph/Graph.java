@@ -19,6 +19,7 @@ public class Graph<V, E> implements Serializable {
 	private ArrayList<Edge<V, E>> edges;
 	private Vertex<V> head;
 	private ArrayList<Vertex<V>> tail;
+	private String name;
 
 	/**
 	 * Constructor por omisi&oacute;n.
@@ -29,7 +30,16 @@ public class Graph<V, E> implements Serializable {
 		edges = new ArrayList<Edge<V, E>>();
 		head = null;
 	}
+	
+	/**
+	 * M&eacute;todo para limpiar al grafo.
+	 */
+	public void clear() {
 
+		vertices.clear();
+		edges.clear();
+	}
+	
 	/**
 	 * M&eacute;todo para obtener el inicio del grafo.
 	 * 
@@ -37,7 +47,7 @@ public class Graph<V, E> implements Serializable {
 	 */
 	public Vertex<V> getHead() {
 
-		return head;
+		return this.head;
 	}
 
 	/**
@@ -47,7 +57,7 @@ public class Graph<V, E> implements Serializable {
 	 */
 	public int getNumEdges() {
 
-		return edges.size();
+		return this.edges.size();
 	}
 
 	/**
@@ -57,7 +67,7 @@ public class Graph<V, E> implements Serializable {
 	 */
 	public int getNumVertices() {
 
-		return vertices.size();
+		return this.vertices.size();
 	}
 
 	/**
@@ -133,7 +143,12 @@ public class Graph<V, E> implements Serializable {
 
 		return false;
 	}
-
+	
+	public String getName() {
+		
+		return this.name;
+	}
+	
 	/**
 	 * M&eacute;todo para obtener un v&eacute;rtice por valor.
 	 * 
@@ -201,7 +216,17 @@ public class Graph<V, E> implements Serializable {
 
 		return edges.get(index);
 	}
+	
+	/**
+	 * M&eacute;todo que indica si el grafo est&aacute; vac&iacute;o.
+	 * 
+	 * @return <code>boolean</code>
+	 */
+	public boolean isEmpty() {
 
+		return vertices.isEmpty();
+	}
+	
 	/**
 	 * M&eacute;todo para elimiar un vertice.
 	 * 
@@ -229,26 +254,20 @@ public class Graph<V, E> implements Serializable {
 
 		return true;
 	}
-
-	/**
-	 * M&eacute;todo para limpiar al grafo.
-	 */
-	public void clear() {
-
-		vertices.clear();
-		edges.clear();
+	
+	public boolean removeEdge(int edgeIndex, int vertexIndex, int neighborIndex) {
+		
+		if(this.edges.remove(edgeIndex) != null 
+			&& this.vertices.get(vertexIndex).removeNeighbor(neighborIndex) != null)
+			return true;
+		else return false;
 	}
-
-	/**
-	 * M&eacute;todo que indica si el grafo est&aacute; vac&iacute;o.
-	 * 
-	 * @return <code>boolean</code>
-	 */
-	public boolean isEmpty() {
-
-		return vertices.isEmpty();
+	
+	public void setName(String name) {
+		
+		this.name = name;
 	}
-
+	
 	/**
 	 * M&eacute;todo para imprimir el grafo en consola.
 	 */

@@ -65,7 +65,7 @@ public class ToolBar {
 		this.name = name;
 		this.orientation = orientation;
 		this.gui = gui;
-
+		
 		this.toolbar = new JToolBar(this.name, this.orientation);
 		this.toolbar.setFloatable(false);
 
@@ -128,29 +128,39 @@ public class ToolBar {
 							Hashtable<String, Object> tempHashTable = new Hashtable<String, Object>();
 							tempHashTable.put("name", spriteName);
 
-							StructV<Hashtable<String, Object>> st = new StructV<Hashtable<String, Object>>(
+							StructV<Hashtable<String, Object>> stv = new StructV<Hashtable<String, Object>>(
 									temp, tempHashTable);
+							
+							if(temp instanceof SpriteGlobalVar && 
+								wa.getGlobalVar()[0] == null) {
+								
+								wa.addSprite(temp);
+								wa.getGraph().addVertex(stv);
 
-							if (wa.getGraph().getHead() == null
-									|| sprite.getClass() != SpriteBegin.class) {
-
-								if (sprite.getClass() == SpriteGlobalVar.class) {
-
-									if (wa.getName().equals("main")) {
-
-										wa.addSprite(temp);
-										wa.getGraph().addVertex(st);
-									}
-								} else {
+								gui.addGlobalVar(temp, stv);
+							}
+							else if(temp instanceof SpriteVar) {
+								
+								if(!wa.isLocalVarSet()) {
 
 									wa.addSprite(temp);
-									wa.getGraph().addVertex(st);
-								}
+									wa.getGraph().addVertex(stv);
+								}	
 							}
-
-							if (sprite.getClass() == SpriteBegin.class
-									&& wa.getGraph().getHead() == null)
-								wa.getGraph().setHead(st);
+							else if (temp instanceof SpriteBegin 
+									&& wa.getGraph().getHead() == null) {
+								
+								wa.addSprite(temp);
+								wa.getGraph().addVertex(stv);
+								wa.getGraph().setHead(stv);
+							}		
+							else if(!(temp instanceof SpriteVar)
+									&& !(temp instanceof SpriteGlobalVar)
+									&& !(temp instanceof SpriteBegin)) {
+								
+								wa.addSprite(temp);
+								wa.getGraph().addVertex(stv);
+							}
 						}
 
 						wa.repaint();
@@ -210,7 +220,7 @@ public class ToolBar {
 
 		sprites.add(new SpriteBegin());
 		sprites.add(new SpriteEnd());
-		//sprites.add(new SpriteGlobalVar());
+		sprites.add(new SpriteGlobalVar());
 		sprites.add(new SpriteVar());
 		sprites.add(new SpriteInstruction());
 		sprites.add(new SpriteIf());

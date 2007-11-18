@@ -25,7 +25,7 @@ data:TextField:1
 data:TextField:1
 
 [var]
-variables:Table:5,2,tipo#nombre
+variables:Table:20,2,tipo#nombre
 
 [globalvar]
-variables:Table:5,2,tipo#nombre
+variables:Table:20,2,tipo#nombre

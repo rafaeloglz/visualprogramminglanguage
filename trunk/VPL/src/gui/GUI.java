@@ -18,7 +18,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import sprite.Sprite;
 import graph.*;
+import struct.StructV;
 
 public class GUI {
 
@@ -28,6 +30,8 @@ public class GUI {
 	private JTextArea textArea;
 	private ToolBar toolbar;
 	private ArrayList<WorkArea> workAreas;
+	private Sprite globalVar;
+	private StructV structGVar;
 
 	/**
 	 * Constructor de la clase.
@@ -44,11 +48,38 @@ public class GUI {
 
 		this.init();
 	}
-
+	
+	public void addGlobalVar(Sprite globalVar, StructV stv) {
+		
+		this.globalVar = globalVar;
+		this.structGVar = stv;
+		
+		for(int i = 0; i < this.workAreas.size(); i++) {
+			
+			if(this.workAreas.get(i).getGlobalVar()[0] == null) {
+				
+				workAreas.get(i).addSprite(globalVar);
+				workAreas.get(i).getGraph().addVertex(stv);
+				workAreas.get(i).addGlobalVar(globalVar, stv);
+			}
+		}
+			
+	}
+	
+	public void addTab(WorkArea wa) {
+		
+		this.workAreas.add(wa);
+		
+		Tab tab = new Tab(wa);
+		
+		this.tabPanel.add(wa);
+		this.tabPanel.setTabComponentAt(tabPanel.getTabCount() - 1, tab.getTab());
+	}
+	
 	/**
 	 * M&eacute;todo para agregar nuevos tabs de trabajo.
 	 */
-	public void addTab() {
+	public void addNewTab() {
 
 		WorkArea wa = new WorkArea("method" + tabPanel.getTabCount(), toolbar);
 		this.workAreas.add(wa);
@@ -58,13 +89,11 @@ public class GUI {
 		this.tabPanel.add(wa);
 		this.tabPanel.setTabComponentAt(tabPanel.getTabCount() - 1, tab.getTab());
 		
-		/*ArrayList<Sprite> sprites = this.workAreas.get(0).getSprites();		
-		
-		for(int i=0;i<sprites.size();i++){
-			if(sprites.get(i) instanceof SpriteVar){
-				wa.addSprite(sprites.get(i));	
-			}
-		}*/
+		if(this.globalVar != null && this.structGVar != null) {
+			
+			wa.addSprite(this.globalVar);
+			wa.getGraph().addVertex(this.structGVar);
+		}
 	}
 
 	/**
@@ -150,7 +179,7 @@ public class GUI {
 
 		WorkArea wa = new WorkArea("main", toolbar);
 		this.workAreas.add(wa);
-		this.tabPanel.addTab(wa.getName(), wa);
+		this.tabPanel.add(wa);
 
 		this.frame.setLayout(gridbag);
 
@@ -199,6 +228,9 @@ public class GUI {
 		WorkArea wa = new WorkArea("main", toolbar);
 		this.workAreas.add(wa);
 		this.tabPanel.addTab(wa.getName(), wa);
+		
+		this.globalVar = null;
+		this.structGVar = null;
 	}
 
 	/**
@@ -217,14 +249,25 @@ public class GUI {
 		WorkArea main = new WorkArea("main", toolbar);
 		main.setGraph(graphs.get(0));
 		this.workAreas.add(main);
-		this.tabPanel.addTab(main.getName(), main);
+		this.tabPanel.add(main);
 
+		if(main.getGlobalVar() != null) {
+			
+			this.globalVar = (Sprite)main.getGlobalVar()[0];
+			this.structGVar = (StructV)main.getGlobalVar()[1];
+		}
+		
 		for (int i = 1; i < graphs.size(); i++) {
 
-			WorkArea wa = new WorkArea("method" + tabPanel.getTabCount(), toolbar);
+			WorkArea wa = new WorkArea(graphs.get(i).getName(), toolbar);
 			wa.setGraph(graphs.get(i));
-			this.workAreas.add(wa);
-			this.tabPanel.addTab(wa.getName(), wa);
+			this.addTab(wa);
+			
+			if(wa.getGlobalVar() != null) {
+				
+				this.globalVar = (Sprite)wa.getGlobalVar()[0];
+				this.structGVar = (StructV)wa.getGlobalVar()[1];
+			}
 		}
 	}
 }

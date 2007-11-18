@@ -28,7 +28,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	private Sprite dest;
 	private int destIndex;
 	private Cursor dragCursor = new Cursor(Cursor.CROSSHAIR_CURSOR);
-	public Line draggedLine;
+	private Line draggedLine;
 	private Cursor normalCursor = new Cursor(Cursor.DEFAULT_CURSOR);
 	private Sprite source;
 	private Sprite sourceConnector;
@@ -82,7 +82,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	 *            <code>MouseEvent</code>
 	 */
 	public void mouseDragged(MouseEvent e) {
-
+		
 		if (this.draggedLine != null) {
 
 			this.draggedLine.setX2(e.getX());
@@ -132,17 +132,33 @@ public class Connect implements MouseListener, MouseMotionListener {
 						this.sourceIndex = j;
 						this.source = s1;
 						this.sourceConnector = s2;
-
-						if (sourceIndex > 1
-								&& sourceConnector instanceof Square
-								|| hasBeenConnected(sourceConnector))
+						
+						if (sourceIndex > 1 && sourceConnector instanceof Square
+								&& hasBeenConnected(sourceConnector)) {
+								
+							System.out.print(sourceIndex + ",");
+							System.out.println(source);
+							
+							this.connectFlag = true;
+							this.draggedLine = disconnect(source, sourceIndex);
+							System.out.println(draggedLine);
+							this.wa.addLine(this.draggedLine);
+							this.wa.setCursor(dragCursor);
+							this.wa.repaint();
+							
 							return;
+						}
+						
+						if (sourceIndex > 1 && sourceConnector instanceof Square
+							|| hasBeenConnected(sourceConnector))						
+							return;
+
 
 						this.connectFlag = true;
 						this.draggedLine = new Line(source, sourceIndex);
 						this.wa.addLine(this.draggedLine);
-
 						this.wa.setCursor(dragCursor);
+						
 						return;
 					}
 				}
@@ -185,8 +201,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 							this.destIndex = j;
 							this.dest = s1;
 
-							if (this.sourceConnector.getClass() == s2
-									.getClass()
+							if (this.sourceConnector.getClass() == s2.getClass()
 									&& !source.equals(dest)) {
 								if (destIndex <= 1 && s2 instanceof Square
 										|| hasBeenConnected(s2)
@@ -199,13 +214,15 @@ public class Connect implements MouseListener, MouseMotionListener {
 								StructE st = new StructE(draggedLine, 0);
 								StructV stS = new StructV(source, 0);
 								StructV stD = new StructV(dest, 0);
-								this.wa.getGraph().addEdge(stS, stD, st,
-										sourceIndex);
+								System.out.println(this.wa.getGraph().addEdge(stS, stD, st,
+										sourceIndex));
 								this.wa.repaint();
 
 								this.connectFlag = false;
 								this.wa.setCursor(normalCursor);
-
+								
+								System.out.println("conecto");
+								
 								return;
 							}
 						}
@@ -269,5 +286,40 @@ public class Connect implements MouseListener, MouseMotionListener {
 		}
 
 		return false;
+	}
+	
+	public Line disconnect(Sprite dest, int destIndex) {
+		
+		System.out.println("disconnect");
+		
+		for(int i = 0; i < wa.getLineCount(); i++) {
+			
+			Line l = wa.getLineAt(i);
+			
+			if(l.getDest() == source && l.getDestIndex() == sourceIndex) {
+				
+				System.out.print(l.getSourceIndex() + ",");
+				System.out.println(l.getSource());
+				
+				System.out.println(l);
+				
+				for(int j = 0; j < wa.getSpriteCount(); j++)
+					if(wa.getSpriteAt(j) == l.getSource()) {
+						
+						if(wa.removeLine(i) != null 
+							&& wa.getGraph().removeEdge(i, j, l.getSourceIndex()))
+								return l;
+					}
+				
+				
+					
+				//l.setDest(null);
+				//l.setDestIndex(-1);
+				
+				//wa.getGraph().getEdgeAt(i).setDest(null);
+			}
+		}
+		
+		return null;
 	}
 }
