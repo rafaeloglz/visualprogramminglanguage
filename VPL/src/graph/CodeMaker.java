@@ -15,6 +15,8 @@ import sprite.Sprite;
 import sprite.SpriteFor;
 import sprite.SpriteGlobalVar;
 import sprite.SpriteIf;
+import sprite.SpriteParallel;
+import sprite.SpriteSync;
 import sprite.SpriteUnion;
 import sprite.SpriteVar;
 import sprite.SpriteWhile;
@@ -27,6 +29,7 @@ import java.util.Hashtable;
 public class CodeMaker {
 
 	private String code;
+	private String parallelCode;
 	private ArrayList<Graph> graphs;
 	private CodeWriter cw;
 	private String method;
@@ -38,9 +41,16 @@ public class CodeMaker {
 	private ArrayList<Sprite> whileList;
 	private ArrayList<Sprite> forList;
 	private ArrayList<Vertex<StructV>> ifList;
+	private ArrayList<Vertex<StructV>> parallelList;
 	private ArrayList<Sprite> unionList;
 	private ArrayList<String> nombresMetodos;
-	private Graph g;
+	private ArrayList threadCountHist;
+	private Graph g;	
+	private int classCount;
+	private int classCount2;
+	private int threadCount;
+	private int parCount;
+	private boolean isParallel = false;
 
 	/**
 	 * Constructor por omisi&oacute;n.
@@ -53,7 +63,11 @@ public class CodeMaker {
 	public CodeMaker(ArrayList<Graph> graphs, ArrayList<String> nombresMetodos) {
 		this.graphs = graphs;
 		this.nombresMetodos = nombresMetodos;
-
+		
+		classCount2 =0;
+		threadCount = 0;
+		parCount = 0;
+		parallelCode = "";
 		code = "";
 		String configFile = "code.txt";
 		template = new ArrayList<String>();
@@ -75,6 +89,8 @@ public class CodeMaker {
 		forList = new ArrayList<Sprite>();
 		ifList = new ArrayList<Vertex<StructV>>();
 		unionList = new ArrayList<Sprite>();
+		parallelList = new ArrayList <Vertex<StructV>>();
+		threadCountHist = new ArrayList();
 	}
 
 	/**
@@ -89,7 +105,7 @@ public class CodeMaker {
 			g = graphs.get(i);
 
 			if (i == 0) {
-				addGlobalVariables(g);
+				addGlobalVariables(g);				
 			}
 
 			vertices = g.getVertices();
@@ -118,13 +134,14 @@ public class CodeMaker {
 	 */
 	public boolean writeToFile(String path, String filename) {
 
-		code = "class " + filename.replace(".java", "") + "{\n" + code;
+		code = "public class " + filename.replace(".java", "") + "{\n" + code;		
 
 		for (int i = 0; i < nombresMetodos.size(); i++) {
 			code = code.replaceFirst("genericMethod", nombresMetodos.get(i));
 		}
 
-		code = code + "\n}";
+		code = code + "}" + "\r";
+		code += parallelCode;
 
 		cw = new CodeWriter(code, path, filename);
 		return cw.write();
@@ -141,7 +158,7 @@ public class CodeMaker {
 	 */
 	public boolean recurse(Vertex<StructV> v) {
 
-		if (!(v.getValue().getSprite() instanceof SpriteUnion))
+		if (!(v.getValue().getSprite() instanceof SpriteUnion) && !(v.getValue().getSprite() instanceof SpriteSync) && !(v.getValue().getSprite() instanceof SpriteParallel))
 			precondition(v);
 
 		ArrayList<Vertex<StructV>> neighbors = v.getNeighbors();
@@ -151,7 +168,6 @@ public class CodeMaker {
 
 			if (tmp == null)
 				break;
-
 			if (whileCase(tmp))
 				continue;
 			if (forCase(tmp))
@@ -160,11 +176,15 @@ public class CodeMaker {
 				continue;
 			if (unionCase(tmp))
 				continue;
+			if(parallelCase(tmp))
+				continue;
+			if(syncCase(tmp))
+				continue;
 
 			recurse(tmp);
 		}
 
-		if (!(v.getValue().getSprite() instanceof SpriteIf))
+		if (!(v.getValue().getSprite() instanceof SpriteIf) && !(v.getValue().getSprite() instanceof SpriteParallel) && !(v.getValue().getSprite() instanceof SpriteSync))
 			postcondition(v);
 
 		return false;
@@ -242,7 +262,7 @@ public class CodeMaker {
 		if (tmp.getValue().getSprite() instanceof SpriteIf) {
 			if (ifList.size() != 0) {
 				Sprite currentIf = ifList.get(ifList.size() - 1).getValue()
-						.getSprite();
+				.getSprite();
 
 				if (!currentIf.equals(tmp.getValue().getSprite())) {
 					ifList.add(tmp);
@@ -285,6 +305,42 @@ public class CodeMaker {
 		return false;
 	}
 
+	private boolean parallelCase(Vertex<StructV> tmp){
+		if (tmp.getValue().getSprite() instanceof SpriteParallel) {
+			if(parallelList.isEmpty()){
+				for(int i = 0; i < tmp.getNumNeighbors(); i++)
+					parallelList.add(tmp);
+				startThreads();
+				isParallel = true;
+				precondition(tmp);
+				postcondition(tmp);
+				parCount++;
+			}
+		}
+		return false;
+	}
+
+	private boolean syncCase(Vertex<StructV> tmp){
+		if (tmp.getValue().getSprite() instanceof SpriteSync) {
+			if(parallelList.size() > 1){				
+				Vertex<StructV> parTemp = parallelList.get(parallelList.size()-1);
+				precondition(tmp);
+				postcondition(tmp);
+				precondition(parTemp);
+				postcondition(parTemp);
+				parallelList.remove(parallelList.size()-1);
+				return true;
+			}
+			else if (parallelList.size() == 1){
+				precondition(tmp);
+				postcondition(tmp);
+				parallelList.remove(parallelList.size()-1);
+				isParallel = false;
+			}
+		}		
+		return false;		
+	}
+
 	/**
 	 * M&eacute;todo que genera las precondiciones para el vertice actual
 	 * 
@@ -308,17 +364,23 @@ public class CodeMaker {
 	public void postcondition(Vertex<StructV> v) {
 
 		String name = (String) ((Hashtable) v.getValue().getValue())
-				.get("name");
+		.get("name");
 
 		int line = search(name);
 
 		if (line == -1) {
-			code += "\r";
+			if(isParallel)
+				parallelCode += "\r";
+			else
+				code += "\r";
 			return;
 		}
 
 		if (!(template.get(line + 2).matches("[\\s]*")))
-			code += template.get(line + 2) + "\r";
+			if(isParallel)
+				parallelCode += template.get(line + 2) + "\r";
+			else
+				code += template.get(line + 2) + "\r";		
 	}
 
 	/**
@@ -333,11 +395,15 @@ public class CodeMaker {
 	private void replaceVars(Hashtable h) {
 
 		String name = (String) h.get("name");
-
 		int line = search(name);
 
+		System.out.println(name);
+
 		if (line == -1) {
-			code += "\r";
+			if(isParallel)
+				parallelCode += "\r";
+			else
+				code += "\r";
 			return;
 		}
 
@@ -352,10 +418,16 @@ public class CodeMaker {
 				result = replaceVar(result, vars[i], h);
 			i++;
 		}
-		code += result + "\r";
 
-		if (name.equals("begin"))
+		if(isParallel)
+			parallelCode += result + "\r";
+		else
+			code += result + "\r";
+
+		if (name.equals("begin")){
 			addLocalVariables(g);
+			buildThreads(g);			
+		}	
 	}
 
 	/**
@@ -367,8 +439,17 @@ public class CodeMaker {
 	 */
 
 	private String replaceVar(String result, String var, Hashtable h) {
+		String data;
+		String name = (String) h.get("name");
 
-		String data = (String) h.get(var.substring(1));
+		if(name.equals("parallel")){
+			data = "Thread" + classCount;
+			classCount++;
+		}
+
+		else
+			data = (String) h.get(var.substring(1));
+
 
 		if (data != null)
 			result = result.replace(var, data);
@@ -419,7 +500,7 @@ public class CodeMaker {
 
 		for (int i = 0; i < g.getNumVertices(); i++) {
 			Sprite tempSprite = ((StructV) g.getVertexAt(i).getValue())
-					.getSprite();
+			.getSprite();
 			Hashtable tempTable = (Hashtable) ((StructV) g.getVertexAt(i)
 					.getValue()).getValue();
 			if (tempSprite instanceof SpriteGlobalVar) {
@@ -445,7 +526,7 @@ public class CodeMaker {
 
 		for (int i = 0; i < g.getNumVertices(); i++) {
 			Sprite tempSprite = ((StructV) g.getVertexAt(i).getValue())
-					.getSprite();
+			.getSprite();
 			Hashtable tempTable = (Hashtable) ((StructV) g.getVertexAt(i)
 					.getValue()).getValue();
 			if (tempSprite instanceof SpriteVar)
@@ -499,5 +580,87 @@ public class CodeMaker {
 				}
 			}
 		}
+	}
+
+	private void insertThreads(int threadNum, int threadRep, int totalThreads){
+
+		if(threadCount == 0)
+			code += "Thread[] threads = new Thread[" + totalThreads + "];" + "\r";
+		code += "for(int i = 0; i < "+ threadRep +"; i++){" + "\r";
+		code += "for(int j = 0; j < "+ threadNum +"; j++){" + "\r";
+		code += "try{" + "\r";
+		code += "threads[(j+2*i) + "+ threadCount +"] = (Thread)Class.forName(\"Thread\" + (j + "+classCount2+")).newInstance();" + "\r";
+		code += "} catch (Exception e) {" + "\r";
+		code += "}" + "\r";
+		//code += "threads[(j+2*i) + "+threadCount+"].start();" + "\r";
+		code += "}" + "\r";
+		code += "}" + "\r";
+		classCount2 += threadNum;
+		threadCount += (threadNum * threadRep);
+		threadCountHist.add(threadCount);
+	}
+
+	private int getNumThreads(Graph g){
+		int coefficient;
+		int totalThreads = 0;
+
+		for(int i = 0; i < g.getNumVertices(); i++){
+			Vertex<StructV> tempVertex = g.getVertexAt(i);
+			Sprite tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
+			String stringCoefficient = (String)((Hashtable)tempVertex.getValue().getValue()).get("data");
+
+			if(tempSprite instanceof SpriteParallel){
+				if(stringCoefficient == null || stringCoefficient.isEmpty())
+					coefficient = 1;
+				else
+					coefficient = Integer.parseInt(stringCoefficient);
+				totalThreads += (coefficient * tempVertex.getNumNeighbors());				
+			}
+		}
+		System.out.println(totalThreads);
+		return totalThreads;
+	}
+
+	private void buildThreads(Graph g){
+		int threadNum = 0;
+		int coefficient;
+
+		for(int i = 0; i < g.getNumVertices(); i++){
+			Vertex<StructV> tempVertex = g.getVertexAt(i);
+			Sprite tempSprite = ((StructV)g.getVertexAt(i).getValue()).getSprite();
+			String stringCoefficient = (String)((Hashtable)tempVertex.getValue().getValue()).get("data");
+
+			if(tempSprite instanceof SpriteParallel){
+				if(stringCoefficient == null || stringCoefficient.isEmpty())
+					coefficient = 1;
+				else
+					coefficient = Integer.parseInt(stringCoefficient);
+				insertThreads(tempVertex.getNumNeighbors(), coefficient, getNumThreads(g));				
+			}
+		}		
+	}
+
+	private void startThreads(){
+		int initIndex = 0;
+		if(parCount != 0)
+			initIndex = (Integer)threadCountHist.get(parCount-1);
+
+		code += "for(int i = "+initIndex+"; i < "+threadCountHist.get(parCount)+"; i++)" + "\r";
+		code += "threads[i].start();" + "\r";
+		joinThreads();
+	}
+
+	private void joinThreads(){
+		int initIndex = 0;
+		if(parCount != 0)
+			initIndex = (Integer)threadCountHist.get(parCount-1);
+
+		code += "for(int i = "+initIndex+"; i < "+threadCountHist.get(parCount)+"; i++){" + "\r";
+		code += "try{" + "\r";
+		code += "threads[i].join();" + "\r";
+		code += "} catch (InterruptedException e) {" + "\r";
+		code += "e.printStackTrace();" + "\r";
+		code += "}" + "\r";				
+		code += "}" + "\r";
 	}
 }

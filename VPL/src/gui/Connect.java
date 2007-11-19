@@ -132,11 +132,9 @@ public class Connect implements MouseListener, MouseMotionListener {
 						this.sourceIndex = j;
 						this.source = s1;
 						this.sourceConnector = s2;
-						
-						if (sourceIndex > 1 && sourceConnector instanceof Square
-							|| hasBeenConnected(sourceConnector))						
-							return;
 
+						if (sourceIndex > 1 && sourceConnector instanceof Square /*|| hasBeenConnected(sourceConnector)*/)												
+							return;
 
 						this.connectFlag = true;
 						this.draggedLine = new Line(source, sourceIndex);
@@ -188,7 +186,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 							if (this.sourceConnector.getClass() == s2.getClass()
 									&& !source.equals(dest)) {
 								if (destIndex <= 1 && s2 instanceof Square
-										|| hasBeenConnected(s2)
+										/*|| hasBeenConnected(s2)*/
 										|| generatesLoop(source, dest))
 									break;
 
@@ -230,7 +228,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	 * @param sprite
 	 *            <code>Sprite</code>
 	 */
-	public boolean hasBeenConnected(Sprite sprite) {
+	public boolean hasBeenConnected(Sprite sprite) {			
 		
 		for (int i = 0; i < wa.getLineCount(); i++) {
 			Sprite tempSource = wa.getLineAt(i).getSourceCon();

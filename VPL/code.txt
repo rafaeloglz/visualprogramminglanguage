@@ -58,18 +58,20 @@ $data //Instruction
 [lock]
 //Lock
 
-[parallel]
-//parallel
-
 [semaphore]
 //semaphore
-
-[synch]
-//synch
 
 [union]
 }
 
 [while]
 while ( $condition ){
+}
+
+[parallel]
+class $threadName extends Thread{
+public void run(){
+
+[sync]
+}
 }
