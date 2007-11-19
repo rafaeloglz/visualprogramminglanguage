@@ -56,15 +56,11 @@ public class Vertex<V> implements Serializable {
 
 	public boolean addNeighborAt(int index, Vertex<V> neighbor) {
 
-		if(neighbors.size() <= index){
-			
-			System.out.println("entro");
-			
+		if(neighbors.size() <= index)
 			for (int i = neighbors.size(); i <= index; i++)
 				neighbors.add(null);
-		}
 		
-		System.out.println(neighbors.set(index, neighbor));
+		neighbors.set(index, neighbor);
 		return true;
 	}
 
