@@ -46,12 +46,12 @@ public class SpriteSync extends Sprite {
 	 */
 	@Override
 	public void attachConnectors() {
-		Sprite s = new Square(0, 0, 7, 40, Color.cyan);
+		Sprite s = new Square(0, 0, 9, 14, Color.magenta);
+		attach(66, 2, s);		
+
+		s = new Square(0, 0, 7, 40, Color.cyan);
 		attach(2, 2, s);
-
-		s = new Square(0, 0, 9, 14, Color.magenta);
-		attach(66, 2, s);
-
+		
 		s = new Circle(0, 0, 10, 10);
 		attach(2, 42, s);
 	}

@@ -46,18 +46,18 @@ public class SpriteIf extends Sprite {
 	 */
 	@Override
 	public void attachConnectors() {
+		
+		Sprite s = new Circle(0, 0, 9, 9);
+		attach(3, 47, s);
 
-		Sprite s = new Square(0, 0, 9, 14, Color.magenta);
+		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(72, 9, s);
 
 		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(72, 27, s);
 
 		s = new Square(0, 0, 9, 14, Color.cyan);
-		attach(2, 9, s);
-
-		s = new Circle(0, 0, 9, 9);
-		attach(3, 47, s);
+		attach(2, 9, s);		
 
 		s = new Circle(0, 0, 9, 9);
 		attach(72, 47, s);

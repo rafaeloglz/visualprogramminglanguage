@@ -46,8 +46,11 @@ public class SpriteFor extends Sprite {
 	 */
 	@Override
 	public void attachConnectors() {
+		
+		Sprite s = new Circle(0, 0, 10, 10);
+		attach(1, 44, s);
 
-		Sprite s = new Square(0, 0, 9, 14, Color.magenta);
+		s = new Square(0, 0, 9, 14, Color.magenta);
 		attach(25, 0, s);
 
 		s = new Square(0, 0, 9, 14, Color.magenta);
@@ -57,10 +60,7 @@ public class SpriteFor extends Sprite {
 		attach(1, 2, s);
 
 		s = new Square(0, 0, 9, 14, Color.cyan);
-		attach(37, 0, s);
-
-		s = new Circle(0, 0, 10, 10);
-		attach(1, 44, s);
+		attach(37, 0, s);	
 
 		s = new Circle(0, 0, 10, 10);
 		attach(67, 44, s);
