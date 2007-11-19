@@ -255,14 +255,6 @@ public class Graph<V, E> implements Serializable {
 		return true;
 	}
 	
-	public boolean removeEdge(int edgeIndex, int vertexIndex, int neighborIndex) {
-		
-		if(this.edges.remove(edgeIndex) != null 
-			&& this.vertices.get(vertexIndex).removeNeighbor(neighborIndex) != null)
-			return true;
-		else return false;
-	}
-	
 	public void setName(String name) {
 		
 		this.name = name;

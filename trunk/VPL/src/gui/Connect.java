@@ -134,21 +134,6 @@ public class Connect implements MouseListener, MouseMotionListener {
 						this.sourceConnector = s2;
 						
 						if (sourceIndex > 1 && sourceConnector instanceof Square
-								&& hasBeenConnected(sourceConnector)) {
-								
-							System.out.print(sourceIndex + ",");
-							System.out.println(source);
-							
-							this.connectFlag = true;
-							this.draggedLine = disconnect(source, sourceIndex);
-							System.out.println(draggedLine);
-							this.wa.addLine(this.draggedLine);
-							this.wa.setCursor(dragCursor);
-							
-							return;
-						}
-						
-						if (sourceIndex > 1 && sourceConnector instanceof Square
 							|| hasBeenConnected(sourceConnector))						
 							return;
 
@@ -213,16 +198,11 @@ public class Connect implements MouseListener, MouseMotionListener {
 								StructE st = new StructE(this.draggedLine, 0);
 								StructV stS = new StructV(this.source, 0);
 								StructV stD = new StructV(this.dest, 0);
-								System.out.println(this.wa.getGraph().addEdge(stS, stD, st,
-										this.sourceIndex));
+								this.wa.getGraph().addEdge(stS, stD, st, this.sourceIndex);
 								this.wa.repaint();
 
 								this.connectFlag = false;
 								this.wa.setCursor(normalCursor);
-								
-								System.out.println("conecto");
-								
-								this.wa.getGraph().print();
 								
 								return;
 							}
@@ -251,6 +231,7 @@ public class Connect implements MouseListener, MouseMotionListener {
 	 *            <code>Sprite</code>
 	 */
 	public boolean hasBeenConnected(Sprite sprite) {
+		
 		for (int i = 0; i < wa.getLineCount(); i++) {
 			Sprite tempSource = wa.getLineAt(i).getSourceCon();
 			Sprite tempDest = wa.getLineAt(i).getDestCon();
@@ -287,42 +268,5 @@ public class Connect implements MouseListener, MouseMotionListener {
 		}
 
 		return false;
-	}
-	
-	public Line disconnect(Sprite dest, int destIndex) {
-		
-		System.out.println("disconnect");
-		
-		for(int i = 0; i < this.wa.getLineCount(); i++) {
-			
-			Line l = this.wa.getLineAt(i);
-			
-			if(l.getDest() == dest && l.getDestIndex() == destIndex) {
-				
-				System.out.print(l.getSourceIndex() + ",");
-				System.out.println(l.getSource());
-				
-				System.out.println(l);
-				
-				for(int j = 0; j < this.wa.getSpriteCount(); j++)
-					if(this.wa.getSpriteAt(j) == l.getSource()) {
-						
-						if(this.wa.removeLine(i) != null 
-							&& this.wa.getGraph().removeEdge(i, j, l.getSourceIndex()))
-								
-								this.source = l.getSource();
-								this.sourceIndex = l.getSourceIndex();
-							
-								l.setDest(null);
-								l.setDestIndex(-1);
-								
-								this.wa.getGraph().print();
-								
-								return l;
-					}
-			}
-		}
-		
-		return null;
 	}
 }
