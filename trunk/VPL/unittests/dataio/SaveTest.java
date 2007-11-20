@@ -20,6 +20,10 @@ public class SaveTest extends TestCase {
 	}
 
 	public void testSaveObj() {
+		
+		out = new Save(null,null,null);
+			assertEquals(false,out.saveObj());
+		
 		int numSaves = 100;
 		boolean expected = true;
 

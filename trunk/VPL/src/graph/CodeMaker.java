@@ -141,6 +141,9 @@ public class CodeMaker {
 	 */
 	public boolean recurse(Vertex<StructV> v) {
 
+		if (v == null) return false;
+		if (v.getValue() == null) return false;
+		
 		if (!(v.getValue().getSprite() instanceof SpriteUnion))
 			precondition(v);
 
