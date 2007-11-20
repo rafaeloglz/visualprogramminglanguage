@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 
 public class SpriteTest extends TestCase {
 
+	Sprite s = new Sprite(){};
+	
 	public SpriteTest(String name) {
 		super(name);
 	}
@@ -12,20 +14,16 @@ public class SpriteTest extends TestCase {
 		super.setUp();
 	}
 
-	public void testGetSprite() {
-		fail("Not yet implemented");
-	}
-
-	public void testGetNumSprite() {
-		fail("Not yet implemented");
-	}
-
 	public void testIntersects() {
-		fail("Not yet implemented");
+		assertEquals(false, s.intersects(null));
 	}
 
 	public void testClone() {
-		fail("Not yet implemented");
+		try {
+			s.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
