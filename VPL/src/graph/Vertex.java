@@ -38,6 +38,7 @@ public class Vertex<V> implements Serializable {
 	 */
 	public boolean addNeighbor(Vertex<V> neighbor) {
 
+		if (neighbor == null) return false;
 		if (getNeighbor(neighbor.getValue()) == null)
 			if (neighbors.add(neighbor))
 				return true;
@@ -117,19 +118,25 @@ public class Vertex<V> implements Serializable {
 	}
 
 	public boolean removeNeighbor(V value) {
-
-		for (int i = 0; i < getNumNeighbors(); i++)
+		
+		for (int i = 0; i < getNumNeighbors(); i++){
+			Vertex<V> v = this.neighbors.get(i);
+			if (v == null) continue;
+			if (v.getValue() == null & value == null) {
+				this.neighbors.remove(i);
+				return true;
+			}
 			if (this.neighbors.get(i).getValue().equals(value)) {
 
 				this.neighbors.remove(i);
 				return true;
 			}
-
+		}
 		return false;
 	}
 	
 	public Vertex removeNeighbor(int index) {
-		
+		if (this.neighbors.size() <= index) return null;
 		return this.neighbors.remove(index);
 	}
 
@@ -152,8 +159,10 @@ public class Vertex<V> implements Serializable {
 	 */
 	public boolean equals(Vertex<V> v) {
 
+		if (v == null) return false;
+		if (v.getValue() == null & value == null) return true;
+		if (value == null) return false;
 		StructV st = (StructV) value;
-
 		return st.equalsTo((StructV) v.getValue());
 	}
 

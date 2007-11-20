@@ -1,7 +1,6 @@
 package graph;
 
 import java.util.Hashtable;
-
 import sprite.Sprite;
 import sprite.SpriteBegin;
 import struct.StructE;

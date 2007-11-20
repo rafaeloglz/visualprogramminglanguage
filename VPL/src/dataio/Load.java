@@ -86,6 +86,10 @@ public class Load<L> {
 	 */
 	public L loadObj() {
 
+		
+		if (path == null || filename == null)
+			return null;
+		
 		try {
 
 			in = new ObjectInputStream(new FileInputStream(new File(path

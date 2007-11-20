@@ -50,8 +50,8 @@ public class LoadTest extends TestCase {
 
 		int numSavesLoads = 100;
 
-		out = new Save(null,null,null);
-			assertEquals(false, out.saveObj());
+		l = new Load(null,null);
+			assertNull(l.loadObj());
 		
 		for(int i = 0; i < numSavesLoads; i++){
 			Graph g = new Graph();
