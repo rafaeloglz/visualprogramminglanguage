@@ -81,7 +81,7 @@ public class StructV<V> implements Serializable {
 	 * @return <code>boolean</code>
 	 */
 	public boolean equalsTo(StructV<V> s) {
-
+		if (s == null) return false;
 		return this.sprite.equals(s.getSprite());
 	}
 }
