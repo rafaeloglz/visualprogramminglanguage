@@ -396,6 +396,7 @@ public abstract class Sprite implements Transferable, Serializable, Cloneable {
 	 * @return		<code>boolean</code>
 	 */
 	public boolean intersects(Rectangle2D r) {
+		if (r == null) return false;
 		if(r.getX() > getX() && r.getX() < getX() + getWidth())
 			if(r.getY() > getY() && r.getY() < getY() + getHeight()){
 				return true;
