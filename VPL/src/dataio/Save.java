@@ -90,6 +90,9 @@ public class Save<S> {
 
 		boolean success = false;
 
+		if (path == null || filename == null)
+			return success;
+		
 		try {
 
 			out = new ObjectOutputStream(new FileOutputStream(new File(path
