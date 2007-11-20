@@ -15,7 +15,7 @@ public class CodeWriterTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		path = "";
+		path = System.getProperty("user.dir")+"/tests/CodeWriter/";
 		fileName = "test.txt";
 		code = "code";
 		

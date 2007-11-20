@@ -32,7 +32,8 @@ public class LoadTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		path = "";
+		
+		path = System.getProperty("user.dir")+"/tests/Load/";
 		fileName = "vpl.txt";
 	}
 
