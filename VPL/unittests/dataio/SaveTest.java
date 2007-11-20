@@ -15,7 +15,7 @@ public class SaveTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		path = "";
+		path = System.getProperty("user.dir")+"/tests/Save/";
 		fileName = "test.txt";
 	}
 
